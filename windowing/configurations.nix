@@ -11,7 +11,6 @@
         libinput.enable = true;
         
         desktopManager = {
-            default = none;
             xterm.enable = false;
         };
 
