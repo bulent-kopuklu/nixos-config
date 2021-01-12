@@ -30,7 +30,7 @@
     services = {
         openssh.enable = true;
         printing.enable = true;
-    }
+    };
 
     environment.systemPackages = with pkgs; [
         wget
@@ -38,6 +38,8 @@
         firefox
         vim
         sublime
+        fish
+        alacritty
     ];
 
     virtualisation = {
