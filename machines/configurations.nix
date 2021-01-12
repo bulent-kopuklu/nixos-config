@@ -12,7 +12,7 @@
     networking = {
         networkmanager = {
             enable   = true;
-            packages = [ pkgs.networkmanager_openvpn ];
+#            packages = [ pkgs.networkmanager_openvpn ];
         };
 
         useDHCP = false;
