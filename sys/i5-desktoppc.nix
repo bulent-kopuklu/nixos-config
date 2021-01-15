@@ -2,8 +2,7 @@
 { config, pkgs,... }:
 
 {
-
-	networking.hostName = "bulentk-x1";
+	networking.hostName = "bulentk-black";
 	
     boot.loader = {
         systemd-boot.enable = true;

@@ -1,1 +1,0 @@
-lenovox1.nix
