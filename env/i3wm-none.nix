@@ -59,17 +59,6 @@ in
         };
     };
 
-    # needed to unlock gnome_keyring
-    # set the keyring password to be the same as the login
-    security.pam.services = [{ 
-        name = "gnome_keyring";
-        text = ''
-            auth        optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
-            session     optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so auto_start
-            password    optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
-        '';
-    }];
-
     services.xserver = {
         enable = true;
         useGlamor = true;
@@ -210,9 +199,6 @@ in
         gnome-breeze
         gnome3.gnome_themes_standard
 
-        # keyring (e.g. for Skype)
-        gnome3.gnome_keyring
-
         # Qt theme
         breeze-qt5
         # breeze-qt4
@@ -244,9 +230,6 @@ in
 
     # needed by gtk apps
     services.gnome3.at-spi2-core.enable = true;
-
-    # needed by skype
-    services.gnome3.gnome-keyring.enable = true;
 
     # Make applications find files in <prefix>/share
     environment.pathsToLink = [ "/share" "/etc/gconf" ];
