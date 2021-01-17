@@ -3,24 +3,20 @@
 
 {
     imports = [
-        ./dm/i3wm-none.nix
+        ../env/i3wm-none.nix
+        ../env/development.nix
     ];
 
-	networking.hostName = "bulentk-x1";
-	
-    boot.loader = {
-        systemd-boot.enable = true;
-        efi.canTouchEfiVariables = true;
+    boot.loader.grub = {
+        enable = true;
+        version = 2;
+        device = "/dev/sda";
     };
 
     swapDevices = [{
         device = "/var/.swapfile";
-        size = 18432;
+        size = 4096;
     }];
-
-    users.users.bulentk = {
-        extraGroups = [ "docker" "vboxusers" ];
-    };
 
     hardware = {
         bluetooth.enable = true;
@@ -28,14 +24,8 @@
         opengl.driSupport32Bit = true;
         pulseaudio.support32Bit = true;
     };
-    
-    sound = {
-        enable = true;
-        mediaKeys.enable = true;
-    };
 
     powerManagement.enable = true;
-
 
     programs = {
         gnupg.agent = {
@@ -53,21 +43,11 @@
         };
     };
 
-    environment.systemPackages = with pkgs; [
-        thunderbird
-        libreoffice
+    sound = {
+        enable = true;
+        mediaKeys.enable = true;
+    };
 
-        discord
-        slack
-        zoom-us
-        signal-desktop
-        tdesktop
 
-        spotify
-        rhythmbox
-        vlc
-
-        gnugp
-    ];
-
+    virtualisation.virtualbox.guest.enable = true;
 }

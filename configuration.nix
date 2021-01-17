@@ -48,8 +48,7 @@
         };
     };
 
-    environment = {
-        systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs; [
             wget
             git
             vim
@@ -65,25 +64,24 @@
             zip
             unrar
             unzip
-
-            lsof
-            lshw
             bmon
             htop
             iotop
             iftop
-
             nettools
             netcat
             psmisc
-
+            lsof
+            lshw
             iptables
             curl
-
         ];
 
-        variables.EDITOR = "vim";
+    environment.variables = {
+        EDITOR = "vim";
+
     };
+
 
     nix = {
         autoOptimiseStore = true;
