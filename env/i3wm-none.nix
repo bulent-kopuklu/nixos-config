@@ -139,8 +139,7 @@
         # xiccd   # buggy 100% CPU color management
         compton
         nitrogen  # better multihead support than feh
-        pinentry_qt4
-
+        pinentry-gtk2
         xlibs.xbacklight
         xlibs.xmodmap
         xlibs.xev
