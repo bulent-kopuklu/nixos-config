@@ -102,8 +102,6 @@
     };
 
     environment.extraInit = ''
-        ${themeEnv}
-
         # these are the defaults, but some applications are buggy so we set them
         # here anyway
     '';
@@ -130,7 +128,7 @@
         polybar
         libnotify
         xfontsel
-        xclip
+        clipmenu
         xss-lock
         xsel
         unclutter
