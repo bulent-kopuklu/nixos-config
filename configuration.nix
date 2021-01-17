@@ -55,7 +55,7 @@
             alacritty
             fish
             any-nix-shell
-            tar
+            gnutar
             p7zip
             bzip2
             gzip
