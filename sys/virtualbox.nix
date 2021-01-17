@@ -3,6 +3,7 @@
 
 {
     imports = [
+        ../env/font.nix
         ../env/i3wm-none.nix
         ../env/development.nix
     ];
