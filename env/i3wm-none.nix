@@ -154,9 +154,6 @@
         # GTK theme
         gnome3.gnome_themes_standard
 
-        # Icons (Main)
-        iconTheme
-
         # Icons (Fallback)
         oxygen-icons5
         gnome3.adwaita-icon-theme
