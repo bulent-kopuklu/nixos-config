@@ -21,8 +21,8 @@
 
     hardware = {
         pulseaudio.enable = true;
-        opengl.driSupport32Bit = true;
-        pulseaudio.support32Bit = true;
+#        opengl.driSupport32Bit = true;
+#        pulseaudio.support32Bit = true;
     };
 
     powerManagement.enable = true;
