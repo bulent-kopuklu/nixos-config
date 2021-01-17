@@ -1,5 +1,5 @@
 
-{ config, pkgs, gnome3, ... }:
+{ config, pkgs, gnome3, gconf, ... }:
 
 {
     imports = [
