@@ -43,7 +43,6 @@ in
     fonts = {
         enableDefaultFonts = true;
         enableFontDir = true;
-        enableCoreFonts = true; # MS proprietary Core Fonts
         enableGhostscriptFonts = true;
         fonts = [
             pkgs.corefonts
