@@ -19,7 +19,6 @@
     }];
 
     hardware = {
-        bluetooth.enable = true;
         pulseaudio.enable = true;
         opengl.driSupport32Bit = true;
         pulseaudio.support32Bit = true;
@@ -36,10 +35,13 @@
 
     services = {
         printing.enable = true;
-        blueman.enable = true;
 
         dbus = {
             enable = true;
+            packages = [ 
+                pkgs.gnome3.gconf.out
+                pkgs.gnome3.dconf
+            ];
         };
     };
 

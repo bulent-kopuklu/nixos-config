@@ -134,9 +134,6 @@ in
 
         # these are the defaults, but some applications are buggy so we set them
         # here anyway
-        export XDG_CONFIG_HOME=$HOME/.config
-        export XDG_DATA_HOME=$HOME/.local/share
-        export XDG_CACHE_HOME=$HOME/.cache
     '';
 
     # QT4/5 global theme
@@ -224,16 +221,9 @@ in
         HoldoffTimeoutSec=10
     '';
 
-    # needed by mendeley
-    services.dbus.packages = [ pkgs.gnome3.gconf.out pkgs.gnome3.dconf ];
-
     # needed by gtk apps
     services.gnome3.at-spi2-core.enable = true;
 
     # Make applications find files in <prefix>/share
     environment.pathsToLink = [ "/share" "/etc/gconf" ];
-
-    services.udev = {
-        packages = [ pkgs.libmtp ];
-    };
 }
