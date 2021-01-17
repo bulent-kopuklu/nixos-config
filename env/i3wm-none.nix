@@ -12,24 +12,6 @@
         };
     };
 
-    fonts = {
-        enableDefaultFonts = true;
-        enableFontDir = true;
-        enableGhostscriptFonts = true;
-        fonts = [
-            pkgs.corefonts
-            pkgs.ttf_bitstream_vera
-            pkgs.vistafonts          # e.g. consolas
-            pkgs.font-awesome-ttf    # needed by my i3 config!
-            pkgs.opensans-ttf        # my favourite sans font
-            # pkgs.source-code-pro
-        ];
-        fontconfig = {
-            enable = true;
-            defaultFonts.monospace = [ "Consolas" ];
-        };
-    };
-
     services.xserver = {
         enable = true;
         useGlamor = true;

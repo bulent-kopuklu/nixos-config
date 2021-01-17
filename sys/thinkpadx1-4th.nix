@@ -18,9 +18,6 @@
         size = 18432;
     }];
 
-    users.users.bulentk = {
-        extraGroups = [ "docker" "vboxusers" ];
-    };
 
     hardware = {
         bluetooth.enable = true;
