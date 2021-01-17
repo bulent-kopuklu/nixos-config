@@ -39,7 +39,6 @@
         dbus = {
             enable = true;
             packages = [ 
-                pkgs.gnome3.gconf.out
                 pkgs.gnome3.dconf
             ];
         };
