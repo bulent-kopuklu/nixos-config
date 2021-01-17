@@ -64,10 +64,9 @@ in
     security.pam.services = [{ 
         name = "gnome_keyring";
         text = ''
-        auth     optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
-        session  optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so auto_start
-
-        password  optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
+            auth        optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
+            session     optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so auto_start
+            password    optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
         '';
     }];
 
