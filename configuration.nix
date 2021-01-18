@@ -54,6 +54,8 @@
             vim
             alacritty
             fish
+            tree
+            file
             any-nix-shell
             gnutar
             p7zip
@@ -73,6 +75,10 @@
             psmisc
             lsof
             lshw
+            usbutils
+            pciutils
+            nix-du
+            arandr
             iptables
             curl
         ];
