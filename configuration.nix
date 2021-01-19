@@ -15,7 +15,11 @@
         firewall.enable = false;
     };
 
-    i18n.defaultLocale = "en_US.UTF-8";
+    i18n = {
+#        consoleKeyMap = "us, tr";
+        defaultLocale = "en_US.UTF-8";
+    };
+    
     time.timeZone = "Europe/Istanbul";
 
     nixpkgs.config = {

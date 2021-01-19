@@ -16,7 +16,9 @@
         enable = true;
         useGlamor = true;
 
-        layout = "us";
+        layout = "us, tr";
+        xkbOptions = "eurosign:e, grb: alt_space_toggle";
+        xkbVariant = "alt";
         autorun = true;
         exportConfiguration = true;
 
@@ -31,8 +33,6 @@
 
         # consensus is that libinput gives better results
         synaptics.enable = false;
-
-        xkbOptions = "eurosign:e";
 
         displayManager = {        
             defaultSession = "none+i3";
@@ -144,7 +144,6 @@
         # These packages are used in autostart, they need to in systemPackages
         # or icons won't work correctly
         udiskie 
-        connman-notify # skype
     ];
 
     services.accounts-daemon.enable = true; # needed by lightdm

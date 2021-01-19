@@ -17,6 +17,7 @@
         ripgrep
         fd
         meld
+        postman
     ];
 
     environment.etc."fuse.conf".text = ''

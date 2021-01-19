@@ -228,7 +228,7 @@ in
 
         # These packages are used in autostart, they need to in systemPackages
         # or icons won't work correctly
-        pythonPackages.udiskie connman-notify # skype
+        pythonPackages.udiskie
     ];
 
     services.accounts-daemon.enable = true; # needed by lightdm
