@@ -3,7 +3,8 @@
 {
     fonts = {
         enableDefaultFonts = true;
-
+        enableFontDir = true;
+        
         fonts = with pkgs; [
             noto-fonts-emoji
 
@@ -13,11 +14,12 @@
 
             # Doom emacs
             emacs-all-the-icons-fonts
+            material-icons
         ];
 
-#        fontconfig = {
-#            enable = true;
-#            defaultFonts.monospace = [ "Consolas" ];
-#        };
+        fontconfig = {
+            enable = true;
+            defaultFonts.monospace = [ "DejaVuSansMono" ];
+        };
     };
 }

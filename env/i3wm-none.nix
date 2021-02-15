@@ -25,7 +25,7 @@
         libinput = {
             enable = true;
             disableWhileTyping = true;
-            naturalScrolling = true; # reverse scrolling
+            naturalScrolling = false; # reverse scrolling
             scrollMethod = "twofinger";
             tapping = false;
             tappingDragLock = false;
@@ -101,23 +101,24 @@
 
     environment.systemPackages = with pkgs; [
         # i3 desktop support
-        cmst
-        desktop_file_utils
+        sxhkd
         dmenu
+        networkmanager_dmenu
         dunst
+        scrot
         fontconfig
         i3lock
         polybar
         libnotify
         xfontsel
         clipmenu
-        xss-lock
-        xsel
-        unclutter
+        pywal
+        mpd
+#        xsel
 
-        argyllcms # create color profiles
+#        argyllcms # create color profiles
         # xiccd   # buggy 100% CPU color management
-        compton
+#        compton
         nitrogen  # better multihead support than feh
         pinentry-gtk2
         xlibs.xbacklight
@@ -131,19 +132,17 @@
         xlibs.xrandr
         xlibs.xrdb
         xlibs.xprop
-        xlibs.libXScrnSaver # for argyllcms
-
         # GTK theme
-        gnome3.gnome_themes_standard
+#        gnome3.gnome_themes_standard
 
         # Icons (Fallback)
-        oxygen-icons5
-        gnome3.adwaita-icon-theme
-        hicolor_icon_theme
+#        oxygen-icons5
+#        gnome3.adwaita-icon-theme
+#        hicolor_icon_theme
 
         # These packages are used in autostart, they need to in systemPackages
         # or icons won't work correctly
-        udiskie 
+#        udiskie 
     ];
 
     services.accounts-daemon.enable = true; # needed by lightdm

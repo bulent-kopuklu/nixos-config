@@ -3,21 +3,29 @@
 
 {
     environment.systemPackages = with pkgs; [
+        jdk11
+        scala
+        python3
+        python3Packages.pip
+
+        gcc
+        gnumake
+        cmake
+
+        gradle_5
+        maven
+
         vscode
         jetbrains.idea-community
         emacs
-        jdk11
         smartgithg
         docker-compose
         dive            # explorering a docker image 
-        python3
-        python3Packages.pip
-        gradle_5
-        maven
         ripgrep
         fd
         meld
         postman
+        wireshark
     ];
 
     environment.etc."fuse.conf".text = ''

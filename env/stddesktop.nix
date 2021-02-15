@@ -1,13 +1,19 @@
 { config, pkgs,... }:
 
 {
+
+    powerManagement.enable = true;
+
     hardware = {
         pulseaudio.enable = true;
 #        opengl.driSupport32Bit = true;
 #        pulseaudio.support32Bit = true;
     };
 
-    powerManagement.enable = true;
+    sound = {
+        enable = true;
+        mediaKeys.enable = true;
+    };
 
     programs = {
         gnupg.agent = {
@@ -30,15 +36,12 @@
             enable = true;
         };
 
-        xserver.dpi = 192;
+        xserver.dpi = 96;
     };
 
-    sound = {
-        enable = true;
-        mediaKeys.enable = true;
-    };
 
     environment.systemPackages = with pkgs; [
+        feh
         sublime
         rofi
         gnupg
@@ -60,6 +63,6 @@
         discord
         zoom-us
         tdesktop
-
+        skype
     ];
 }
