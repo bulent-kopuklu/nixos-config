@@ -4,10 +4,13 @@
 
     powerManagement.enable = true;
 
-    hardware = {
-        pulseaudio.enable = true;
-#        opengl.driSupport32Bit = true;
-#        pulseaudio.support32Bit = true;
+    hardware.pulseaudio = {
+        enable = true;
+        package = pkgs.pulseaudioFull;
+        extraModules = [ pkgs.pulseaudio-modules-bt ];
+        extraConfig = "
+            load-module module-switch-on-connect
+            ";
     };
 
     sound = {
@@ -20,6 +23,8 @@
             enable = true;
             enableSSHSupport = true;
         };
+
+        dconf.enable = true;
     };
 
     services = {
@@ -42,7 +47,6 @@
 
     environment.systemPackages = with pkgs; [
         feh
-        sublime
         rofi
         gnupg
 
@@ -59,10 +63,11 @@
 
         ranger
 
-        slack
         discord
         zoom-us
         tdesktop
         skype
+
+        gimp
     ];
 }
