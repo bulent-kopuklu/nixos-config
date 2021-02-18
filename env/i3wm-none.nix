@@ -44,22 +44,13 @@
                 ${pkgs.xlibs.xsetroot}/bin/xsetroot -cursor_name left_ptr
 
                 ${pkgs.xlibs.xrdb}/bin/xrdb -merge ~/.Xresources
-                # ${pkgs.xlibs.xrdb}/bin/xrdb -merge /etc/X11/Xresources
 
                 [ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap
 
-                # Restore color profile.
-                # NOTE: xiccd is too buggy and sometimes eats 100% cpu... and seems unmaintained
-                # pgrep xiccd>/dev/null || ${pkgs.xiccd}/bin/xiccd &
-                {pkgs.argyllcms}/bin/dispwin -I "/home/bulentk/.local/share/icc/B140HAN01.7 #1 2018-03-09 13-53 2.2 F-S XYZLUT+MTX.icc"
+                ${pkgs.feh}/bin/feh --bg-scale $XDG_CONFIG_HOME/wallpapers/cwp
 
-                # background image - nitrogen has better multihead support than feh
-                ${pkgs.nitrogen}/bin/nitrogen --restore
-
-                # Subscribes to the systemd events and invokes i3lock.
                 # Send notification after 10 mins of inactivity,
                 # lock the screen 10 seconds later.
-                # TODO nixify xss-lock scripts
                 ${pkgs.xlibs.xset}/bin/xset s 600 10
                 ${pkgs.xss-lock}/bin/xss-lock -n /home/bulentk/.local/bin/lock-notify.sh -- /home/bulentk/.local/bin/lock.sh &
 
@@ -101,7 +92,9 @@
 
     environment.systemPackages = with pkgs; [
         # i3 desktop support
+        lxappearance
         sxhkd
+        xss-lock
         dmenu
         networkmanager_dmenu
         dunst
@@ -114,12 +107,6 @@
         clipmenu
         pywal
         mpd
-#        xsel
-
-#        argyllcms # create color profiles
-        # xiccd   # buggy 100% CPU color management
-#        compton
-        nitrogen  # better multihead support than feh
         pinentry-gtk2
         xlibs.xbacklight
         xlibs.xmodmap
@@ -132,13 +119,9 @@
         xlibs.xrandr
         xlibs.xrdb
         xlibs.xprop
-        # GTK theme
-#        gnome3.gnome_themes_standard
-
-        # Icons (Fallback)
-#        oxygen-icons5
-#        gnome3.adwaita-icon-theme
-#        hicolor_icon_theme
+       # GTK theme
+        numix-solarized-gtk-theme
+        gnome3.adwaita-icon-theme
 
         # These packages are used in autostart, they need to in systemPackages
         # or icons won't work correctly
