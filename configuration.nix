@@ -55,7 +55,7 @@
     environment.systemPackages = with pkgs; [
             wget
             git
-            vim
+            neovim
             alacritty
             fish
             tree
