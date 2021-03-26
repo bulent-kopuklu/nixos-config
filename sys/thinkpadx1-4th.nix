@@ -28,5 +28,32 @@
 
     services = {
         blueman.enable = true;
+        xserver = {
+            # videoDrivers = ["intel"];
+            xrandrHeads = [
+                { 
+                    output = "eDP-1";
+                    primary = true;
+                    monitorConfig = ''
+                        Option "PreferredMode" "2560x1440"
+                        Option "Position" "0 0"
+                    '';
+                }
+                { 
+                    output = "DP-1-8";
+                    monitorConfig = ''
+                        Option "PreferredMode" "2560x1440"
+                        Option "Position" "2560 0"
+                    '';
+                }
+                { 
+                    output = "DP-1-1";
+                    monitorConfig = ''
+                        Option "PreferredMode" "2560x1440"
+                        Option "Position" "5120 0"
+                    '';
+                }
+            ];            
+        };
     };
 }

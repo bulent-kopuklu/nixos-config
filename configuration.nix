@@ -56,7 +56,6 @@
             wget
             git
             neovim
-            alacritty
             fish
             tree
             file
@@ -82,16 +81,17 @@
             usbutils
             pciutils
             nix-du
-            arandr
             iptables
             curl
+            sqlite
         ];
 
     environment.variables = {
-        EDITOR = "vim";
+        EDITOR = "nvim";
         XDG_CONFIG_HOME = "$HOME/.config";
         XDG_DATA_HOME = "$HOME/.local/share";
         XDG_CACHE_HOME = "$HOME/.cache";
+        XDG_BIN_HOME = "$HOME/.local/bin";
     };
 
 

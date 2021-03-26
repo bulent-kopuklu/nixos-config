@@ -8,9 +8,12 @@
         python3
         python3Packages.pip
 
+        rnix-lsp
         gcc
+        glibc.static
         gnumake
         cmake
+        binutils-unwrapped
 
         gradle_5
         maven
