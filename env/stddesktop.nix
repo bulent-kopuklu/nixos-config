@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./default.nix
+    ./common.nix
     ./mdl/audio.nix
     ./mdl/bluetooth.nix
     ./mdl/network.nix
@@ -37,7 +37,6 @@
 
       synaptics.enable = false;
     };
-
 
     printing = {
       enable = true;

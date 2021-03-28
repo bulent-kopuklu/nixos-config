@@ -3,7 +3,7 @@
 {
   networking = {
     networkmanager = {
-      enable   = true;\
+      enable   = true;
       unmanaged = [
       ];
     };
