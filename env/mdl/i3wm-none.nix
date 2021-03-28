@@ -62,7 +62,7 @@
     xlibs.xrdb
     xlibs.xprop
 
-#        sxhkd
+    sxhkd
     dmenu
     networkmanager_dmenu
     scrot
