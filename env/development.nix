@@ -2,49 +2,52 @@
 
 
 {
-    environment.systemPackages = with pkgs; [
-        jdk11
-        scala
-        python3
-        python3Packages.pip
+  imports = [
+    ./stddesktop.nix
+  ];
 
-        rnix-lsp
-        gcc
-        glibc.static
-        gnumake
-        cmake
-        binutils-unwrapped
+  environment.systemPackages = with pkgs; [
+    jdk11
+    scala
+    python3
+    python3Packages.pip
 
-        gradle_5
-        maven
+    rnix-lsp
+    gcc
+    glibc.static
+    gnumake
+    cmake
+    binutils-unwrapped
 
-        vscode
-        jetbrains.idea-community
-        emacs
-        smartgithg
-        docker-compose
-        dive            # explorering a docker image 
-        ripgrep
-        fd
-        meld
-        postman
-        wireshark
-    ];
+    gradle_5
+    maven
 
-    environment.etc."fuse.conf".text = ''
-        user_allow_other
-    '';
+    vscode
+    jetbrains.idea-community
+    smartgithg
+    docker-compose
+    dive            # explorering a docker image 
+    ripgrep
+    fd
+    meld
+    postman
+    wireshark
+  ];
 
-    virtualisation = {
-        docker = {
-            enable = true;
-        };
-        virtualbox.host = {
-            enable = true;
-       };
+  environment.etc."fuse.conf".text = ''
+    user_allow_other
+  '';
+
+  virtualisation = {
+    docker = {
+      enable = true;
     };
-
-    users.users.bulentk = {
-        extraGroups = [ "docker" "vboxusers" ];
+    virtualbox.host = {
+      enable = true;
     };
+  };
+
+  users.users.bulentk = {
+    extraGroups = [ "docker" "vboxusers" ];
+  };
 }
