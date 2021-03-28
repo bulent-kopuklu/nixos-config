@@ -3,7 +3,7 @@
 
 {
   imports = [
-    ./sys/current.nix
+    ./sys/current
   ];
 
   nixpkgs.config = {

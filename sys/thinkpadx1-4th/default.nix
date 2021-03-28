@@ -2,18 +2,15 @@
 
 {
   imports = [
-      <nixos-hardware/lenovo/thinkpad/x1>
       ./hardware-configuration.nix
       ../../env/development.nix
-      
-
     ];
 
   services = {
     printing = {
       drivers = [ pkgs.hplip ]; # todo add ofice printer samsung
     };
-  }
+  };
 
   boot.loader = {
     systemd-boot.enable = true;

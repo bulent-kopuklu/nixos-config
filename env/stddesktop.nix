@@ -8,7 +8,6 @@
     ./mdl/network.nix
     ./mdl/keyboard.nix
     ./mdl/font.nix
-    ./mdl/xbindkeys.nix
     ./mdl/i3wm-none.nix
   ];
 

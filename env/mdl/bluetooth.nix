@@ -8,7 +8,7 @@
       extraConfig = "
         load-module module-switch-on-connect
       ";
-    }  
+    };  
   };
 
   services = {
