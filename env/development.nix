@@ -3,8 +3,9 @@
 {
   imports = [
     ./stddesktop.nix
+    ../pkgs/smartgithg.nix
   ];
-
+  
   environment.systemPackages = with pkgs; [
     jdk11
     scala
@@ -21,9 +22,10 @@
     gradle_5
     maven
 
+    smartgithg
+
     vscode
     jetbrains.idea-community
-    smartgithg
     docker-compose
     dive            # explorering a docker image 
     ripgrep
