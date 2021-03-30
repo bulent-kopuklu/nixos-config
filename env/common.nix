@@ -26,7 +26,22 @@
   time.timeZone = "Europe/Istanbul";
 
   services = {
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      allowSFTP = true;
+    };
+
+    avahi = {
+      enable = true;
+      nssmdns = true;
+      publish = {
+        enable = true;
+        addresses = true;
+        workstation = true;
+      };
+    };
+
+    sshd.enable = true;
   };
 
   programs = {

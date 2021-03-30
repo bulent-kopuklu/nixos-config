@@ -6,7 +6,9 @@
 {
   imports = [ 
     (modulesPath + "/installer/scan/not-detected.nix")
-    ../../hw/cpu/intel.nix
+    ../../hardware/cpu/intel.nix
+    ../../hardware/gpu/intel.nix
+    ./partitions.nix
   ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
@@ -14,62 +16,6 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  boot.initrd.luks.devices."system".device = "/dev/disk/by-uuid/93d009ba-a609-4c34-b8a3-17bddbb6ed4b";
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/system";
-    fsType = "btrfs";
-    options = [ "subvol=@" ];
-  };
-
-  fileSystems."/home" = { 
-    device = "/dev/disk/by-label/system";
-      fsType = "btrfs";
-     options = [ "subvol=@home" ];
-    };
-
-  fileSystems."/srv" =
-    { device = "/dev/disk/by-label/system";
-      fsType = "btrfs";
-      options = [ "subvol=@srv" ];
-    };
-
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-label/system";
-      fsType = "btrfs";
-      options = [ "subvol=@nix" ];
-    };
-
-  fileSystems."/var/log" =
-    { device = "/dev/disk/by-label/system";
-      fsType = "btrfs";
-      options = [ "subvol=@log" ];
-    };
-
-  fileSystems."/var/lib/docker" =
-    { device = "/dev/disk/by-label/system";
-      fsType = "btrfs";
-      options = [ "subvol=@docker" ];
-    };
-
-  fileSystems."/var/lib/machine" =
-    { device = "/dev/disk/by-label/system";
-      fsType = "btrfs";
-      options = [ "subvol=@machine" ];
-    };
-
-  fileSystems."/.snapshots" =
-    { device = "/dev/disk/by-label/system";
-      fsType = "btrfs";
-      options = [ "subvol=@snapshots" ];
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/BOOT";
-      fsType = "vfat";
-    };
-
-  swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   # high-resolution display

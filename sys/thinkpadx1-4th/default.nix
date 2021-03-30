@@ -22,6 +22,8 @@
     size = 18432;
   }];
 
+  networking.hostName = "bulentk-x1";
+
   hardware = {
     opengl.driSupport32Bit = true;
   };

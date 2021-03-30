@@ -1,14 +1,14 @@
 { config, pkgs, ... }:
 
 {
-  sound = {
-    enable = true;
-     mediaKeys.enable = true;
-  };
-
   hardware.pulseaudio = {
     enable = true;
     package = pkgs.pulseaudioFull;
+  };
+
+  sound = {
+    enable = true;
+    mediaKeys.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

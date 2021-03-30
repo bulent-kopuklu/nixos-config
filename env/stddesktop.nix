@@ -3,12 +3,12 @@
 {
   imports = [
     ./common.nix
-    ./mdl/audio.nix
-    ./mdl/bluetooth.nix
-    ./mdl/network.nix
-    ./mdl/keyboard.nix
-    ./mdl/font.nix
-    ./mdl/i3wm-none.nix
+    ./modules/audio.nix
+    ./modules/bluetooth.nix
+    ./modules/network.nix
+    ./modules/keyboard.nix
+    ./modules/font.nix
+    ./modules/i3wm-none.nix
   ];
 
   powerManagement.enable = true;
@@ -25,6 +25,8 @@
     xserver = {
       enable = true;
       dpi = 96;
+      useGlamor = true;
+
       libinput = {
         enable = true;
         disableWhileTyping = true;

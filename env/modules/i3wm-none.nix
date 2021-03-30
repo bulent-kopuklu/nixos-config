@@ -8,6 +8,8 @@
     packageOverrides = pkgs: rec {
       polybar = pkgs.polybar.override {
         i3Support = true;
+        alsaSupport = false;
+        pulseSupport = true;
       };
     };
   };
@@ -22,15 +24,11 @@
       };
 
       sessionCommands = ''
-        # ${pkgs.xlibs.xsetroot}/bin/xsetroot -cursor_name left_ptr
         ${pkgs.feh}/bin/feh --bg-scale $XDG_DATA_HOME/wallpapers/cwp
-        # Send notification after 10 mins of inactivity,
-        # lock the screen 10 seconds later.
-        ${pkgs.xlibs.xset}/bin/xset s 600 10
+        ${pkgs.xlibs.xset}/bin/xset dpms 0 0 0
+        ${pkgs.xlibs.xset}/bin/xset s off
+        ${pkgs.xlibs.xset}/bin/xset s off -dpmsuseGlamor
         # ${pkgs.xss-lock}/bin/xss-lock -n $XDG_BIN_HOME/lock-notify.sh -- $XDG_BIN_HOME/lock.sh &
-
-        # disable PC speaker beep
-        # ${pkgs.xlibs.xset}/bin/xset -b
 
         # gpg-agent for X session
         # gpg-connect-agent /bye
@@ -68,11 +66,12 @@
     scrot
     fontconfig
     udiskie 
- 
-    dunst
+
     libnotify
+    dunst
 
     i3lock
+    libpulseaudio
     polybar
   ];
 
