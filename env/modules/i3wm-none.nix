@@ -4,16 +4,10 @@
 #    myscripts = pkgs.callPackage scripts/default.nix { inherit pkgs };
 #in
 {
-  nixpkgs.config = {
-    packageOverrides = pkgs: rec {
-      polybar = pkgs.polybar.override {
-        i3Support = true;
-        alsaSupport = false;
-        pulseSupport = true;
-      };
-    };
-  };
-
+  imports = [
+    ../../pkgs/polybar.nix
+  ];
+  
   services.xserver = {
     displayManager = {        
       defaultSession = "none+i3";
