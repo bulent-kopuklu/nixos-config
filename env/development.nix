@@ -21,7 +21,6 @@
 
     gradle_5
     maven
-    jq
     smartgithg
 
     vscode
@@ -30,6 +29,7 @@
     dive            # explorering a docker image 
     ripgrep
     fd
+    jq
     meld
     postman
     wireshark
