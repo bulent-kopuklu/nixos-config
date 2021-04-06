@@ -22,6 +22,7 @@
     size = 18432;
   }];
 
+
   networking.hostName = "bulentk-x1";
 
   hardware = {

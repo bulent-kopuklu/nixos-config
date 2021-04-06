@@ -95,5 +95,7 @@
     nix-du
     iptables
     sqlite
+    jq
+    bc
   ];
 }

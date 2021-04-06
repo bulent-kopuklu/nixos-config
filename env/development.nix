@@ -21,7 +21,7 @@
 
     gradle_5
     maven
-
+    jq
     smartgithg
 
     vscode

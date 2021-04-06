@@ -20,7 +20,6 @@
       lightdm = {
         enable = true;
         greeters.enso.enable = true;
-        background = /home/bulentk/.local/share/wallpapers/cls.png;
       };
 
       sessionCommands = ''
@@ -55,6 +54,7 @@
     xlibs.xmessage
     xlibs.xkill
     xlibs.xgamma
+
     xlibs.xset
     xlibs.xrandr
     xlibs.xrdb
@@ -76,11 +76,4 @@
   ];
 
   services.accounts-daemon.enable = true; # needed by lightdm
-
-  # Required for our screen-lock-on-suspend functionality
-  services.logind.extraConfig = ''
-    LidSwitchIgnoreInhibited=False
-    HandleLidSwitch=suspend
-    HoldoffTimeoutSec=10
-  '';
 }
