@@ -39,10 +39,6 @@
       synaptics.enable = false;
     };
 
-    printing = {
-      enable = true;
-    };
-
     dbus = {
       enable = true;
       packages = [ 
@@ -50,12 +46,11 @@
       ];
     };
 
-    autorandr = {
-      enable = true;
-    };
-
+    printing.enable = true;
+    autorandr.enable = true;
     # needed by gtk apps
     gnome3.at-spi2-core.enable = true;
+    teamviewer.enable = true;
   };
 
     # Make applications find files in <prefix>/share
@@ -72,6 +67,7 @@
 #    gnupg
 
     firefox
+    chromium
     thunderbird
     evince
     libreoffice
@@ -87,5 +83,6 @@
     skype
 
     gimp
+    teamviewer
   ];
 }

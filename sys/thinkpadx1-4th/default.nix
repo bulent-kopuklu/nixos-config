@@ -29,5 +29,8 @@
     opengl.driSupport32Bit = true;
   };
 
+  environment.systemPackages = with pkgs; [
+  ];
+
   system.stateVersion = "20.09";
 }

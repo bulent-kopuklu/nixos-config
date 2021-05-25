@@ -97,5 +97,7 @@
     sqlite
     jq
     bc
+    telnet
+    envsubst
   ];
 }

@@ -65,7 +65,6 @@
     dunst
 
     i3lock
-    libpulseaudio
     polybar
   ];
 

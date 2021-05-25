@@ -11,6 +11,10 @@
     scala
     python3
     python3Packages.pip
+    nodejs
+    nodePackages.npm
+    nodePackages.webpack
+#    nodePackages.webpack-cli
 
     rnix-lsp
     gcc
@@ -25,11 +29,11 @@
 
     vscode
     jetbrains.idea-community
+    jetbrains.pycharm-community
     docker-compose
     dive            # explorering a docker image 
     ripgrep
     fd
-    jq
     meld
     postman
     wireshark
