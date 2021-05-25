@@ -9,6 +9,7 @@
     ./modules/keyboard.nix
     ./modules/font.nix
     ./modules/i3wm-none.nix
+    ../pkgs/discord.nix    
   ];
 
   powerManagement.enable = true;
