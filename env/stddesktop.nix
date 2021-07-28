@@ -30,11 +30,14 @@
 
       libinput = {
         enable = true;
-        disableWhileTyping = true;
-        naturalScrolling = false; # reverse scrolling
-        scrollMethod = "twofinger";
-        tapping = false;
-        tappingDragLock = false;
+        
+        touchpad = {
+          disableWhileTyping = true;
+          tappingDragLock = false;
+          tapping = false;
+          scrollMethod = "twofinger";
+          naturalScrolling = false; # reverse scrolling
+        };
       };
 
       synaptics.enable = false;
@@ -50,7 +53,7 @@
     printing.enable = true;
     autorandr.enable = true;
     # needed by gtk apps
-    gnome3.at-spi2-core.enable = true;
+    gnome.at-spi2-core.enable = true;
     teamviewer.enable = true;
   };
 

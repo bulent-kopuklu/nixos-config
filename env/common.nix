@@ -63,6 +63,7 @@
 
   environment.systemPackages = with pkgs; [
     fish
+    bash
     any-nix-shell
     alacritty
     ranger

@@ -24,4 +24,7 @@
       keep-derivations = true
     '';
   };
+
+  system.stateVersion = "21.05";
+ 
 }

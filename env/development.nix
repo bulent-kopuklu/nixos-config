@@ -16,6 +16,7 @@
     nodePackages.webpack
 #    nodePackages.webpack-cli
 
+    bloop
     rnix-lsp
     gcc
     glibc.static
@@ -23,15 +24,19 @@
     cmake
     binutils-unwrapped
 
-    gradle_5
+    gradle
     maven
+    sbt
+
     smartgithg
 
-    vscode
+    vscode-with-extensions
     jetbrains.idea-community
     jetbrains.pycharm-community
+    
     docker-compose
     dive            # explorering a docker image 
+    
     ripgrep
     fd
     meld
@@ -55,4 +60,9 @@
   users.users.bulentk = {
     extraGroups = [ "docker" "vboxusers" ];
   };
+
+  environment.variables = {
+    JAVA_HOME = "${pkgs.jdk11}";
+  };
+
 }
