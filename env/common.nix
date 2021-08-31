@@ -67,6 +67,7 @@
     any-nix-shell
     alacritty
     ranger
+    pass
     curl
     wget
     neovim
@@ -82,6 +83,7 @@
     zip
     unrar
     unzip
+    zlib
     bmon
     htop
     iotop

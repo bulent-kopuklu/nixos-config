@@ -15,10 +15,12 @@
   powerManagement.enable = true;
 
   programs = {
+    ssh.startAgent = false;
     gnupg.agent = {
       enable = true;
-        enableSSHSupport = true;
-      };
+      enableSSHSupport = true;
+      pinentryFlavor = "gtk2";
+    };
     dconf.enable = true;
   };
 
@@ -30,14 +32,6 @@
 
       libinput = {
         enable = true;
-        
-        touchpad = {
-          disableWhileTyping = true;
-          tappingDragLock = false;
-          tapping = false;
-          scrollMethod = "twofinger";
-          naturalScrolling = false; # reverse scrolling
-        };
       };
 
       synaptics.enable = false;
@@ -65,10 +59,11 @@
     # GTK theme
     numix-solarized-gtk-theme
     gnome3.adwaita-icon-theme
+    gnome3.nautilus
 
     feh
     rofi
-#    gnupg
+    gnupg
 
     firefox
     chromium

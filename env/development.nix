@@ -58,7 +58,7 @@
   };
 
   users.users.bulentk = {
-    extraGroups = [ "docker" "vboxusers" ];
+    extraGroups = [ "wheel" "docker" "vboxusers" ];
   };
 
   environment.variables = {
