@@ -23,15 +23,6 @@
         ${pkgs.xlibs.xset}/bin/xset s off -dpmsuseGlamor
         # ${pkgs.xss-lock}/bin/xss-lock -n $XDG_BIN_HOME/lock-notify.sh -- $XDG_BIN_HOME/lock.sh &
 
-        # gpg-agent for X session
-        # gpg-connect-agent /bye
-        # GPG_TTY=$(tty)
-        # export GPG_TTY
-
-        # use gpg-agent for SSH
-        # NOTE: make sure enable-ssh-support is included in ~/.gnupg/gpg-agent.conf
-        # unset SSH_AGENT_PID
-        # export SSH_AUTH_SOCK="/run/user/1000/gnupg/S.gpg-agent.ssh"
       '';
     };
 

@@ -4,10 +4,13 @@
   imports = [
     ./stddesktop.nix
     ../pkgs/smartgithg.nix
+    ../pkgs/discord.nix
   ];
-  
+
+ 
   environment.systemPackages = with pkgs; [
     jdk11
+    openjfx11
     scala
     python3
     python3Packages.pip
@@ -42,11 +45,21 @@
     meld
     postman
     wireshark
+    twinkle
   ];
 
-  environment.etc."fuse.conf".text = ''
-    user_allow_other
-  '';
+  programs.fuse = {
+    userAllowOther = true;
+  };
+
+  programs.npm = {
+    enable = true;
+    npmrc = ''
+          prefix = ''${XDG_DATA_HOME}/npm
+          cache = ''${XDG_CACHE_HOME}/npm
+          tmp = ''${XDG_RUNTIME_DIR}/npm
+        '';
+  };
 
   virtualisation = {
     docker = {
@@ -57,11 +70,15 @@
     };
   };
 
+
   users.users.bulentk = {
     extraGroups = [ "wheel" "docker" "vboxusers" ];
   };
 
   environment.variables = {
+    DOCKER_CONFIG = "$HOME/.config/docker";
+    GRADLE_USER_HOME = "$HOME/.local/share/gradle";
+#    _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java";
     JAVA_HOME = "${pkgs.jdk11}";
   };
 

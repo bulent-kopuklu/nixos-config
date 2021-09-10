@@ -14,45 +14,50 @@
 
   powerManagement.enable = true;
 
-  programs = {
-    ssh.startAgent = false;
-    gnupg.agent = {
+  programs.gnupg = {
+    agent = {
       enable = true;
       enableSSHSupport = true;
+      enableExtraSocket = true;
+      enableBrowserSocket = true;
       pinentryFlavor = "gtk2";
     };
-    dconf.enable = true;
   };
 
-  services = {
-    xserver = {
+  programs.browserpass.enable = true;
+
+  services.xserver = {
+    enable = true;
+    dpi = 96;
+    useGlamor = true;
+
+    libinput = {
       enable = true;
-      dpi = 96;
-      useGlamor = true;
-
-      libinput = {
-        enable = true;
-      };
-
-      synaptics.enable = false;
     };
 
-    dbus = {
-      enable = true;
-      packages = [ 
-        pkgs.gnome3.dconf
-      ];
-    };
+    synaptics.enable = false;
+  };
 
-    printing.enable = true;
-    autorandr.enable = true;
+  services.dbus = {
+    enable = true;
+    packages = [ 
+      pkgs.gnome3.dconf
+    ];
+  };
+
+  services.printing.enable = true;
+  services.autorandr.enable = true;
     # needed by gtk apps
-    gnome.at-spi2-core.enable = true;
-    teamviewer.enable = true;
-  };
+  services.gnome.at-spi2-core.enable = true;
+  services.teamviewer.enable = true;
 
     # Make applications find files in <prefix>/share
   environment.pathsToLink = [ "/share" "/etc/gconf" ];
+
+  environment.variables = {
+#    GNUPGHOME = "$HOME/.local/share/gnupg";
+  };
+
 
   environment.systemPackages = with pkgs; [
     pinentry-gtk2

@@ -25,40 +25,38 @@
     
   time.timeZone = "Europe/Istanbul";
 
-  services = {
-    openssh = {
-      enable = true;
-      allowSFTP = true;
-    };
+  services.openssh.enable = false;
 
-    avahi = {
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    publish = {
       enable = true;
-      nssmdns = true;
-      publish = {
-        enable = true;
-        addresses = true;
-        workstation = true;
-      };
-    };
-
-    sshd.enable = true;
-  };
-
-  programs = {
-    fish = {
-      enable = true;
-      promptInit = ''
-        any-nix-shell fish --info-right | source
-      '';
+      addresses = true;
+      workstation = true;
     };
   };
+
+  services.sshd.enable = false;
+
+  programs.fish = {
+    enable = true;
+    promptInit = ''
+      any-nix-shell fish --info-right | source
+    '';
+  };
+
+  programs.ssh.startAgent = false;
+  programs.dconf.enable = true;
 
   environment.variables = {
     EDITOR = "nvim";
     XDG_CONFIG_HOME = "$HOME/.config";
-    XDG_DATA_HOME = "$HOME/.local/share";
     XDG_CACHE_HOME = "$HOME/.cache";
+    XDG_DATA_HOME = "$HOME/.local/share";
+    XDG_STATE_HOME= "$HOME/.local/state";
     XDG_BIN_HOME = "$HOME/.local/bin";
+    PASSWORD_STORE_DIR = "$HOME/.local/share/password-store";
   };
 
   environment.systemPackages = with pkgs; [

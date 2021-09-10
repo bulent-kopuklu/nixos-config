@@ -30,12 +30,6 @@
     efi.canTouchEfiVariables = true;
   };
 
-  swapDevices = [{
-    device = "/var/.swapfile";
-    size = 18432;
-  }];
-
-
   networking.hostName = "bulentk-x1";
 
   hardware = {
