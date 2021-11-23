@@ -17,6 +17,7 @@
     nodejs
     nodePackages.npm
     nodePackages.webpack
+    go
 #    nodePackages.webpack-cli
 
     bloop
@@ -37,8 +38,9 @@
     jetbrains.idea-community
     jetbrains.pycharm-community
     
+    docker-machine
     docker-compose
-    dive            # explorering a docker image 
+    dive            # exploring a docker image 
     
     ripgrep
     fd
@@ -64,6 +66,7 @@
   virtualisation = {
     docker = {
       enable = true;
+      liveRestore = false;
     };
     virtualbox.host = {
       enable = true;

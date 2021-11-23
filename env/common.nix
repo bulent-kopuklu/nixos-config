@@ -88,13 +88,18 @@
     iftop
     nettools
     netcat
+    iptables
+    conntrack-tools
+    httping
+    ipvsadm
+    bind
     psmisc
     lsof
     lshw
     usbutils
     pciutils
     nix-du
-    iptables
+    
     sqlite
     jq
     bc
