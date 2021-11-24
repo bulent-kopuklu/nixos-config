@@ -1,7 +1,6 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-#  boot.initrd.luks.devices."system".device = "/dev/disk/by-uuid/93d009ba-a609-4c34-b8a3-17bddbb6ed4b";
   boot.initrd.luks.devices."system".device = "/dev/disk/by-partlabel/cryptsystem";
 
   fileSystems."/" = {

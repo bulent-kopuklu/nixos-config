@@ -5,9 +5,7 @@
 
 {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-    ../../hardware/cpu/amd.nix
-    ../../hardware/gpu/nvidia.nix
+    <nixos-hardware/asus/zephyrus/ga401>
     ./partitions.nix
   ];
 
