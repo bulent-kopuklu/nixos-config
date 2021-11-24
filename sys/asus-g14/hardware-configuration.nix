@@ -9,33 +9,6 @@
     ./partitions.nix
   ];
 
-  boot.blacklistedKernelModules = lib.optionals (!config.hardware.enableRedistributableFirmware) [
-    "ath3k"
-  ];
-
-  
-  services.tlp.enable = lib.mkDefault ((lib.versionOlder (lib.versions.majorMinor lib.version) "21.05")
-                                       || !config.services.power-profiles-daemon.enable);
-
-
-  boot.kernel.sysctl = {
-    "vm.swappiness" = lib.mkDefault 1;
-  };
-
-  services.fstrim.enable = lib.mkDefault true;
-
-  hardware.nvidia.prime = {
-    amdgpuBusId = "PCI:4:0:0";
-    nvidiaBusId = "PCI:1:0:0";
-  };
-
-  services.udev.extraHwdb = ''
-    evdev:name:*:dmi:bvn*:bvr*:bd*:svnASUS*:pn*:*
-     KEYBOARD_KEY_ff31007c=f20
-  '';
-
-
-
 #  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
 #  boot.initrd.kernelModules = [ ];
 #  boot.extraModulePackages = [ ];
