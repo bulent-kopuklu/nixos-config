@@ -7,7 +7,7 @@
     ];
 
 
-  services.xserver.libinput.enable = lib.mkDefault true;
+  services.xserver.libinput.enable = true;
 
   services = {
     printing = {
