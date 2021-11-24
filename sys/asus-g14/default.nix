@@ -6,6 +6,9 @@
       ../../env/development.nix
     ];
 
+
+  services.xserver.libinput.enable = lib.mkDefault true;
+
   services = {
     printing = {
       drivers = [ pkgs.hplip ]; # todo add ofice printer samsung
