@@ -6,7 +6,8 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    <nixos-hardware/asus/zephyrus/ga401>
+    #<nixos-hardware/asus/zephyrus/ga401>
+    "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/asus/zephyrus/ga401"
     ./partitions.nix
   ];
 
