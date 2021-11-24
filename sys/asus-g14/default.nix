@@ -2,7 +2,6 @@
 
 {
   imports = [
-      (modulesPath + "/installer/scan/not-detected.nix")
       ./hardware-configuration.nix
       ../../env/development.nix
     ];

@@ -5,6 +5,7 @@
 
 {
   imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
     <nixos-hardware/asus/zephyrus/ga401>
     ./partitions.nix
   ];
