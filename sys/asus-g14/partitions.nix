@@ -1,7 +1,7 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  boot.initrd.luks.devices."system".device = "/dev/disk/by-partlabel/cryptsystem";
+  boot.initrd.luks.devices.system.device = "/dev/disk/by-partlabel/cryptsystem";
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/system";
