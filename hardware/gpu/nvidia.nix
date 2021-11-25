@@ -13,11 +13,11 @@ let
   '';
 in
 {
-  services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
   environment.systemPackages = [ nvidia-offload ];
 
   hardware.nvidia.prime = {
-    offload.enable = lib.mkDefault true;
+    offload.enable = true;
     # Hardware should specify the bus ID for intel/nvidia devices
   };
 }

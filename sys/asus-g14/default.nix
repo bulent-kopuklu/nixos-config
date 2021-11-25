@@ -3,18 +3,21 @@
 {
   imports = [
       ./hardware-configuration.nix
-      ../../env/development.nix
+      ../../env/common.nix
+      ../../env/modules/audio.nix
+      ../../env/modules/bluetooth.nix
+      ../../env/modules/network.nix
+      ../../env/modules/keyboard.nix
+      ../../env/modules/font.nix
+
+#      ../../env/development.nix
     ];
-
-
-  services.xserver.libinput.enable = true;
 
   services = {
     printing = {
       drivers = [ pkgs.hplip ]; # todo add ofice printer samsung
     };
   };
-
 
   boot.loader = {
     systemd-boot.enable = true;
@@ -27,8 +30,13 @@
     opengl.driSupport32Bit = true;
   };
 
+  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+
   environment.systemPackages = with pkgs; [
-    zeroad
-    zeroadPackages.zeroad-data
+    firefox
+
+#    zeroad
+#    zeroadPackages.zeroad-data
   ];
 }

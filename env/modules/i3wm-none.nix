@@ -13,7 +13,7 @@
       defaultSession = "none+i3";
       lightdm = {
         enable = true;
-        greeters.enso.enable = true;
+#        greeters.enso.enable = true;
       };
 
       sessionCommands = ''
