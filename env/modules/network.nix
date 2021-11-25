@@ -8,7 +8,7 @@
       ];
     };
 
-    useDHCP = true;
+    useDHCP = false;
     firewall.enable = false;
   # firewall.allowedTCPPorts = [ ... ];
   # firewall.allowedUDPPorts = [ ... ];
