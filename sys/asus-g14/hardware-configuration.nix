@@ -25,8 +25,8 @@
     ];                                       
 
   hardware.nvidia.prime = {
-#    amdgpuBusId = "PCI:4:0:0";
-    nvidiaBusId = "PCI:1:0:0";    
+    nvidiaBusId = "PCI:1:0:0";
+    amdgpuBusId = "PCI:4:0:0";
   };
 
   boot.kernel.sysctl = {
