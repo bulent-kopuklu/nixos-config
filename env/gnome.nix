@@ -13,7 +13,7 @@
       # https://github.com/NixOS/nixpkgs/issues/42053
       # autoSuspend = false;
     };
-    desktopManager.gnome3 = {
+    desktopManager.gnome = {
       enable = true;
     };
   };
