@@ -3,9 +3,8 @@
 {
   imports = [
       ./hardware-configuration.nix
-      ../../env/gnome.nix
+      ../../env/i3wm-none.nix
       ../../env/development.nix
-
     ];
 
   services = {

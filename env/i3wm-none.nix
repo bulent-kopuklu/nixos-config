@@ -5,7 +5,7 @@
 #in
 {
   imports = [
-    ../../pkgs/polybar.nix
+    ../pkgs/polybar.nix
     ./stddesktop.nix
   ];
   
