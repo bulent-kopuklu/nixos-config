@@ -8,6 +8,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     ../../hardware/cpu/intel.nix
     ../../hardware/gpu/intel.nix
+    ../../hardware/bluetooth.nix
     ./partitions.nix
   ];
 

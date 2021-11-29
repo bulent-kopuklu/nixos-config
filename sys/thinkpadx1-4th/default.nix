@@ -3,6 +3,7 @@
 {
   imports = [
       ./hardware-configuration.nix
+      ../../env/i3wm-none.nix
       ../../env/development.nix
     ];
 
@@ -13,6 +14,7 @@
     
     xserver = {
       libinput = {
+        enable = true;
         touchpad = {
           disableWhileTyping = true;
           tappingDragLock = false;

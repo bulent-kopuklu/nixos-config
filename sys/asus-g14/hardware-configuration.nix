@@ -6,9 +6,8 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-#    "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/asus/zephyrus/ga401"
-      ../../hardware/cpu/amd.nix
-      ../../hardware/gpu/nvidia.nix
+    "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/asus/zephyrus/ga401"
+    ../../hardware/bluetooth.nix
     ./partitions.nix
   ];
 
@@ -16,34 +15,4 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-
-  services.tlp.enable = lib.mkDefault ((lib.versionOlder (lib.versions.majorMinor lib.version) "21.05")
-                                       || !config.services.power-profiles-daemon.enable);
-
-  boot.blacklistedKernelModules = lib.optionals (!config.hardware.enableRedistributableFirmware) [
-      "ath3k"
-    ];                                       
-
-  hardware.nvidia.prime = {
-    nvidiaBusId = "PCI:1:0:0";
-    amdgpuBusId = "PCI:4:0:0";
-  };
-
-  boot.kernel.sysctl = {
-    "vm.swappiness" = lib.mkDefault 1;
-  };
-
-  services.fstrim.enable = lib.mkDefault true;
-
-  # fixes mic mute button
-  services.udev.extraHwdb = ''
-    evdev:name:*:dmi:bvn*:bvr*:bd*:svnASUS*:pn*:*
-     KEYBOARD_KEY_ff31007c=f20
-  '';
-
-  services.xserver.libinput.enable = true;
-
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
 }

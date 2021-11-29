@@ -3,7 +3,9 @@
 {
   imports = [
       ./hardware-configuration.nix
+      ../../env/gnome.nix
       ../../env/development.nix
+
     ];
 
   services = {
@@ -11,6 +13,8 @@
       drivers = [ pkgs.hplip ]; # todo add ofice printer samsung
     };
   };
+
+  services.xserver.libinput.enable = true;
 
   boot.loader = {
     systemd-boot.enable = true;
