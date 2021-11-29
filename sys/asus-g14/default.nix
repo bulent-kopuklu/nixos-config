@@ -7,6 +7,8 @@
       ../../env/development.nix
     ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   services = {
     printing = {
       drivers = [ pkgs.hplip ]; # todo add ofice printer samsung
