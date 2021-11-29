@@ -3,6 +3,7 @@
 {
   imports = [
       ./hardware-configuration.nix
+      ../../pkgs/asusctl.nix
       ../../env/i3wm-none.nix
       ../../env/development.nix
     ];
