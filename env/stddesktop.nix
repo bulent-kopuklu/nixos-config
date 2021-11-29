@@ -4,11 +4,9 @@
   imports = [
     ./common.nix
     ./modules/audio.nix
-    ./modules/bluetooth.nix
     ./modules/network.nix
     ./modules/keyboard.nix
     ./modules/font.nix
-    ./modules/i3wm-none.nix
     ../pkgs/discord.nix    
   ];
 
@@ -30,10 +28,6 @@
     enable = true;
     dpi = 96;
     useGlamor = true;
-
-    libinput = {
-      enable = true;
-    };
 
     synaptics.enable = false;
   };

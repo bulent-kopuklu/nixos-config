@@ -2,9 +2,7 @@
 
 {
   imports = [
-    ./stddesktop.nix
     ../pkgs/smartgithg.nix
-    ../pkgs/discord.nix
   ];
 
  
