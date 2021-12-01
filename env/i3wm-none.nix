@@ -26,6 +26,10 @@
       '';
     };
 
+    desktopManager = {
+      xterm.enable = false;
+    };
+
     windowManager.i3.enable = true;
   };
 

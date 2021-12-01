@@ -3,7 +3,6 @@
 {
   imports = [
       ./hardware-configuration.nix
-      ../../pkgs/asusctl.nix
       ../../env/i3wm-none.nix
       ../../env/development.nix
     ];
@@ -28,4 +27,8 @@
   hardware = {
     opengl.driSupport32Bit = true;
   };
+
+  environment.systemPackages = with pkgs; [
+#    (pkgs.callPackage ../../pkgs/asusctl.nix { })
+  ];
 }
