@@ -26,6 +26,8 @@ pkgs.writeText "i3-config" ''
 
   exec --no-startup-id ${pkgs.systemd}/bin/systemctl --user restart polybar
   exec --no-startup-id ${pkgs.thunderbird}/bin/thunderbird
+  exec --no-startup-id ${pkgs.udiskie}/bin/udiskie -A -n -t -f nautilus
+  exec --no-startup-id ${pkgs.blueman}/bin/blueman-applet
   
   font pango:DejaVuSansMono 12
 
