@@ -1,3 +1,7 @@
 
 
 sys/current
+.Trash*
+result
+__*
+.metals

@@ -1,0 +1,117 @@
+#! /usr/bin/env bash
+
+
+function is_nixpkg() {
+
+  nix search nixpkgs vscode-extensions.$1 > /dev/null 2> /dev/null
+  res=$?
+  if [ $res == 0 ]; then
+    echo "true"
+  else
+    echo "false"
+  fi
+}
+
+function get_vsixpkg() {
+  OWNER=$(echo "$1" | cut -d. -f1)
+  EXT=$(echo "$1" | cut -d. -f2)
+  N="$1"
+
+  # Create a tempdir for the extension download.
+  EXTTMP=$(mktemp -d -t vscode_exts_XXXXXXXX)
+
+  URL="https://$OWNER.gallery.vsassets.io/_apis/public/gallery/publisher/$OWNER/extension/$EXT/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+
+  # Quietly but delicately curl down the file, blowing up at the first sign of trouble.
+  curl --silent --show-error --fail -X GET -o "$EXTTMP/$N.zip" "$URL"
+  # Unpack the file we need to stdout then pull out the version
+  VER=$(jq -r '.version' <(unzip -qc "$EXTTMP/$N.zip" "extension/package.json"))
+  # Calculate the SHA
+  SHA=$(nix-hash --flat --base32 --type sha256 "$EXTTMP/$N.zip")
+
+  # Clean up.
+  rm -Rf "$EXTTMP"
+  # I don't like 'rm -Rf' lurking in my scripts but this seems appropriate.
+
+  cat <<-EOF
+    {
+      name = "$EXT";
+      publisher = "$OWNER";
+      version = "$VER";
+      sha256 = "$SHA";
+    }
+EOF
+}
+
+function search() {
+  if [ "true" == $(is_nixpkg $1) ]; then
+    echo $1
+  else
+    echo $(get_vsixpkg $1)
+  fi
+}
+
+function get_ext_list() {
+  local ext_list=$(code --list-extensions)
+
+
+}
+
+function update() {
+
+  local nixpkgs=()
+  local marketplace=()
+
+  for i in $(code --list-extensions); do
+    pkg=${i,,}
+    if [ "true" == $(is_nixpkg $pkg) ]; then
+      nixpkgs+=("$pkg")
+    else
+      marketplace+=("$i") 
+    fi
+  done
+
+  echo "{ pkgs, ... }:"
+  echo ""
+  echo "(pkgs.vscode-with-extensions.override {"
+
+  if [ 0 != ${#nixpkgs[@]} ]; then
+    echo "  vscodeExtensions = with pkgs.vscode-extensions; ["
+    for i in "${nixpkgs[@]}"; do
+      echo "    $i"
+    done
+    
+    if [ 0 != ${#marketplace[@]} ]; then
+      printf "  ] ++ "
+    else
+      echo "  ];"
+    fi
+  fi
+
+  if [ 0 != ${#marketplace[@]} ]; then
+    printf "pkgs.vscode-utils.extensionsFromVscodeMarketplace [\n"
+    for i in "${marketplace[@]}"; do
+      get_vsixpkg $i
+    done
+    echo "  ];"
+  fi
+
+  echo "})"
+}
+
+
+function error() {
+  exit -1
+}
+
+case "$1" in
+  update)
+    update
+    ;;
+  search)
+    search $2
+    ;;
+  *)
+    error
+    ;;
+esac
