@@ -14,12 +14,6 @@ let
 
   theme = import ./theme.nix;
 
-/*   foreground = {
-    icon = theme.colors.black;
-    text = theme.colors.blueGray;
-    warn = theme.colors.orange;
-  };
- */
   foreground = {
     icon-l = theme.colors.dark-theme.foreground;
     icon-d = theme.colors.dark-theme.background0;
@@ -70,7 +64,7 @@ in pkgs.writeText "polybar-config" ''
 
   monitor = ${monitor}
   enable-ipc = true
-;  fixed-center = true
+  fixed-center = true
   width = 100%
   height = 30
   offset-x = 0%
@@ -102,7 +96,7 @@ in pkgs.writeText "polybar-config" ''
   tray-offset-y = 0
   tray-padding = 0
   tray-scale = 1.0
-  tray-background = ${theme.colors.dark-theme.background4}
+  tray-background = ${theme.colors.dark-theme.background0}
 
   [module/i3]
   type = internal/i3

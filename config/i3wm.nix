@@ -49,7 +49,7 @@ pkgs.writeText "i3-config" ''
   smart_borders on
 
   # class                 border  backgr. text    indicator child_border
-  client.focused          ${theme.colors.menu.accent1} ${theme.colors.menu.accent1} ${theme.colors.black} ${theme.colors.green} ${theme.colors.menu.accent1}
+  client.focused          ${theme.colors.amber} ${theme.colors.amber} ${theme.colors.black} ${theme.colors.green} ${theme.colors.amber}
   client.focused_inactive ${theme.colors.blueGray} #004052 ${theme.colors.white} ${theme.colors.green} ${theme.colors.blueGray}
   client.unfocused        ${theme.colors.blueGray} #004052 ${theme.colors.blueGray} ${theme.colors.green} ${theme.colors.blueGray}
   client.urgent           ${theme.colors.blueGray} #004052 ${theme.colors.white} ${theme.colors.green} ${theme.colors.blueGray}
