@@ -40,6 +40,7 @@ in {
       XDG_DATA_HOME = "$HOME/.local/share";
       XDG_STATE_HOME= "$HOME/.local/state";
       XDG_BIN_HOME = "$HOME/.local/bin";
+      PASSWORD_STORE_DIR = "$HOME/.local/share/password-store";
     };
 
     environment.systemPackages = with pkgs; [
