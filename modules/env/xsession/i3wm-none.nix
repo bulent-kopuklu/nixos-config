@@ -43,8 +43,6 @@ in {
       enable = true;
       package = pkgs.i3-wrapped;
 
-#      configFile = confFile;
-      
       extraPackages = with pkgs; [ 
         x11apps
 
@@ -65,13 +63,18 @@ in {
         udiskie 
         i3lock
         rofi
-        gnome.gnome-calculator
-        gnome.nautilus
-        gnome.gnome-disk-utility
-#        feh
-#        sxhkd-wrapped
-#        dunst-wrapped
-        
+
+        (xfce.thunar.override { thunarPlugins = [ 
+          xfce.thunar-archive-plugin 
+          xfce.thunar-volman
+          xfce.thunar-dropbox-plugin
+          xfce.thunar-media-tags-plugin
+          ]; 
+        })
+
+        #gnome.gnome-calculator
+        qalculate-gtk
+        gparted
       ];
     };
 
@@ -82,5 +85,6 @@ in {
 
     services.accounts-daemon.enable = true;
     services.gnome.gnome-keyring.enable = true;
+    services.gvfs.enable = true;
   };
 }

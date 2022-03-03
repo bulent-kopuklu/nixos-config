@@ -1,11 +1,10 @@
 {
   path = ".gtkrc-2.0";
   text = ''
-    # include "/home/bulentk/.gtkrc-2.0.mine"
-    gtk-theme-name="NumixSolarizedDarkGreen"
-    gtk-icon-theme-name="Papirus-Dark"
+    gtk-theme-name="Nordic-darker"
+    gtk-icon-theme-name="Numix"
     gtk-font-name="DejaVu Sans 11"
-    gtk-cursor-theme-name="elementary"
+    gtk-cursor-theme-name="Adwaita"
     gtk-cursor-theme-size=0
     gtk-toolbar-style=GTK_TOOLBAR_BOTH
     gtk-toolbar-icon-size=GTK_ICON_SIZE_SMALL_TOOLBAR

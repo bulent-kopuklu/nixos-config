@@ -2,7 +2,7 @@
   path = ".config/gtk-3.0/settings.ini";
   text = ''
     [Settings]
-    gtk-theme-name=NumixSolarizedDarkGreen
+    gtk-theme-name=NumixSolarizedDarkYellow
     gtk-icon-theme-name=Papirus-Dark
     gtk-font-name=DejaVu Sans 11
     gtk-cursor-theme-name=elementary

@@ -129,8 +129,8 @@ in pkgs.writeText "polybar-config" ''
   [module/temperature]
   type = internal/temperature
   interval = 2
-;  thermal-zone = 0
-  hwmon-path = ${cpuTemperaturePath}
+  thermal-zone = 0
+;  hwmon-path = ${cpuTemperaturePath}
   units = true
   format = <ramp> <label>
   format-warn = <ramp> <label-warn>

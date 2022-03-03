@@ -26,7 +26,7 @@ pkgs.writeText "i3-config" ''
 
   exec --no-startup-id ${pkgs.systemd}/bin/systemctl --user restart polybar
   exec --no-startup-id ${pkgs.thunderbird}/bin/thunderbird
-  exec --no-startup-id ${pkgs.udiskie}/bin/udiskie -A -n -t -f nautilus
+  exec --no-startup-id ${pkgs.udiskie}/bin/udiskie -A -n -t -f thunar
   exec --no-startup-id ${pkgs.blueman}/bin/blueman-applet
   
   font pango:DejaVuSansMono 12
@@ -88,6 +88,6 @@ pkgs.writeText "i3-config" ''
 
   bindsym $mod+r mode "resize"
   bindsym --release button3 kill
-  bindsym --release button1 fullscreen
+  bindsym --release button2 fullscreen
 
 ''

@@ -15,7 +15,6 @@ start-vm: build-vm
 
 switch: clean
 	@sudo nixos-rebuild switch --flake ".#${host}"
-	sudo reboot now
 
 pre-update:
 	@nix flake update

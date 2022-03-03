@@ -12,6 +12,9 @@ in {
 
   config = lib.mkIf cfg.development {
     env.programs.vscode.enable = true;
+    env.programs.gradle.enable = true;
+
+    env.programs.docker.enable = true;
 
     environment.systemPackages = with pkgs; [
       gcc
@@ -21,7 +24,6 @@ in {
       binutils-unwrapped
 
       jdk11
-      gradle
       maven
 
       python3
@@ -52,6 +54,15 @@ in {
       dive            # exploring a docker image 
 
       wireshark
+      twinkle
+
+      # intellij idea plugin development
+      jetbrains.idea-community
+      xorg.libXrender
+      xorg.libX11
+      xorg.libXext
+      xorg.libXtst
+      xorg.libXi
 
     ];
 
