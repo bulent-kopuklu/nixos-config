@@ -36,26 +36,26 @@
     {
       name = "vscode-typescript-next";
       publisher = "ms-vscode";
-      version = "4.7.20220424";
-      sha256 = "192gjdvm2229nn7s58ifpa8gvnl270fcbzzd3b9s24xkiip71g95";
+      version = "4.8.20220529";
+      sha256 = "0n19rgp625sh0qad5ylfqw3csw7kh5yrqpvy96pp3qdqa6s05pzk";
     }
     {
       name = "vscode-gradle";
       publisher = "vscjava";
-      version = "3.12.2022042500";
-      sha256 = "170hknbq58d8x5xnbjyzcafp7d87108ph575lirhjn9izmpk5i8l";
+      version = "3.12.2022053002";
+      sha256 = "0fg0z04v0pc3dy1vb5cyrc3n6lm1vgpda2lz384l98p8672qyhnx";
     }
     {
       name = "vscode-maven";
       publisher = "vscjava";
-      version = "0.35.2022041103";
-      sha256 = "15zzr8rmby4as1brgdpcvm9dabjc25xvrmb3i2bw7nkzihapqzc7";
+      version = "0.35.2022053003";
+      sha256 = "00zwl0zi2698aliy34bfi0ykf73dy6r86qipsz799vbd49pb53mc";
     }
     {
       name = "vscode-icons";
       publisher = "vscode-icons-team";
-      version = "11.11.0";
-      sha256 = "0qd9y0rb1j70iha8gqkxv2xvds6n4db8p0h8arlqcsfayljkn5v6";
+      version = "11.12.0";
+      sha256 = "121177jwcy73xp1cx8v1kcm5w63pqsa1ydhqwwnjdhazm6dkl9wg";
     }
   ];
 })
