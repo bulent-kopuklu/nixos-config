@@ -36,20 +36,20 @@
     {
       name = "vscode-typescript-next";
       publisher = "ms-vscode";
-      version = "4.8.20220529";
-      sha256 = "0n19rgp625sh0qad5ylfqw3csw7kh5yrqpvy96pp3qdqa6s05pzk";
+      version = "4.8.20220530";
+      sha256 = "0rw535x8r8dsmh4r7snvdygbwjcwchdxvkf0aa06z2kpq3g5zpwh";
     }
     {
       name = "vscode-gradle";
       publisher = "vscjava";
-      version = "3.12.2022053002";
-      sha256 = "0fg0z04v0pc3dy1vb5cyrc3n6lm1vgpda2lz384l98p8672qyhnx";
+      version = "3.12.2022053100";
+      sha256 = "1nqnnwsdl76aszrh80b6dqvrf8lvwxx6048qldgqcs50c0hh4lli";
     }
     {
       name = "vscode-maven";
       publisher = "vscjava";
-      version = "0.35.2022053003";
-      sha256 = "00zwl0zi2698aliy34bfi0ykf73dy6r86qipsz799vbd49pb53mc";
+      version = "0.35.2022053103";
+      sha256 = "11ag9r4bpibdi1mxpnrkd8kdff1h5kf02b96a0fk3pgb6zngir13";
     }
     {
       name = "vscode-icons";
