@@ -14,7 +14,7 @@ start-vm: build-vm
 	./result/bin/run-*-vm -m 8192
 
 switch: clean
-	@sudo nixos-rebuild switch --flake ".#${host}"
+	@nixos-rebuild switch --use-remote-sudo --flake ".#${host}"
 
 pre-update:
 	@nix flake update
