@@ -1,4 +1,4 @@
-{config, lib, ...}:
+{config, lib, pkgs, ...}:
 
 let
   cfg =  config.env.role;
@@ -16,7 +16,11 @@ in {
     
     environment.systemPackages = [
       pkgs.docker-compose
+
     ];
 
+    environment.variables = {
+      DOCKER_CONFIG = "$HOME/.config/docker";
+    };
   };
 }

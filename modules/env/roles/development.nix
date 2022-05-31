@@ -11,6 +11,8 @@ in {
   };
 
   config = lib.mkIf cfg.development {
+    env.role.virtualisation = lib.mkForce true;
+
     env.programs.vscode.enable = true;
     env.programs.gradle.enable = true;
 
@@ -50,7 +52,6 @@ in {
       jetbrains.idea-ultimate
 
       docker-machine
-      docker-compose
       dive            # exploring a docker image 
 
       wireshark
@@ -76,7 +77,6 @@ in {
     };
 
     environment.variables = {
-      DOCKER_CONFIG = "$HOME/.config/docker";
       GRADLE_USER_HOME = "$HOME/.local/share/gradle";
       JAVA_HOME = "${pkgs.jdk11}";
     };
