@@ -51,6 +51,9 @@ in {
       smartgithg
       jetbrains.idea-ultimate
 
+      android-studio
+      android-tools
+
       docker-machine
       dive            # exploring a docker image 
 
