@@ -95,7 +95,7 @@ in {
       gimp
       teamviewer
 
-      tor-browser-bundle-bin
+#      tor-browser-bundle-bin
       system-config-printer
     ];
   };
