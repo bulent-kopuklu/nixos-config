@@ -14,7 +14,6 @@
     ms-python.python
     ms-python.vscode-pylance
     ms-toolsai.jupyter
-    ms-vscode.cpptools
     redhat.java
     redhat.vscode-yaml
     scala-lang.scala
@@ -36,8 +35,8 @@
     {
       name = "vscode-typescript-next";
       publisher = "ms-vscode";
-      version = "4.8.20220723";
-      sha256 = "1lyyzc3pmap4dcnxxnxs9bhnlss3c39wz2ir8nqx2kqj1nz7s8hs";
+      version = "4.8.20220731";
+      sha256 = "1apdp29js51hc3hlp4ssd9drdn7ngpsz3m0b8djdfwbgrn49997v";
     }
     {
       name = "vscode-gradle";
@@ -54,8 +53,21 @@
     {
       name = "vscode-icons";
       publisher = "vscode-icons-team";
-      version = "11.13.0";
-      sha256 = "1nsp0bb5b3h9ihncxgnnybxmqryvdd8x4bgw9wb771kvm35lk0is";
+      version = "11.14.0";
+      sha256 = "1sbn40ix69cw2q6j3hq61p1f7da3fr3imrvzpp63ga73qynajbcr";
     }
+    {
+      name = "cpptools-extension-pack";
+      publisher = "ms-vscode";
+      version = "1.2.0";
+      sha256 = "155id1ln4nd14a5myw0b5qil4zprcwwplaxw8z7s6z24k7jqni9h";
+    }
+    {
+      name = "makefile-tools";
+      publisher = "ms-vscode";
+      version = "0.5.0";
+      sha256 = "18p0ayw20f2shsw7fysvdrh1mc9fyp1cjiv7xmh5yxda7q3h05m0";
+    }
+
   ];
 })

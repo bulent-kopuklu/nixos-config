@@ -54,7 +54,6 @@
       "audio"
       "vboxusers"
       "vboxsf"       
-      "docker"
       "lp" # for bluetooth
       "bluetooth"
     ];

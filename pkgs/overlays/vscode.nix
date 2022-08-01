@@ -1,10 +1,10 @@
 self: super: {
   vscode = super.vscode.overrideAttrs(oldAttrs: rec {
     pname = "vscode";
-    version = "1.64.0";
+    version = "1.69.0";
     src = super.fetchurl {
       url = "https://update.code.visualstudio.com/${version}/linux-x64/stable";
-      sha256 = "0nszdd3bmixspv9wc837l9ibs996kr92awpnhx0c00mh823id9g8";
+      sha256 = "1khpn7j3rf0pb5ya4jzpgy0awhamx5dy3pspbxhxl943lzagyvq6";
     };
   });
 }

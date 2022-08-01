@@ -1,22 +1,28 @@
 {config, lib, pkgs, ...}:
 
 let
-  cfg =  config.env.role;
-  
-
+  cfg =  config.env;
 in {
 
   options = {
     env.role.development = lib.mkEnableOption "development role";
   };
 
-  config = lib.mkIf cfg.development {
+  config = lib.mkIf cfg.role.development {
     env.role.virtualisation = lib.mkForce true;
+
+    programs.adb.enable = true;
+    users.users.${cfg.user.name}.extraGroups = ["adbusers"];
+
+    services.udev.packages = [
+      pkgs.android-udev-rules
+    ];
 
     env.programs.vscode.enable = true;
     env.programs.gradle.enable = true;
 
     env.programs.docker.enable = true;
+
 
     environment.systemPackages = with pkgs; [
       gcc
@@ -49,13 +55,7 @@ in {
 
       meld
       smartgithg
-      jetbrains.idea-ultimate
-
-      android-studio
-      android-tools
-
-      docker-machine
-      dive            # exploring a docker image 
+#      jetbrains.idea-ultimate
 
       wireshark
       twinkle
@@ -68,6 +68,8 @@ in {
       xorg.libXtst
       xorg.libXi
 
+      android-studio
+      android-tools
     ];
 
     programs.npm = {
