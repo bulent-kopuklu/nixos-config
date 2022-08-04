@@ -40,22 +40,16 @@
       sha256 = "13v1lqqfvgkf5nm89b39hci65fnz4j89ngkg9p103l1p1fhncr41";
     }
     {
-      name = "cmake";
-      publisher = "twxs";
-      version = "0.0.17";
-      sha256 = "11hzjd0gxkq37689rrr2aszxng5l9fwpgs9nnglq3zhfa1msyn08";
+      name = "cmake-tools";
+      publisher = "ms-vscode";
+      version = "1.12.18";
+      sha256 = "098m05rx5kph87rm5r42bamh004xb624fqzgaxcfdbl20ix8axba";
     }
     {
       name = "cpptools-themes";
       publisher = "ms-vscode";
       version = "1.0.0";
       sha256 = "0nds0bx9zsnfgfqgpzlbd79wwnjnhsivf0qbnbiakhj2z8c0niqk";
-    }
-    {
-      name = "cmake-tools";
-      publisher = "ms-vscode";
-      version = "1.12.16";
-      sha256 = "058dxc6ka5amlr42cqxypzqr20yqyq3vdflh2vkham6myq71fivh";
     }
     {
       name = "makefile-tools";
@@ -66,14 +60,20 @@
     {
       name = "vscode-typescript-next";
       publisher = "ms-vscode";
-      version = "4.8.20220731";
-      sha256 = "1apdp29js51hc3hlp4ssd9drdn7ngpsz3m0b8djdfwbgrn49997v";
+      version = "4.8.20220803";
+      sha256 = "1p75mygg5vfzgvdg01imkm1zfhvywis0mlax67ai1p35qmbmbi9m";
+    }
+    {
+      name = "cmake";
+      publisher = "twxs";
+      version = "0.0.17";
+      sha256 = "11hzjd0gxkq37689rrr2aszxng5l9fwpgs9nnglq3zhfa1msyn08";
     }
     {
       name = "vscode-gradle";
       publisher = "vscjava";
-      version = "3.12.2022072600";
-      sha256 = "0nn8ljkzmix8nbd2wrnph022rpi0bakxhj2krybnljv134wad7rw";
+      version = "3.12.2022080300";
+      sha256 = "1wzhjiiib1xzla3kpx9qim1g36fxl9lqa8kip8hkwmq0ks5hrn5l";
     }
     {
       name = "vscode-maven";
