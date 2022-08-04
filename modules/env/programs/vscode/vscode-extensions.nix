@@ -14,6 +14,7 @@
     ms-python.python
     ms-python.vscode-pylance
     ms-toolsai.jupyter
+    ms-vscode.cpptools
     redhat.java
     redhat.vscode-yaml
     scala-lang.scala
@@ -31,6 +32,36 @@
       publisher = "hoovercj";
       version = "0.0.6";
       sha256 = "0fb71cbjx1pyrjhi5ak29wj23b874b5hqjbh68njs61vkr3jlf1j";
+    }
+    {
+      name = "better-cpp-syntax";
+      publisher = "jeff-hykin";
+      version = "1.15.19";
+      sha256 = "13v1lqqfvgkf5nm89b39hci65fnz4j89ngkg9p103l1p1fhncr41";
+    }
+    {
+      name = "cmake";
+      publisher = "twxs";
+      version = "0.0.17";
+      sha256 = "11hzjd0gxkq37689rrr2aszxng5l9fwpgs9nnglq3zhfa1msyn08";
+    }
+    {
+      name = "cpptools-themes";
+      publisher = "ms-vscode";
+      version = "1.0.0";
+      sha256 = "0nds0bx9zsnfgfqgpzlbd79wwnjnhsivf0qbnbiakhj2z8c0niqk";
+    }
+    {
+      name = "cmake-tools";
+      publisher = "ms-vscode";
+      version = "1.12.16";
+      sha256 = "058dxc6ka5amlr42cqxypzqr20yqyq3vdflh2vkham6myq71fivh";
+    }
+    {
+      name = "makefile-tools";
+      publisher = "ms-vscode";
+      version = "0.5.0";
+      sha256 = "18p0ayw20f2shsw7fysvdrh1mc9fyp1cjiv7xmh5yxda7q3h05m0";
     }
     {
       name = "vscode-typescript-next";
@@ -56,18 +87,5 @@
       version = "11.14.0";
       sha256 = "1sbn40ix69cw2q6j3hq61p1f7da3fr3imrvzpp63ga73qynajbcr";
     }
-    {
-      name = "cpptools-extension-pack";
-      publisher = "ms-vscode";
-      version = "1.2.0";
-      sha256 = "155id1ln4nd14a5myw0b5qil4zprcwwplaxw8z7s6z24k7jqni9h";
-    }
-    {
-      name = "makefile-tools";
-      publisher = "ms-vscode";
-      version = "0.5.0";
-      sha256 = "18p0ayw20f2shsw7fysvdrh1mc9fyp1cjiv7xmh5yxda7q3h05m0";
-    }
-
   ];
 })
