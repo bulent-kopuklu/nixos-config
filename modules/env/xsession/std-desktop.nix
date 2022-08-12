@@ -89,7 +89,7 @@ in {
       discord
       zoom-us
       tdesktop
-      skype
+      skypeforlinux
 
       qimgv
       gimp

@@ -12,6 +12,7 @@ in {
     env.role.virtualisation = lib.mkForce true;
 
     programs.adb.enable = true;
+    
     users.users.${cfg.user.name}.extraGroups = ["adbusers"];
 
     services.udev.packages = [
@@ -83,7 +84,8 @@ in {
 
     environment.variables = {
       GRADLE_USER_HOME = "$HOME/.local/share/gradle";
-      JAVA_HOME = "${pkgs.jdk11}";
+      JAVA_HOME = "${pkgs.jdk11.home}/lib/openjdk";
+      JDK_HOME = "${pkgs.jdk11.home}/lib/openjdk";
     };
   };
 }

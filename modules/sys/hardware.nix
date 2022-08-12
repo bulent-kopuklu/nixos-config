@@ -92,7 +92,6 @@ in {
         systemWide = false;
         support32Bit = true;
         package = (mkIf (cfg.bluetooth == true) pkgs.pulseaudioFull);
-        extraModules = (mkIf (cfg.bluetooth == true) [ pkgs.pulseaudio-modules-bt ]);
         extraConfig = "
           load-module module-switch-on-connect
           unload-module module-suspend-on-idle
