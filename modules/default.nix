@@ -36,5 +36,7 @@
 
     overlays = import ../pkgs;
   };
+
+  system.stateVersion = "22.05";
 }
 
