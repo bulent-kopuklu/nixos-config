@@ -91,7 +91,7 @@
       name = "Kotlin";
       publisher = "mathiasfrohlich";
       version = " 	1.7.1";
-      sha256 = "1sbn40ix69cw2q6j3hq61p1f7da3fr3imrvzpp63ga73qynajbcr";
+      sha256 = "0zi8s1y9l7sfgxfl26vqqqylsdsvn5v2xb3x8pcc4q0xlxgjbq1j";
     }
   ];
 })
