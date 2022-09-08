@@ -87,5 +87,11 @@
       version = "11.14.0";
       sha256 = "1sbn40ix69cw2q6j3hq61p1f7da3fr3imrvzpp63ga73qynajbcr";
     }
+    {
+      name = "Kotlin";
+      publisher = "mathiasfrohlich";
+      version = " 	1.7.1";
+      sha256 = "1sbn40ix69cw2q6j3hq61p1f7da3fr3imrvzpp63ga73qynajbcr";
+    }
   ];
 })
