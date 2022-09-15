@@ -40,10 +40,16 @@
       sha256 = "13v1lqqfvgkf5nm89b39hci65fnz4j89ngkg9p103l1p1fhncr41";
     }
     {
+      name = "Kotlin";
+      publisher = "mathiasfrohlich";
+      version = "1.7.1";
+      sha256 = "0zi8s1y9l7sfgxfl26vqqqylsdsvn5v2xb3x8pcc4q0xlxgjbq1j";
+    }
+    {
       name = "cmake-tools";
       publisher = "ms-vscode";
-      version = "1.12.18";
-      sha256 = "098m05rx5kph87rm5r42bamh004xb624fqzgaxcfdbl20ix8axba";
+      version = "1.13.3";
+      sha256 = "13219kxbkw69rfifmk9i4wswamq68h30qa931zibv6fql8df3lpy";
     }
     {
       name = "cpptools-themes";
@@ -54,14 +60,14 @@
     {
       name = "makefile-tools";
       publisher = "ms-vscode";
-      version = "0.5.0";
-      sha256 = "18p0ayw20f2shsw7fysvdrh1mc9fyp1cjiv7xmh5yxda7q3h05m0";
+      version = "0.6.0";
+      sha256 = "07zagq5ib9hd3w67yk2g728vypr4qazw0g9dyd5bax21shnmppa9";
     }
     {
       name = "vscode-typescript-next";
       publisher = "ms-vscode";
-      version = "4.8.20220803";
-      sha256 = "1p75mygg5vfzgvdg01imkm1zfhvywis0mlax67ai1p35qmbmbi9m";
+      version = "4.9.20220907";
+      sha256 = "1fi79jmg3wz0f4izp56j4qy21z326546438ar4vbwfri9z1cf5n8";
     }
     {
       name = "cmake";
@@ -72,26 +78,20 @@
     {
       name = "vscode-gradle";
       publisher = "vscjava";
-      version = "3.12.2022080300";
-      sha256 = "1wzhjiiib1xzla3kpx9qim1g36fxl9lqa8kip8hkwmq0ks5hrn5l";
+      version = "3.12.2022090700";
+      sha256 = "0dz9q5km4sr1cglkyiv43gwh3w86cjszahajs8p6vf2dgj9skkfn";
     }
     {
       name = "vscode-maven";
       publisher = "vscjava";
-      version = "0.37.2022072603";
-      sha256 = "1dxjjprn2s3mq2wybaz90fa4rx429v2ppnv5yg6ana4r8hmjyh1r";
+      version = "0.38.2022082703";
+      sha256 = "0ls8l4jwd8f3z9szvgdcyf4vrzxgg2bdm9yvga3mlyg2saxiz38b";
     }
     {
       name = "vscode-icons";
       publisher = "vscode-icons-team";
-      version = "11.14.0";
-      sha256 = "1sbn40ix69cw2q6j3hq61p1f7da3fr3imrvzpp63ga73qynajbcr";
-    }
-    {
-      name = "Kotlin";
-      publisher = "mathiasfrohlich";
-      version = " 	1.7.1";
-      sha256 = "0zi8s1y9l7sfgxfl26vqqqylsdsvn5v2xb3x8pcc4q0xlxgjbq1j";
+      version = "11.16.0";
+      sha256 = "0fgpr356nbq8c2m8xqbhqnlgwrysc8cq78kngkmhv988hgm4kccv";
     }
   ];
 })
