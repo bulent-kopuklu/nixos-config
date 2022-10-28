@@ -43,6 +43,8 @@
 
   powerManagement.enable = false;
   virtualisation.virtualbox.guest.enable = true;
+  virtualisation.virtualbox.guest.x11 = true;    
+
   #TODO ????
   
   services.xserver.videoDrivers = lib.mkOverride 40 [ "virtualbox" "vmware" "cirrus" "vesa" "modesetting" ];

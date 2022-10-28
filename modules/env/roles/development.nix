@@ -40,6 +40,7 @@ in {
       glibc.static
       gnumake
       cmake
+      ninja
       binutils-unwrapped
 
       jdk11
