@@ -41,6 +41,8 @@ in {
       gnumake
       cmake
       ninja
+      gdb
+
       binutils-unwrapped
 
       jdk11

@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 
-function is_nixpkg() {
+function is_nixpkg0() {
 
   nix search nixpkgs vscode-extensions.$1 > /dev/null 2> /dev/null
   res=$?
@@ -10,6 +10,20 @@ function is_nixpkg() {
   else
     echo "false"
   fi
+}
+
+function is_nixpkg() {
+  case "$1" in
+    "ms-vscode.cpptools")
+      echo "true"
+      ;;
+    "redhat.java")
+      echo "true"
+      ;;
+    *)
+      echo "false"
+      ;;
+  esac
 }
 
 function get_vsixpkg() {
