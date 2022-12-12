@@ -73,7 +73,7 @@
     sqlite
     jq
     bc
-    telnet
+    inetutils
     envsubst
     xsel
   ];

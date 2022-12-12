@@ -1,7 +1,8 @@
-{config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 let
   cfg =  config.env;
+  
 in {
 
   options = {
@@ -9,9 +10,19 @@ in {
   };
 
   config = lib.mkIf cfg.role.development {
+
+    # nixpkgs.config = {
+    #   packageOverrides = pkgs: rec {
+    #     jetbrains = pkgs.jetbrains.override {
+    #       jdk = pkgs.jdk11;  
+    #     };
+    #   };
+    # };
+
     env.role.virtualisation = lib.mkForce true;
 
     programs.adb.enable = true;
+    
     users.users.${cfg.user.name}.extraGroups = ["adbusers"];
 
     services.udev.packages = [
@@ -29,6 +40,9 @@ in {
       glibc.static
       gnumake
       cmake
+      ninja
+      gdb
+
       binutils-unwrapped
 
       jdk11
@@ -39,15 +53,15 @@ in {
       scala
       sbt
 
-      go
-      gopls
-      gopkgs
-      go-outline
-      delve
-      go-tools
+#      go
+#      gopls
+#      gopkgs
+#      go-outline
+#      delve
+#      go-tools
 
       # rustup toolchain install stable-x86_64-unknown-linux-gnu      
-      rustup
+#      rustup
 
       rnix-lsp
 
@@ -62,12 +76,14 @@ in {
 
       # intellij idea plugin development
       jetbrains.idea-community
+
       xorg.libXrender
       xorg.libX11
       xorg.libXext
       xorg.libXtst
       xorg.libXi
 
+ 
       android-studio
       android-tools
     ];
@@ -82,8 +98,8 @@ in {
     };
 
     environment.variables = {
-      GRADLE_USER_HOME = "$HOME/.local/share/gradle";
-      JAVA_HOME = "${pkgs.jdk11}";
+      JAVA_HOME = "${pkgs.jdk11.home}";
+      JDK_HOME = "${pkgs.jdk11.home}";
     };
   };
 }

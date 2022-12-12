@@ -114,10 +114,12 @@
 
       serviceConfig.Type = "oneshot";
       script = ''
-        ${pkgs.xlibs.xmodmap}/bin/xmodmap -e "keycode 119 = Delete Insert Delete"
+        ${pkgs.xorg.xmodmap}/bin/xmodmap -e "keycode 119 = Delete Insert Delete"
       '';
     };
   };
+
+  virtualisation.docker.enableNvidia = true;
 
 
 # boot.kernelPackages = pkgs.linuxPackages_latest;

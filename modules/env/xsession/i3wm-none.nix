@@ -47,17 +47,17 @@ in {
         x11apps
 
         xss-lock
-        xlibs.xbacklight
-        xlibs.xmodmap
-        xlibs.xev
-        xlibs.xinput
-        xlibs.xmessage
-        xlibs.xkill
-        xlibs.xgamma
-        xlibs.xset
-        xlibs.xrandr
-        xlibs.xrdb
-        xlibs.xprop
+        xorg.xbacklight
+        xorg.xmodmap
+        xorg.xev
+        xorg.xinput
+        xorg.xmessage
+        xorg.xkill
+        xorg.xgamma
+        xorg.xset
+        xorg.xrandr
+        xorg.xrdb
+        xorg.xprop
         scrot
         fontconfig
         udiskie 

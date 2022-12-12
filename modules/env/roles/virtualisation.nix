@@ -11,6 +11,8 @@ in {
   config = lib.mkIf cfg.virtualisation {
     
     virtualisation.virtualbox.host.enable = true;
+    virtualisation.virtualbox.host.enableExtensionPack = true;
+    
     virtualisation.docker.enable = true;
 #    virtualisation.docker.enableNvidia = true;
     
