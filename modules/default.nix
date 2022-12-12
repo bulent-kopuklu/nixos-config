@@ -8,7 +8,9 @@
   ];
 
   nix = {
-    autoOptimiseStore = true;
+    settings = {
+      auto-optimise-store = true;
+    };
 
     package = pkgs.nixFlakes;
 
@@ -37,6 +39,6 @@
     overlays = import ../pkgs;
   };
 
-  system.stateVersion = "22.05";
+  system.stateVersion = "22.11";
 }
 

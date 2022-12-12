@@ -135,6 +135,7 @@ in {
       };
     };
  
-    nix.trustedUsers = [ "root" cfg.user.name ];
+    nix.settings.trusted-users = [ "root" cfg.user.name ];
+
   };
 }
