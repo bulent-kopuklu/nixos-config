@@ -48,8 +48,8 @@ in {
       jdk11
       maven
 
-      python3
-
+      python3Full
+      
       scala
       sbt
 
