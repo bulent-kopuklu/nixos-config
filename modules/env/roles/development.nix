@@ -86,6 +86,8 @@ in {
  
       android-studio
       android-tools
+
+      globalprotect-openconnect
     ];
 
     programs.npm = {
