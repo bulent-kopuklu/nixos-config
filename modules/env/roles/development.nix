@@ -29,6 +29,12 @@ in {
       pkgs.android-udev-rules
     ];
 
+    services.globalprotect = {
+      enable = true;
+      # if you need a Host Integrity Protection report
+      csdWrapper = "${pkgs.openconnect}/libexec/openconnect/hipreport.sh";
+    };
+
     env.programs.vscode.enable = true;
     env.programs.gradle.enable = true;
 
