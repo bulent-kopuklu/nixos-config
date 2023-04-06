@@ -44,6 +44,7 @@ in {
     environment.systemPackages = with pkgs; [
       gcc
       glibc.static
+      clang
       gnumake
       cmake
       ninja
@@ -59,12 +60,13 @@ in {
       scala
       sbt
 
-#      go
-#      gopls
-#      gopkgs
-#      go-outline
-#      delve
-#      go-tools
+      go
+      gopls
+      gopkgs
+      go-outline
+      go-tools
+      delve
+
 
       # rustup toolchain install stable-x86_64-unknown-linux-gnu      
 #      rustup
