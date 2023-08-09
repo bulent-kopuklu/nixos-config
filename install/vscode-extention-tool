@@ -2,7 +2,6 @@
 
 
 function is_nixpkg0() {
-
   nix search nixpkgs vscode-extensions.$1 > /dev/null 2> /dev/null
   res=$?
   if [ $res == 0 ]; then
@@ -14,14 +13,14 @@ function is_nixpkg0() {
 
 function is_nixpkg() {
   case "$1" in
-    "ms-vscode.cpptools")
-      echo "true"
+    "vscjava.vscode-gradle")
+      echo "false"
       ;;
-    "redhat.java")
-      echo "true"
+    "vscode-icons-team.vscode-icons")
+      echo "false"
       ;;
     *)
-      echo "false"
+      is_nixpkg0 $1
       ;;
   esac
 }

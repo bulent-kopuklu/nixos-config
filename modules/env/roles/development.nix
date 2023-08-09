@@ -29,6 +29,12 @@ in {
       pkgs.android-udev-rules
     ];
 
+    services.globalprotect = {
+      enable = true;
+      # if you need a Host Integrity Protection report
+      csdWrapper = "${pkgs.openconnect}/libexec/openconnect/hipreport.sh";
+    };
+
     env.programs.vscode.enable = true;
     env.programs.gradle.enable = true;
 
@@ -38,6 +44,7 @@ in {
     environment.systemPackages = with pkgs; [
       gcc
       glibc.static
+      clang
       gnumake
       cmake
       ninja
@@ -48,17 +55,18 @@ in {
       jdk11
       maven
 
-      python3
-
+      python3Full
+      
       scala
       sbt
 
-#      go
-#      gopls
-#      gopkgs
-#      go-outline
-#      delve
-#      go-tools
+      go
+      gopls
+      gopkgs
+      go-outline
+      go-tools
+      delve
+
 
       # rustup toolchain install stable-x86_64-unknown-linux-gnu      
 #      rustup
@@ -86,6 +94,8 @@ in {
  
       android-studio
       android-tools
+
+      globalprotect-openconnect
     ];
 
     programs.npm = {

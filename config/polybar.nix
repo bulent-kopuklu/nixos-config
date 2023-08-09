@@ -94,7 +94,7 @@ in pkgs.writeText "polybar-config" ''
   tray-detached = false
   tray-offset-x = 0
   tray-offset-y = 0
-  tray-padding = 0
+  tray-padding = 1
   tray-scale = 1.0
   tray-background = ${theme.colors.dark-theme.background0}
 

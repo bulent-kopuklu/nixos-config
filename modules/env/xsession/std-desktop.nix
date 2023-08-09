@@ -17,7 +17,6 @@ in {
       xkbVariant = "alt";
       layout = "us,tr";
       dpi = 96;
-      useGlamor = true;
 
       synaptics.enable = false;
       exportConfiguration = true;
