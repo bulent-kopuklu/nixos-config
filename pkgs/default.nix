@@ -1,5 +1,5 @@
 [
-  (import ./overlays/dunst.nix)
+  #(import ./overlays/dunst.nix)
 
   (import ./customs)
   (import ./wrappers)

@@ -76,7 +76,7 @@ in {
       
 
       meld
-      smartgithg
+#      smartgithg
 #      jetbrains.idea-ultimate
 
       wireshark
