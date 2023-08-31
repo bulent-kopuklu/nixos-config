@@ -40,8 +40,8 @@
     {
       name = "better-cpp-syntax";
       publisher = "jeff-hykin";
-      version = "1.17.5";
-      sha256 = "16dpgs4blis4yajw51yhby54pag28r74wwf6szx4nr79f44lgh7y";
+      version = "1.21.1";
+      sha256 = "13k0jj4jasq6z4ip9rvzx0g5rkg2fx5p3vl1vnfy3b0v1lz6pryb";
     }
     {
       name = "Kotlin";
@@ -58,8 +58,8 @@
     {
       name = "vscode-typescript-next";
       publisher = "ms-vscode";
-      version = "5.3.20230808";
-      sha256 = "0bdidvnl46j62hzr1sx6qlic2q1wmy52pp07w9grrgjqdx2fmpdl";
+      version = "5.3.20230822";
+      sha256 = "149graj6bznqw9lcsdsf24gzfc797mywgrqi71ah6fnxp4gb7iz1";
     }
     {
       name = "vscode-gradle";
