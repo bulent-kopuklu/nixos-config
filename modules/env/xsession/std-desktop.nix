@@ -27,7 +27,8 @@ in {
       fontDir.enable = true;
 
       fonts = with pkgs; [
-        (nerdfonts.override { fonts = [ "MPlus" ]; })
+#        (nerdfonts.override { fonts = [ "MPlus" ]; })
+        nerdfonts
       ];
 
       fontconfig = {

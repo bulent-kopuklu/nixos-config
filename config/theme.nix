@@ -40,16 +40,16 @@ rec {
     };
   };
 
-  icons-font-name = "mplus Nerd Font Mono";
+  icons-font-name = "M+1 Nerd Font";
 # Iosevka Nerd Font Mono
   icons = {
     plant         = "";
     envira        = "";
     leaf          = "";
 
-    bell          = "";
-    bell-ring     = "";
-    bell-slash    = "";
+    bell          = "󰂜"; ##
+    bell-ring     = "󰂟";
+    bell-slash    = "󰪑";
 
     thermometer-0 = "";
     thermometer-1 = "";
@@ -60,13 +60,13 @@ rec {
 #    thermometer-1 = "";
 #    thermometer-2 = "";
 
-    volume-0      = "婢";
+    volume-0      = "󰝟";
     volume-1      = "";
     volume-2      = "";
     volume-3      = "";
 
-    headphone     = "";
-    bt-audio      = "";
+    headphone     = "󰋋";
+    bt-audio      = "󰂱";
 
     battery-0     = "";
     battery-1     = "";
@@ -78,38 +78,38 @@ rec {
     # microphone = "";
     # microphone-slash = "";
 
-    microphone = "";
-    microphone-slash = "";
+    microphone = "󰍬";
+    microphone-slash = "";
 
-    cpu = "";
-    hdd = "";
-    ram = "ﲭ";
+    cpu = "󰍛";
+    hdd = "󰨆";
+    ram = "󱒉";
 
 #    keyboard = "";
-     keyboard = "";
+     keyboard = "";
     search = "";
 
     envelope = "";
     comment = "";
     music = "";
 
-    network-up = "";
-    network-down = "";
+    network-up = "󰀂";
+    network-down = "󰯡";
 
-    network-download = "ﯲ";
-    network-upload = "ﯴ";
-    network-offline = "";
+    network-download = "󰱦";
+    network-upload = "󰳘";
+    network-offline = "󰱟";
 
-    ethernet = "";
+    ethernet = "󰈀";
     wifi = "";
     cog = "";
     eye = "";
-    airplane = "";
+    airplane = "󰳇";
 
     calendar = "";
     rocket = "";
 
-    apps = "";
+    apps = "󰀻";
     nixos = "";
 
     moon = "";
