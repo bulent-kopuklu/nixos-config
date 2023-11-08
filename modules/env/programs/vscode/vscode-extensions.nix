@@ -58,8 +58,8 @@
     {
       name = "vscode-typescript-next";
       publisher = "ms-vscode";
-      version = "5.3.20230917";
-      sha256 = "04md7qjmjn07cr15kq7k6w6js3d99jfdih990z2nhy8131zzb7df";
+      version = "5.3.20230924";
+      sha256 = "1z47bzgsr58xqqnc2xbbmwagq7bvjlimz668sl39xrvly7kr7i0p";
     }
     {
       name = "vscode-gradle";
