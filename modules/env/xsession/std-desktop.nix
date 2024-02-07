@@ -23,10 +23,10 @@ in {
     };
 
     fonts = {
-      enableDefaultFonts = true;
+      enableDefaultPackages = true;
       fontDir.enable = true;
 
-      fonts = with pkgs; [
+      packages = with pkgs; [
 #        (nerdfonts.override { fonts = [ "MPlus" ]; })
         nerdfonts
       ];
@@ -86,14 +86,14 @@ in {
       vlc
       spotify
 
-      discord
+#      discord
       zoom-us
       tdesktop
       skypeforlinux
 
       qimgv
       gimp
-      teamviewer
+#      teamviewer
 
 #      tor-browser-bundle-bin
       system-config-printer

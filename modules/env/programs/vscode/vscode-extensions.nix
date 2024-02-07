@@ -4,12 +4,10 @@
   vscodeExtensions = with pkgs.vscode-extensions; [
     arrterian.nix-env-selector
     dbaeumer.vscode-eslint
+    donjayamanne.githistory
     dotjoshjohnson.xml
     eamodio.gitlens
-    golang.go
-    haskell.haskell
     jnoortheen.nix-ide
-    justusadam.language-haskell
     ms-azuretools.vscode-docker
     ms-python.python
     ms-python.vscode-pylance
@@ -19,23 +17,19 @@
     ms-vscode.makefile-tools
     redhat.java
     redhat.vscode-yaml
-    scala-lang.scala
-    scalameta.metals
     twxs.cmake
+    vscjava.vscode-gradle
     vscjava.vscode-maven
+    vscode-icons-team.vscode-icons
     yzhang.markdown-all-in-one
+    github.copilot
+    github.copilot-chat
   ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
     {
       name = "cpp-class-creator";
       publisher = "FleeXo";
       version = "1.1.0";
       sha256 = "094lycf2s260rmx7wnmlna8wfgqixdwznqnla1ilkrp1g1m35ixy";
-    }
-    {
-      name = "haskell-linter";
-      publisher = "hoovercj";
-      version = "0.0.6";
-      sha256 = "0fb71cbjx1pyrjhi5ak29wj23b874b5hqjbh68njs61vkr3jlf1j";
     }
     {
       name = "better-cpp-syntax";
@@ -58,20 +52,8 @@
     {
       name = "vscode-typescript-next";
       publisher = "ms-vscode";
-      version = "5.3.20230924";
-      sha256 = "1z47bzgsr58xqqnc2xbbmwagq7bvjlimz668sl39xrvly7kr7i0p";
-    }
-    {
-      name = "vscode-gradle";
-      publisher = "vscjava";
-      version = "3.12.2023091801";
-      sha256 = "15yllw9dxz89d5wjiacd056wimccbs2mbyk3r0ck5gqkynlmz270";
-    }
-    {
-      name = "vscode-icons";
-      publisher = "vscode-icons-team";
-      version = "12.5.0";
-      sha256 = "0fqawpfwqmj7hiv1g20z3zhs2rv3a9insqd93ad9416mhj89mcry";
+      version = "5.4.20240206";
+      sha256 = "0xjlvk57jnq3ar2pxy7p069s651flxjmbdyni1y06s2qgrqdxp76";
     }
   ];
 })

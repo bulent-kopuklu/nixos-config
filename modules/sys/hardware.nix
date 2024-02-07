@@ -116,7 +116,7 @@ in {
     (mkIf (cfg.bluetooth == true) {
       hardware.bluetooth = {
         enable = true;
-        package = pkgs.bluezFull;
+        package = pkgs.bluez;
       };
 
       services.blueman.enable = true;

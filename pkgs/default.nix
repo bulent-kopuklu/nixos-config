@@ -3,4 +3,5 @@
 
   (import ./customs)
   (import ./wrappers)
+  (import ./overlays/vscode.nix)
 ]

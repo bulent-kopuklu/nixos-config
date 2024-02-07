@@ -12,17 +12,18 @@ function is_nixpkg0() {
 }
 
 function is_nixpkg() {
-  case "$1" in
-    "vscjava.vscode-gradle")
-      echo "false"
-      ;;
-    "vscode-icons-team.vscode-icons")
-      echo "false"
-      ;;
-    *)
-      is_nixpkg0 $1
-      ;;
-  esac
+#   case "$1" in
+#     "vscjava.vscode-gradle")
+#       echo "false"
+#       ;;
+#     "vscode-icons-team.vscode-icons")
+#       echo "false"
+#       ;;
+#     *)
+#       is_nixpkg0 $1
+#       ;;
+#   esac
+    is_nixpkg0 $1
 }
 
 function get_vsixpkg() {
