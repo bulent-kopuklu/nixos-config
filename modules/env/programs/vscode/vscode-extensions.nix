@@ -6,7 +6,6 @@
     dbaeumer.vscode-eslint
     donjayamanne.githistory
     dotjoshjohnson.xml
-    eamodio.gitlens
     jnoortheen.nix-ide
     ms-azuretools.vscode-docker
     ms-python.python
@@ -22,8 +21,8 @@
     vscjava.vscode-maven
     vscode-icons-team.vscode-icons
     yzhang.markdown-all-in-one
-    github.copilot
-    github.copilot-chat
+#    github.copilot
+#    github.copilot-chat
   ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
     {
       name = "cpp-class-creator";
