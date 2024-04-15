@@ -67,6 +67,8 @@ in {
       go-tools
       delve
 
+      nodejs_21
+
 
       # rustup toolchain install stable-x86_64-unknown-linux-gnu      
 #      rustup

@@ -33,12 +33,13 @@
       pulseaudio = true; # TODO
       permittedInsecurePackages = [
         "openssl-1.0.2u"
+        "nix-2.15.3"
       ];
     };
 
     overlays = import ../pkgs;
   };
 
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.11";
 }
 

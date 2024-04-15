@@ -1,11 +1,11 @@
 self: super: {
   vscode = super.vscode.overrideAttrs(oldAttrs: rec {
     pname = "vscode";
-    version = "1.86.0";
+    version = "1.87.0";
     src = super.fetchurl {
       name = "VSCode_${version}_linux-x64.tar.gz";
       url = "https://update.code.visualstudio.com/${version}/linux-x64/stable";
-      sha256 = "0qykchhd6cplyip4gp5s1fpv664xw2y5z0z7n6zwhwpfrld8piwb";
+      sha256 = "00izdy01d34czxfjn6rv4vg179r7f264bls5fib4caakj9bblalw";
     };
 
     buildInputs = oldAttrs.buildInputs ++ [ 
