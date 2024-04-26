@@ -21,6 +21,7 @@
     vscjava.vscode-maven
     vscode-icons-team.vscode-icons
     yzhang.markdown-all-in-one
+    golang.go
 #    github.copilot
 #    github.copilot-chat
   ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
