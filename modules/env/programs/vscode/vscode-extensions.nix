@@ -50,8 +50,8 @@
     {
       name = "vscode-typescript-next";
       publisher = "ms-vscode";
-      version = "5.5.20240424";
-      sha256 = "04cxxpvihbaibadyls8k4w5gx9nm6a50fwd151q882kgjd3ak3ww";
+      version = "5.5.20240505";
+      sha256 = "05nyrr7bpz485gdcs37smhz18l3zl29h70lr0vb8060lpcsrh25h";
     }
   ];
 })

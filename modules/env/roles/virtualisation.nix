@@ -15,7 +15,20 @@ in {
     
     virtualisation.docker.enable = true;
 #    virtualisation.docker.enableNvidia = true;
-    
+
+    virtualisation.libvirtd.enable = true;
+    programs.virt-manager.enable = true;
+
+    # dconf.settings = {
+    #   "org/virt-manager/virt-manager/connections" = {
+    #     autoconnect = ["qemu:///system"];
+    #     uris = ["qemu:///system"];
+    #   };
+    # };
+
+
+    users.users.${config.env.user.name}.extraGroups = ["libvirtd" "kvm"];
+
     environment.systemPackages = [
       pkgs.docker-compose
 
