@@ -1,28 +1,17 @@
 self: super: {
   vscode = super.vscode.overrideAttrs(oldAttrs: rec {
     pname = "vscode";
-    version = "1.87.0";
+    version = "1.89.0";
     src = super.fetchurl {
       name = "VSCode_${version}_linux-x64.tar.gz";
       url = "https://update.code.visualstudio.com/${version}/linux-x64/stable";
-      sha256 = "00izdy01d34czxfjn6rv4vg179r7f264bls5fib4caakj9bblalw";
+      sha256 = "0hy1ppv7wzyy581k3skmckaas0lwkx5l6w4hk1ml5f2cpkkxhq5w";
     };
 
-    buildInputs = oldAttrs.buildInputs ++ [ 
-      super.pkgs.alsa-lib 
-      super.pkgs.libkrb5 
-      super.pkgs.mesa 
-      super.pkgs.nss 
-      super.pkgs.nspr 
-      super.pkgs.systemd 
-      super.pkgs.xorg.libxkbfile 
-    ];
-
-    runtimeDependencies = oldAttrs.runtimeDependencies ++ [
-      super.pkgs.zlib
-      super.pkgs.jdk17
-      
-    ];
+    # runtimeDependencies = oldAttrs.runtimeDependencies ++ [
+    #   super.pkgs.zlib
+    #   super.pkgs.jdk17
+    # ];
 
   });
 }

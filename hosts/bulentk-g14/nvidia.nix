@@ -76,7 +76,6 @@ in {
   hardware.opengl.package = lib.mkForce pkgs.mesa.drivers;
   hardware.opengl.package32 = lib.mkForce pkgs.pkgsi686Linux.mesa.drivers;
 
-  hardware.opengl.extraPlibvulkan
-  ackages = lib.mkForce [ nvidia_x11.out ];
+  hardware.opengl.extraPackages = lib.mkForce [ nvidia_x11.out ];
   hardware.opengl.extraPackages32 = lib.mkForce [ nvidia_x11.lib32 ];
 }
