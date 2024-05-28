@@ -36,25 +36,25 @@ in {
       fileSystems."/home" = { 
         device = "/dev/disk/by-label/system";
         fsType = "btrfs";
-        options = [ "subvol=@home" ];
+        options = [ "subvol=@home" "autodefrag" "noatime" ];
       };
 
       fileSystems."/var" = { 
         device = "/dev/disk/by-label/system";
         fsType = "btrfs";
-        options = [ "subvol=@var" ];
+        options = [ "subvol=@var" "autodefrag" "noatime" ];
       };
 
       fileSystems."/nix" = {
         device = "/dev/disk/by-label/system";
         fsType = "btrfs";
-        options = [ "subvol=@nix" ];
+        options = [ "subvol=@nix" "autodefrag" "noatime" ];
       };
 
       fileSystems."/.snapshots" = {
         device = "/dev/disk/by-label/system";
         fsType = "btrfs";
-        options = [ "subvol=@snapshots" ];
+        options = [ "subvol=@snapshots" "autodefrag" "noatime" ];
       };
 
       fileSystems."/boot" = { device = "/dev/disk/by-label/BOOT";

@@ -7,7 +7,6 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
-
   };
 
   outputs = inputs@{ self, nixpkgs, nixos-hardware, nur, ... }: 
