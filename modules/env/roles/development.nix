@@ -52,7 +52,7 @@ in {
 
       binutils-unwrapped
 
-      jdk11
+      jdk17
       maven
 
       python3Full
@@ -110,8 +110,8 @@ in {
     };
 
     environment.variables = {
-      JAVA_HOME = "${pkgs.jdk11.home}";
-      JDK_HOME = "${pkgs.jdk11.home}";
+      JAVA_HOME = "${pkgs.jdk17.home}";
+      JDK_HOME = "${pkgs.jdk17.home}";
     };
   };
 }
