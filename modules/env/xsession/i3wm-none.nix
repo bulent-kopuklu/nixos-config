@@ -8,9 +8,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-
     services.xserver.displayManager = {
-      defaultSession = "none+i3";
       lightdm = {
         enable = true;
         background = ../../../config/wallpapers/doom-src.png;
@@ -32,6 +30,9 @@ in {
 #        ${pkgs.x11apps}/bin/set-wallpaper
 #      '';
     };
+
+    services.displayManager.defaultSession = "none+i3";
+
 
     services.xserver.desktopManager = {
       xterm.enable = false;

@@ -17,7 +17,7 @@ in {
 
     environment.systemPackages = with pkgs; [
       docker-compose
-      docker-machine
+#      docker-machine
       dive
     ];
 

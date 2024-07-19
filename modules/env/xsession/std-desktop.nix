@@ -11,16 +11,20 @@ in {
   config = lib.mkIf cfg.enable {
     services.xserver = {
       enable = true;
-      libinput.enable = true;
+      xkb = {
+        options = "eurosign:e,grb:alt_space_toggle";
+        variant = "alt";
+        layout = "us,tr";
+      };
 
-      xkbOptions = "eurosign:e,grb:alt_space_toggle";
-      xkbVariant = "alt";
-      layout = "us,tr";
       dpi = 96;
 
       synaptics.enable = false;
       exportConfiguration = true;
     };
+
+    services.libinput.enable = true;
+
 
     fonts = {
       enableDefaultPackages = true;
@@ -54,7 +58,7 @@ in {
     programs.gnupg.agent = {
       enableExtraSocket = true;
       enableBrowserSocket = true;
-      pinentryFlavor = if cfg.i3wm.enable == true then "gtk2" else null;
+#      pinentryFlavor = if cfg.i3wm.enable == true then "gtk2" else null;
     };
 
     programs.browserpass.enable = true;
