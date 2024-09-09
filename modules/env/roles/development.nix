@@ -68,6 +68,7 @@ in {
       delve
 
       nodejs_22
+      typescript
 
 
       # rustup toolchain install stable-x86_64-unknown-linux-gnu      
