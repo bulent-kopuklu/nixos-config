@@ -160,7 +160,7 @@ in pkgs.writeText "polybar-config" ''
   format-prefix = ${theme.icons.ram}
   format-prefix-foreground = ${foreground.icon-l}
   format-prefix-padding = 1
-  label = %gb_used%
+  label = %gb_used%/%gb_swap_used%
   click-left = ${terminal} htop
   
   [module/battery]

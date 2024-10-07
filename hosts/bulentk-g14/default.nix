@@ -119,9 +119,10 @@
     };
   };
 
-  virtualisation.docker.enableNvidia = true;
+  #virtualisation.docker.enableNvidia = true;
+  hardware.nvidia-container-toolkit.enable = true;
 
 
-  boot.kernelPackages = pkgs.linuxPackages_6_9;
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
 
 }

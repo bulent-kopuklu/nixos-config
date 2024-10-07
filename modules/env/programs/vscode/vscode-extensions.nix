@@ -9,6 +9,7 @@
     golang.go
     jnoortheen.nix-ide
     ms-azuretools.vscode-docker
+    ms-python.debugpy
     ms-python.python
     ms-python.vscode-pylance
     ms-toolsai.jupyter
@@ -32,8 +33,8 @@
     {
       name = "better-cpp-syntax";
       publisher = "jeff-hykin";
-      version = "1.21.4";
-      sha256 = "0l3ncf585p7bjjvzx82zmnns5z925sf986xs9kgi7sn2f6575a6p";
+      version = "1.27.1";
+      sha256 = "037nigza7n71j5vgl3qw0swrmy8gvfj9m8jbi1nb2a3lmsifivqq";
     }
     {
       name = "kotlin";
@@ -50,8 +51,8 @@
     {
       name = "vscode-typescript-next";
       publisher = "ms-vscode";
-      version = "5.5.20240505";
-      sha256 = "05nyrr7bpz485gdcs37smhz18l3zl29h70lr0vb8060lpcsrh25h";
+      version = "5.7.20241006";
+      sha256 = "1hc0wbx2vs526d76rnqibwcvkvb626q7zmarz8djn308bv39fhh7";
     }
   ];
 })
