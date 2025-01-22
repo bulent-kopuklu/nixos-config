@@ -105,13 +105,13 @@ in {
     })
 
     {
-      networking.wireless.enable = lib.mkForce false;
-/*       networking.wireless.enable = cfg.wifi;
-      networking.wireless.allowAuxiliaryImperativeNetworks = cfg.wifi;
-      networking.networkmanager.unmanaged = (mkIf (cfg.wifi) [
-        "*" "except:type:wwan" "except:type:gsm"
-      ]);
- */    }
+#      networking.wireless.enable = lib.mkForce false;
+      networking.wireless.enable = cfg.wifi;
+#       networking.wireless.allowAuxiliaryImperativeNetworks = cfg.wifi;
+#       networking.networkmanager.unmanaged = (mkIf (cfg.wifi) [
+#         "*" "except:type:wwan" "except:type:gsm"
+#       ]);
+    }
 
     (mkIf (cfg.bluetooth == true) {
       hardware.bluetooth = {
@@ -132,15 +132,19 @@ in {
     })
 
     (mkIf (cfg.nics != [ ]) {
-      # networking.interfaces = mkOverride 0 (listToAttrs (forEach cfg.nics (n:
-      #     nameValuePair "${n}" {
-      #       useDHCP = true;
-      #     })));
+      networking.interfaces = mkOverride 0 (listToAttrs (forEach cfg.nics (n:
+          nameValuePair "${n}" {
+            useDHCP = true;
+          })));
 
 /*       networking.interfaces = listToAttrs (map (n: {
         name = "${n}"; value = { useDHCP = true; };
       }) cfg.nics);
  */    })
+
+    (mkIf (cfg.nics != [ ] || cfg.wifi == true) {
+      services.resolved.enable = true;
+    })
   ];
 
 }

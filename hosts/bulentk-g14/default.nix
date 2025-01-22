@@ -29,6 +29,13 @@
     swapFileSize = 18432;
   };
 
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 50;
+    priority = 5;
+  };
+
   env.terminal = {
     command = "alacritty";
     package = pkgs.alacritty-wrapped;
@@ -87,8 +94,8 @@
       USB_AUTOSUSPEND = "0";
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-      START_CHARGE_THRESH_BAT0 = 50;
-      STOP_CHARGE_THRESH_BAT0 = 95;
+      START_CHARGE_THRESH_BAT0 = 60;
+      STOP_CHARGE_THRESH_BAT0 = 80;
     };
   };
  
@@ -124,5 +131,11 @@
 
 
   boot.kernelPackages = pkgs.linuxPackages_6_6;
+
+  environment.systemPackages = with pkgs; [
+      globalprotect-openconnect
+      asusctl
+  ];
+
 
 }

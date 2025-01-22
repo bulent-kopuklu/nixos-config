@@ -4,6 +4,9 @@
   vscodeExtensions = with pkgs.vscode-extensions; [
     arrterian.nix-env-selector
     dbaeumer.vscode-eslint
+#    esbenp.prettier-vscode
+    bradlc.vscode-tailwindcss
+    ritwickdey.liveserver
     donjayamanne.githistory
     dotjoshjohnson.xml
     golang.go
@@ -49,10 +52,17 @@
       sha256 = "05r7hfphhlns2i7zdplzrad2224vdkgzb0dbxg40nwiyq193jq31";
     }
     {
-      name = "vscode-typescript-next";
-      publisher = "ms-vscode";
-      version = "5.7.20241006";
-      sha256 = "1hc0wbx2vs526d76rnqibwcvkvb626q7zmarz8djn308bv39fhh7";
+      name = "es7-react-js-snippets";
+      publisher = "dsznajder";
+      version = "4.4.3";
+      sha256 = "1xyhysvsf718vp2b36y1p02b6hy1y2nvv80chjnqcm3gk387jps0";
     }
+    # {
+    #   name = "vscode-typescript-next";
+    #   publisher = "ms-vscode";
+    #   version = "5.7.20241006";
+    #   sha256 = "1hc0wbx2vs526d76rnqibwcvkvb626q7zmarz8djn308bv39fhh7";
+    # }
+
   ];
 })

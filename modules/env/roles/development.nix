@@ -69,15 +69,13 @@ in {
 
       nodejs_22
       typescript
-
-
-      # rustup toolchain install stable-x86_64-unknown-linux-gnu      
-#      rustup
-
+      pnpm
+      esbuild
+      
       nixd
 
       
-
+      postman
       meld
 #      smartgithg
 #      jetbrains.idea-ultimate
@@ -98,7 +96,6 @@ in {
       android-studio
       android-tools
 
-      globalprotect-openconnect
     ];
 
     programs.npm = {
