@@ -21,7 +21,8 @@
     };
     
     keychron = true;
-    nics = [ "enp4s0f4u2u2" ];
+#    nics = [ "enp4s0f4u2u2" ];
+    nics = [ ];
   };
 
   sys.disk = {
@@ -29,12 +30,12 @@
     swapFileSize = 18432;
   };
 
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-    memoryPercent = 50;
-    priority = 5;
-  };
+  # zramSwap = {
+  #   enable = true;
+  #   algorithm = "zstd";
+  #   memoryPercent = 50;
+  #   priority = 5;
+  # };
 
   env.terminal = {
     command = "alacritty";
