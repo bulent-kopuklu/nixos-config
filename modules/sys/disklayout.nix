@@ -39,11 +39,11 @@ in {
         options = [ "subvol=@home" "autodefrag" "noatime" ];
       };
 
-      fileSystems."/var" = { 
-        device = "/dev/disk/by-label/system";
-        fsType = "btrfs";
-        options = [ "subvol=@var" "autodefrag" "noatime" ];
-      };
+      # fileSystems."/var" = { 
+      #   device = "/dev/disk/by-label/system";
+      #   fsType = "btrfs";
+      #   options = [ "subvol=@var" "autodefrag" "noatime" ];
+      # };
 
       fileSystems."/nix" = {
         device = "/dev/disk/by-label/system";
@@ -64,6 +64,9 @@ in {
       swapDevices = [{
         device = "/var/.swapfile";
         size = cfg.swapFileSize;
+
+        # device = "dev/disk/by-label/SWAP";
+        # randomEncryption.enable = true; 
       }];
 
       boot.loader = {

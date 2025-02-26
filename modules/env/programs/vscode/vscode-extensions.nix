@@ -3,10 +3,8 @@
 (pkgs.vscode-with-extensions.override {
   vscodeExtensions = with pkgs.vscode-extensions; [
     arrterian.nix-env-selector
-    dbaeumer.vscode-eslint
-#    esbenp.prettier-vscode
     bradlc.vscode-tailwindcss
-    ritwickdey.liveserver
+    dbaeumer.vscode-eslint
     donjayamanne.githistory
     dotjoshjohnson.xml
     golang.go
@@ -21,12 +19,19 @@
     ms-vscode.makefile-tools
     redhat.java
     redhat.vscode-yaml
+    ritwickdey.liveserver
     twxs.cmake
     vscjava.vscode-gradle
     vscjava.vscode-maven
     vscode-icons-team.vscode-icons
     yzhang.markdown-all-in-one
   ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+    {
+      name = "es7-react-js-snippets";
+      publisher = "dsznajder";
+      version = "4.4.3";
+      sha256 = "1xyhysvsf718vp2b36y1p02b6hy1y2nvv80chjnqcm3gk387jps0";
+    }
     {
       name = "cpp-class-creator";
       publisher = "fleexo";
@@ -51,18 +56,5 @@
       version = "2.0.0";
       sha256 = "05r7hfphhlns2i7zdplzrad2224vdkgzb0dbxg40nwiyq193jq31";
     }
-    {
-      name = "es7-react-js-snippets";
-      publisher = "dsznajder";
-      version = "4.4.3";
-      sha256 = "1xyhysvsf718vp2b36y1p02b6hy1y2nvv80chjnqcm3gk387jps0";
-    }
-    # {
-    #   name = "vscode-typescript-next";
-    #   publisher = "ms-vscode";
-    #   version = "5.7.20241006";
-    #   sha256 = "1hc0wbx2vs526d76rnqibwcvkvb626q7zmarz8djn308bv39fhh7";
-    # }
-
   ];
 })

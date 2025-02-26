@@ -12,7 +12,7 @@
       auto-optimise-store = true;
     };
 
-    package = pkgs.nixFlakes;
+#    package = pkgs.nixFlakes;
 
     gc = {
       automatic = true;
@@ -40,6 +40,6 @@
     overlays = import ../pkgs;
   };
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 }
 

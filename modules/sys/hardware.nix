@@ -85,10 +85,10 @@ in {
   config = mkMerge [
 
     (mkIf (cfg.sound == true) {
-      sound.enable = true;
+#      sound.enable = true;
 
       hardware.pulseaudio = {
-        enable = true;
+        enable = false;
         systemWide = false;
         support32Bit = true;
         package = (mkIf (cfg.bluetooth == true) pkgs.pulseaudioFull);

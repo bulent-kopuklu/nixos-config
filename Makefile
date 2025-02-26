@@ -5,6 +5,7 @@ clean:
 	@rm -f result
 
 build: clean 
+	@nix flake update
 	@nixos-rebuild build --flake ".#${host}"
 
 build-vm: build
