@@ -106,7 +106,7 @@ in {
 
     {
 #      networking.wireless.enable = lib.mkForce false;
-      networking.wireless.enable = cfg.wifi;
+#      networking.wireless.enable = cfg.wifi;
 #       networking.wireless.allowAuxiliaryImperativeNetworks = cfg.wifi;
 #       networking.networkmanager.unmanaged = (mkIf (cfg.wifi) [
 #         "*" "except:type:wwan" "except:type:gsm"

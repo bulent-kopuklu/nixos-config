@@ -81,7 +81,7 @@ in {
     services.gvfs.enable = true;
 
     environment.systemPackages = with pkgs; [
-      gnome.gnome-keyring
+      gnome-keyring
       pinentry-gtk2
       firefox
       chromium
