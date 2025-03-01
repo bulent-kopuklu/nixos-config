@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, config, ... }:
 
 {
   imports = [
@@ -27,7 +27,7 @@
 
   sys.disk = {
     layout = "btrfs-crypt";
-    swapFileSize = 18432;
+    swapFileSize = 16384;
   };
 
   # zramSwap = {
@@ -80,13 +80,14 @@
 
   networking.hostName = "bulentk-g14";
 
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
+
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod"  ];
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
 
   hardware.cpu.amd.updateMicrocode = true;
-  
   # https://linrunner.de/tlp/
   # TODO bu halde bluetooth wifi de kullanilmayinca kapaniyor kapanmamasi icin ayri ayri yapmak gerekiyor olabilir
   services.tlp = {
@@ -130,12 +131,18 @@
   #virtualisation.docker.enableNvidia = true;
   hardware.nvidia-container-toolkit.enable = true;
 
+  services = {
+    supergfxd.enable = true;
+    asusd = {
+      enable = true;
+      enableUserService = true;
+    };    
+  };
 
-  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  systemd.services.supergfxd.path = [ pkgs.pciutils ];
 
   environment.systemPackages = with pkgs; [
       globalprotect-openconnect
-      asusctl
   ];
 
 

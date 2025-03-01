@@ -12,7 +12,7 @@ in {
   services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
   hardware.nvidia.open = true;
   hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  hardware.nvidia.package = nvidia_x11;
 
   # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
   #   version = "555.58.02";
@@ -86,6 +86,6 @@ in {
   hardware.graphics.package = lib.mkForce pkgs.mesa.drivers;
   hardware.graphics.package32 = lib.mkForce pkgs.pkgsi686Linux.mesa.drivers;
 
-  hardware.graphics.extraPackages = lib.mkForce [ nvidia_x11.out ];
+  hardware.graphics.extraPackages = lib.mkForce [ nvidia_x11.out pkgs.vaapiVdpau ];
   hardware.graphics.extraPackages32 = lib.mkForce [ nvidia_x11.lib32 ];
 }
