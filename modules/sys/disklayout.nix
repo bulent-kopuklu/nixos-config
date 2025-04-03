@@ -30,7 +30,7 @@ in {
       fileSystems."/" = {
         device = "/dev/disk/by-label/system";
         fsType = "btrfs";
-        options = [ "subvol=@root" "autodefrag" "noatime" ];
+        options = [ "subvol=@" "autodefrag" "noatime" ];
       };
 
       fileSystems."/home" = { 
