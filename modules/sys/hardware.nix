@@ -85,10 +85,10 @@ in {
   config = mkMerge [
 
     (mkIf (cfg.sound == true) {
-      sound.enable = true;
+#      sound.enable = true;
 
       hardware.pulseaudio = {
-        enable = true;
+        enable = false;
         systemWide = false;
         support32Bit = true;
         package = (mkIf (cfg.bluetooth == true) pkgs.pulseaudioFull);
@@ -106,7 +106,7 @@ in {
 
     {
 #      networking.wireless.enable = lib.mkForce false;
-      networking.wireless.enable = cfg.wifi;
+#      networking.wireless.enable = cfg.wifi;
 #       networking.wireless.allowAuxiliaryImperativeNetworks = cfg.wifi;
 #       networking.networkmanager.unmanaged = (mkIf (cfg.wifi) [
 #         "*" "except:type:wwan" "except:type:gsm"

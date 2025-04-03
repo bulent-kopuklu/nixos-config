@@ -12,7 +12,7 @@
       auto-optimise-store = true;
     };
 
-    package = pkgs.nixFlakes;
+#    package = pkgs.nixFlakes;
 
     gc = {
       automatic = true;
@@ -33,13 +33,13 @@
       pulseaudio = true; # TODO
       permittedInsecurePackages = [
         "openssl-1.0.2u"
-        "nix-2.15.3"
+        "nix-2.25.2"
       ];
     };
 
     overlays = import ../pkgs;
   };
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 }
 

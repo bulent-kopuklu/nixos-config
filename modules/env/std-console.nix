@@ -48,7 +48,7 @@
     bzip2
     gzip
     zstd
-    lzma
+    xz
     zip
     unrar
     unzip

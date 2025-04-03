@@ -43,9 +43,10 @@ in {
       };
     };
 
-    hardware.opengl = {
+    hardware.graphics = {
       enable = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
+#      driSupport32Bit = true;
     };
 
     services.printing = {
@@ -80,7 +81,7 @@ in {
     services.gvfs.enable = true;
 
     environment.systemPackages = with pkgs; [
-      gnome.gnome-keyring
+      gnome-keyring
       pinentry-gtk2
       firefox
       chromium
