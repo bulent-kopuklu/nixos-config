@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 #    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-#    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
 #    nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
   };
@@ -22,14 +22,16 @@
         ./modules
         ];
     };
-/* 
-    nixosConfigurations.thinkpath-x1-4th = nixpkgs.lib.nixosSystem {
+
+    nixosConfigurations.thinkpath-e14-gen6 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 
-        ./hosts/bulentk-x1
+        ./hosts/bulentk-e14
+        ./modules
+        nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel
         ];
     };
-*/
+
     nixosConfigurations.bulentk-g14 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 
