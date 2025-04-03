@@ -36,7 +36,8 @@ mount -t btrfs -o defaults,x-mount.mkdir,ssd,noatime,subvol=@snapshots LABEL=sys
 
 mkfs.fat -F32 -n BOOT /dev/disk/by-partlabel/BOOT
 mkdir /mnt/boot
-mount LABEL=BOOT /mnt/boot
+
+mount LABEL=BOOT /mnt/nixos/boot
 
 cd /mnt
 

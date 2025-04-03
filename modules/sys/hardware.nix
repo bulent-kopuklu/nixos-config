@@ -113,11 +113,11 @@ in {
 #       ]);
     }
 
-    (mkIf (cfg.memorySize >= 32)) {
+    (mkIf (cfg.memorySize >= 32) {
       boot.kernel.sysctl = {
         "vm.swappiness" = 1;
       };
-    }
+    })
 
     (mkIf (cfg.bluetooth == true) {
       hardware.bluetooth = {
@@ -152,7 +152,9 @@ in {
       services.resolved.enable = true;
     })
 
-    services.fstrim.enable = true;
+    {
+      services.fstrim.enable = true;
+    }
   ];
 
 }
