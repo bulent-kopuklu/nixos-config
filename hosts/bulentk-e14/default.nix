@@ -68,7 +68,7 @@
 
   networking.hostName = "bulentk-e14";
 
-  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "usbhid" "sd_mod" "thunderbolt" ];
   boot.initrd.kernelModules = [ ];
