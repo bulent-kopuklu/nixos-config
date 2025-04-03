@@ -75,17 +75,17 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+#  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   
-  hardware.graphics = {
-    extraPackages = with pkgs; [
-      vpl-gpu-rt
-#      libvdpau-va-gl
-#      intel-media-driver
-#      intel-compute-runtime
-    ];
-#    extraPackages32 = with pkgs.pkgsi686Linux; [ intel-vaapi-driver ];
-  };
+#   hardware.graphics = {
+#     extraPackages = with pkgs; [
+#       vpl-gpu-rt
+# #      libvdpau-va-gl
+# #      intel-media-driver
+# #      intel-compute-runtime
+#     ];
+# #    extraPackages32 = with pkgs.pkgsi686Linux; [ intel-vaapi-driver ];
+#   };
 
   # https://linrunner.de/tlp/
   # TODO bu halde bluetooth wifi de kullanilmayinca kapaniyor kapanmamasi icin ayri ayri yapmak gerekiyor olabilir
