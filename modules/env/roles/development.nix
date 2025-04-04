@@ -73,12 +73,9 @@ in {
       esbuild
       
       nixd
-
       
       postman
       meld
-#      smartgithg
-#      jetbrains.idea-ultimate
 
       wireshark
       twinkle
@@ -91,11 +88,10 @@ in {
       xorg.libXext
       xorg.libXtst
       xorg.libXi
-
  
       android-studio
       android-tools
-
+      dbeaver-bin
     ];
 
     programs.npm = {
