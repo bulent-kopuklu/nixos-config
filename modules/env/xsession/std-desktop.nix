@@ -99,6 +99,7 @@ in {
 
       qimgv
       gimp
+      arandr
 #      teamviewer
 
 #      tor-browser-bundle-bin
