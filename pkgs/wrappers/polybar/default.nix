@@ -6,7 +6,7 @@
   gawk, 
   coreutils, 
   wifiSupport ? false, 
-  cpuTemperaturePath ? "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input", 
+  cpuTemperaturePath ? "/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon8/temp1_input", 
   soundSupport ? false, 
   battery ? { enable = false; name = "BAT0"; adapter = "AC"; } 
 }:

@@ -1,27 +1,48 @@
 {
   path = ".config/autorandr/home/config";
   text = ''
-    output DP-0
+    output HDMI-1
     off
     output DP-1
     off
-    output HDMI-A-1-0
+    output DP-2
     off
-    output DP-0.8
+    output DP-3
+    off
+    output DP-4
+    off
+    output DP-3-1
+    off
+    output DP-3-1-1
+    off
+    output DP-3-8
     crtc 1
     mode 2560x1440
     pos 0x0
     rate 59.95
-    output DP-0.1.8
-    crtc 0
+    x-prop-audio auto
+    x-prop-broadcast_rgb Automatic
+    x-prop-max_bpc 12
+    x-prop-non_desktop 0
+    output DP-3-1-8
+    crtc 2
     mode 2560x1440
     pos 2560x0
-    primary
     rate 59.95
-    output eDP-1-0
-    crtc 4
-    mode 1920x1080
+    primary
+    x-prop-audio auto
+    x-prop-broadcast_rgb Automatic
+    x-prop-max_bpc 12
+    x-prop-non_desktop 0
+    output eDP-1
+    crtc 0
+    mode 1920x1200
     pos 5120x0
-    rate 60.01
+    rate 60.00
+    x-prop-broadcast_rgb Automatic
+    x-prop-colorspace Default
+    x-prop-max_bpc 12
+    x-prop-non_desktop 0
+    x-prop-scaling_mode Full aspect
   '';
 }

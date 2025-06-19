@@ -73,7 +73,6 @@ in {
       esbuild
       
       nixd
-
       
       postman
       meld
@@ -91,11 +90,11 @@ in {
       xorg.libXext
       xorg.libXtst
       xorg.libXi
-
  
       android-studio
       android-tools
 
+      dbeaver-bin
     ];
 
     programs.npm = {

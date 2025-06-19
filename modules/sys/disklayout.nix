@@ -30,7 +30,7 @@ in {
         "system" = {
           device = "/dev/disk/by-partlabel/cryptsys";
           preLVM = true;
-        }
+        };
       };
 
       fileSystems."/" = {

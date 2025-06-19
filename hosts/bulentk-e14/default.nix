@@ -3,7 +3,7 @@
 {
   sys.hw = {
     cpu.cores = 22;
-    cpu.sensorTemperaturePath = "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input";
+    cpu.sensorTemperaturePath = "/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon8/temp1_input";
 #    cpu.sensorTemperaturePath = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon5/temp1_input";
 
     memorySize = 64;
@@ -87,6 +87,7 @@
 # #    extraPackages32 = with pkgs.pkgsi686Linux; [ intel-vaapi-driver ];
 #   };
 
+  services.xserver.videoDrivers = [ "modeset" ];
   # https://linrunner.de/tlp/
   # TODO bu halde bluetooth wifi de kullanilmayinca kapaniyor kapanmamasi icin ayri ayri yapmak gerekiyor olabilir
   services.tlp = {
@@ -95,7 +96,7 @@
       USB_AUTOSUSPEND = "0";
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-      START_CHARGE_THRESH_BAT0 = 40;
+      START_CHARGE_THRESH_BAT0 = 60;
       STOP_CHARGE_THRESH_BAT0 = 80;
     };
   };
