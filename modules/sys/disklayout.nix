@@ -26,7 +26,13 @@ in {
 
   config = mkMerge [
     (mkIf (cfg.layout == "btrfs-crypt") {
-      boot.initrd.luks.devices."system".device = "/dev/disk/by-partlabel/cryptsystem";
+      boot.initrd.luks.devices = {
+        "system" = {
+          device = "/dev/disk/by-partlabel/cryptsys";
+          preLVM = true;
+        };
+      };
+
       fileSystems."/" = {
         device = "/dev/disk/by-label/system";
         fsType = "btrfs";

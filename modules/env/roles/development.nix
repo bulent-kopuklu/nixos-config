@@ -91,6 +91,7 @@ in {
  
       android-studio
       android-tools
+
       dbeaver-bin
     ];
 

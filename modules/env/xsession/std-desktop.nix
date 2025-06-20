@@ -95,10 +95,10 @@ in {
 #      discord
       zoom-us
       tdesktop
-      skypeforlinux
 
       qimgv
       gimp
+      arandr
 #      teamviewer
 
 #      tor-browser-bundle-bin

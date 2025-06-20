@@ -4,12 +4,12 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 #    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-#    nixos-hardware.url = "github:nixos/nixos-hardware";
-#    nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = inputs@{ self, nixpkgs, nur, ... }: 
+  outputs = inputs@{ self, nixpkgs, nixos-hardware, nur, ... }: 
   let
 
   in {
@@ -22,14 +22,16 @@
         ./modules
         ];
     };
-/* 
-    nixosConfigurations.thinkpath-x1-4th = nixpkgs.lib.nixosSystem {
+
+    nixosConfigurations.bulentk-e14 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 
-        ./hosts/bulentk-x1
+        ./hosts/bulentk-e14
+        ./modules
+        nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel
         ];
     };
-*/
+
     nixosConfigurations.bulentk-g14 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 

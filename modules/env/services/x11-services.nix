@@ -73,26 +73,31 @@ in {
           };
         };
 
-        autorandr = {
-          wantedBy = [ "graphical-session.target" ];
-          
-          unitConfig = {
-            PartOf = [ "graphical-session.target" ];
-            After = [ "graphical-session-pre.target" ];
-          };
-
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = "${pkgs.autorandr}/bin/autorandr --change --force";
-          };
-        };
+#        autorandr = {
+#          wantedBy = [ "graphical-session.target" ];
+#          unitConfig = {
+#            PartOf = [ "graphical-session.target" ];
+#            After = [ 
+#              "graphical-session-pre.target" 
+#              "xorg-server.service" 
+#              "lightdm.service" 
+#            ];
+#          };
+#          
+#          serviceConfig = {
+#            Type = "oneshot";
+#            ExecStart = "${pkgs.autorandr}/bin/autorandr --change --force";
+#            RemainAfterExit = true;  # Profil durumunu "hatırlasın"
+#            TimeoutStartSec = 5;  # Monitörlerin tanımlanması için bekle
+#          };
+#        };
 
         polybar = {
           wantedBy = [ "tray.target" ];
           
           unitConfig = {
             PartOf = [ "tray.target" ];
-            Required = [ "graphical-session.target" ];
+            After = [ "graphical-session.target" ];
           };
 
           serviceConfig = {
@@ -105,7 +110,7 @@ in {
         };
       }
       (lib.mkIf(config.sys.hw.keychron == true) {
-        asus-micmute-key = {
+        keycron-micmute-key = {
           wantedBy = [ "graphical-session.target" ];
           
           unitConfig = {

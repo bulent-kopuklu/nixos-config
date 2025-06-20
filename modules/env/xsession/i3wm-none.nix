@@ -25,10 +25,10 @@ in {
         };
       };
 
-#      sessionCommands = ''
-#        ${pkgs.autorandr}/bin/autorandr --change --force
+      sessionCommands = ''
+        ${pkgs.autorandr}/bin/autorandr --change --force
 #        ${pkgs.x11apps}/bin/set-wallpaper
-#      '';
+      '';
     };
 
     services.displayManager.defaultSession = "none+i3";
