@@ -95,7 +95,6 @@ in {
 #      discord
       zoom-us
       tdesktop
-      skypeforlinux
 
       qimgv
       gimp

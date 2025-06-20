@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   sys.hw = {
@@ -68,26 +68,40 @@
 
   networking.hostName = "bulentk-e14";
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_14;
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "usbhid" "sd_mod" "thunderbolt" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
-
-#  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  # boot.initrd.kernelModules = [ "xe" ];
+  boot.kernelModules = [ "kvm-intel" "xe" ];
+  boot.blacklistedKernelModules = [ "i915" ];
   
-#   hardware.graphics = {
-#     extraPackages = with pkgs; [
-#       vpl-gpu-rt
-# #      libvdpau-va-gl
-# #      intel-media-driver
-# #      intel-compute-runtime
-#     ];
-# #    extraPackages32 = with pkgs.pkgsi686Linux; [ intel-vaapi-driver ];
-#   };
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "xe" ];
 
-  services.xserver.videoDrivers = [ "modeset" ];
+  boot.kernelParams = [
+    "xe.force_probe=7d55"
+    "i915.force_probe=!7d55"
+  ];
+
+  #  hardware.graphics = {
+  #   enable = true;
+
+  #   extraPackages = with pkgs; [
+  #     intel-media-driver
+  #     intel-compute-runtime
+  #     vpl-gpu-rt
+  #   ];
+
+  #   extraPackages32 = with pkgs.driversi686Linux; [
+  #     intel-media-driver
+  #   ];
+  # };
+
+  hardware.cpu.intel.updateMicrocode = true;
+
+  # i915 modülünün initrd'de yüklenmesini devre dışı bırakın
+  hardware.intelgpu.driver = "xe";
+  
   # https://linrunner.de/tlp/
   # TODO bu halde bluetooth wifi de kullanilmayinca kapaniyor kapanmamasi icin ayri ayri yapmak gerekiyor olabilir
   services.tlp = {

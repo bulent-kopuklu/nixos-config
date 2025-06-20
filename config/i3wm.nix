@@ -61,7 +61,6 @@ pkgs.writeText "i3-config" ''
   assign [class="vlc"]                 ${i3.ws9}
   assign [class="rhythmbox|Rhythmbox"] ${i3.ws9}
   for_window [instance="spotify|Spotify"] move to workspace ${i3.ws9}
-  assign [class="Skype|skypeforlinux"] ${i3.ws8}
   assign [class="discord"]             ${i3.ws8}
   assign [class="slack|Slack"]         ${i3.ws8}
 
