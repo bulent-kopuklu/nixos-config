@@ -87,7 +87,7 @@ in {
     (mkIf (cfg.sound == true) {
 #      sound.enable = true;
 
-      hardware.pulseaudio = {
+      services.pulseaudio = {
         enable = false;
         systemWide = false;
         support32Bit = true;

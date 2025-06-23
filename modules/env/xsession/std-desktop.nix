@@ -12,8 +12,7 @@ in {
     services.xserver = {
       enable = true;
       xkb = {
-        options = "eurosign:e,grb:alt_space_toggle";
-        variant = "alt";
+        options = "eurosign:e";
         layout = "us,tr";
       };
 
@@ -32,7 +31,8 @@ in {
 
       packages = with pkgs; [
 #        (nerdfonts.override { fonts = [ "MPlus" ]; })
-        nerdfonts
+        nerd-fonts."m+"
+        nerd-fonts.iosevka
       ];
 
       fontconfig = {

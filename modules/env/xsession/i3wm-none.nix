@@ -79,6 +79,8 @@ in {
       ];
     };
 
+    programs.i3lock.enable = true;
+    security.pam.services.i3lock = {};
     programs.dconf.enable = true;
     env.services.x11-services.enable = true;
 
