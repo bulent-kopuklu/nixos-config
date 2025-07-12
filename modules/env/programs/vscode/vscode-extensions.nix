@@ -25,6 +25,7 @@
     vscjava.vscode-maven
     vscode-icons-team.vscode-icons
     yzhang.markdown-all-in-one
+    prisma.prisma
   ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
     {
       name = "es7-react-js-snippets";

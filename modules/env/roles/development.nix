@@ -71,6 +71,8 @@ in {
       typescript
       pnpm
       esbuild
+      prisma
+      prisma-engines
       
       nixd
       
