@@ -71,8 +71,7 @@
   boot.kernelPackages = pkgs.linuxPackages_6_14;
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "usbhid" "sd_mod" "thunderbolt" ];
-  # boot.initrd.kernelModules = [ "xe" ];
-  boot.kernelModules = [ "kvm-intel" "xe" ];
+  boot.kernelModules = [ "xe" ];
   boot.blacklistedKernelModules = [ "i915" ];
   
   hardware.graphics.enable = true;
@@ -125,4 +124,6 @@
   environment.systemPackages = with pkgs; [
       globalprotect-openconnect
   ];
+
+
 }

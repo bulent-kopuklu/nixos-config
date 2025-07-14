@@ -30,7 +30,6 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
-      pulseaudio = true; # TODO
       permittedInsecurePackages = [
         "openssl-1.0.2u"
         "nix-2.25.2"

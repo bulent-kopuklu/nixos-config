@@ -7,15 +7,11 @@ let
   show-windows = "${pkgs.x11apps}/bin/show-windows-menu";
   power-menu = "${pkgs.x11apps}/bin/power-menu";
   lock-screen = "${pkgs.x11apps}/bin/lock-screen";
-  screenshot = "${pkgs.x11apps}/bin/screenshot";
-  audioctl = "${pkgs.x11apps}/bin/audioctl";
+  pamixer = "${pkgs.pamixer}/bin/pamixer";
 
   i3-msg = "${pkgs.i3-gaps}/bin/i3-msg";
-  #TODO sound var mi
-  pactl = "${pkgs.pulseaudio}/bin/pactl";
   sleep = "${pkgs.coreutils}/bin/sleep";
   scrot = "${pkgs.scrot}/bin/scrot";
-  awk = "${pkgs.gawk}/bin/awk";
 
 
 in pkgs.writeText "sxhkd-config" ''
@@ -120,21 +116,19 @@ in pkgs.writeText "sxhkd-config" ''
   alt+Tab
     ${show-windows}
 
-  XF86AudioMicMute
-    ${audioctl} --source-mute-toggle
-  super+XF86AudioMicMute
-    ${audioctl} --source-mute-toggle
+  super+XF86AudioMute
+    ${pamixer} --default-source -t
   super+XF86AudioRaiseVolume 
-    ${audioctl} --source-volume-up
+    ${pamixer} --default-source -i 5
   super+XF86AudioLowerVolume
-    ${audioctl} --source-volume-down
+    ${pamixer} --default-source -d 5
 
   XF86AudioMute 
-    ${audioctl} --sink-mute-toggle
+    ${pamixer} -t
   XF86AudioRaiseVolume
-    ${audioctl} --sink-volume-up
+    ${pamixer} -i 5
   XF86AudioLowerVolume
-    ${audioctl} --sink-volume-down
+    ${pamixer} -d 5
 
 
   Print 

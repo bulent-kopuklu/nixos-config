@@ -75,11 +75,8 @@ rec {
     battery-4     = "";
 
 
-    # microphone = "";
-    # microphone-slash = "";
-
-    microphone = "󰍬";
-    microphone-slash = "";
+    microphone = "";
+    microphone-slash = "";
 
     cpu = "󰍛";
     hdd = "󰨆";

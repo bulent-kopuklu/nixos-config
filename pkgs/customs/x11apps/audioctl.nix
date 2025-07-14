@@ -1,40 +1,49 @@
 { pkgs, ... }:
 
 let
-  pactl = "${pkgs.pulseaudio}/bin/pactl";
+  wpctl = "${pkgs.wireplumber}/bin/wpctl";
   awk = "${pkgs.gawk}/bin/awk";
 
 in
 pkgs.writeShellScriptBin "audioctl" ''
 
   function default_source() {
-    ${pactl} info  | ${awk} '/Default Source:/ {print $3}'
+    ${wpctl} status | ${awk} '/Default Source:/ {print $3}'
   }
 
   function default_sink() {
-    ${pactl} info  | ${awk} '/Default Sink:/ {print $3}'
+    ${wpctl} status | ${awk} '/Default Sink:/ {print $3}'
   }
 
   case "$1" in
     --source-mute-toggle)
-      ${pactl} set-source-mute $(default_source) toggle
+      ${wpctl} set-mute $(default_source) toggle
       ;;
     --source-volume-up)
-      ${pactl} set-source-volume $(default_source) +5%
+      # +0.05 = %5 artış
+      current_vol=$( ${wpctl} get-volume $(default_source) )
+      # wpctl get-volume output örn: "0.500000"
+      new_vol=$(awk "BEGIN {printf \"%.6f\", $current_vol + 0.05}")
+      ${wpctl} set-volume $(default_source) $new_vol
       ;;
     --source-volume-down)
-      ${pactl} set-source-volume $(default_source) -5%
+      current_vol=$( ${wpctl} get-volume $(default_source) )
+      new_vol=$(awk "BEGIN {printf \"%.6f\", $current_vol - 0.05}")
+      ${wpctl} set-volume $(default_source) $new_vol
       ;;
 
     --sink-mute-toggle)
-      ${pactl} set-sink-mute $(default_sink) toggle
+      ${wpctl} set-mute $(default_sink) toggle
       ;;
     --sink-volume-up)
-      ${pactl} set-sink-volume $(default_sink) +5%
+      current_vol=$( ${wpctl} get-volume $(default_sink) )
+      new_vol=$(awk "BEGIN {printf \"%.6f\", $current_vol + 0.05}")
+      ${wpctl} set-volume $(default_sink) $new_vol
       ;;
     --sink-volume-down)
-      ${pactl} set-sink-volume $(default_sink) -5%
+      current_vol=$( ${wpctl} get-volume $(default_sink) )
+      new_vol=$(awk "BEGIN {printf \"%.6f\", $current_vol - 0.05}")
+      ${wpctl} set-volume $(default_sink) $new_vol
       ;;
   esac
-
 ''

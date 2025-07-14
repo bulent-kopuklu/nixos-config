@@ -85,22 +85,25 @@ in {
   config = mkMerge [
 
     (mkIf (cfg.sound == true) {
-#      sound.enable = true;
+      services.pulseaudio.enable = false;
 
-      services.pulseaudio = {
-        enable = false;
-        systemWide = false;
-        support32Bit = true;
-        package = (mkIf (cfg.bluetooth == true) pkgs.pulseaudioFull);
-        extraConfig = "
-          load-module module-switch-on-connect
-          unload-module module-suspend-on-idle
-        ";
+      services.pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        jack.enable = true;
+        wireplumber.enable = true;
       };
 
       environment.systemPackages = with pkgs; [
-        pavucontrol
-        (if (cfg.bluetooth == true) then pkgs.pulseaudioFull else pkgs.pulseaudio)
+        pipewire
+        wireplumber
+        easyeffects
+        helvum
+        alsa-utils
+        pamixer
+        pulseaudio        
       ];
     })
 
@@ -154,6 +157,8 @@ in {
 
     {
       services.fstrim.enable = true;
+      hardware.enableAllFirmware = true;
+      security.rtkit.enable = true;
     }
   ];
 

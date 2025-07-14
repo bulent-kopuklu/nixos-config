@@ -21,15 +21,18 @@ let
     warn = theme.colors.orange;
   };
 
+  helvum = if soundSupport == true then "${pkgs.helvum}/bin/helvum" else "";
   pavucontrol = if soundSupport == true then "${pkgs.pavucontrol}/bin/pavucontrol" else "";
+  pamixer = if soundSupport == true then "${pkgs.pamixer}/bin/pamixer" else "";
+  microphone-listener = if soundSupport == true then "${polybar-apps}/bin/polybar-microphone-listener" else "";
+
+
   terminal = "${pkgs.alacritty-wrapped} -e";
 
   power-menu = "${pkgs.x11apps}/bin/power-menu";
   app-launcher-menu = "${pkgs.x11apps}/bin/app-launcher-menu";
   show-windows-menu = "${pkgs.x11apps}/bin/show-windows-menu";
-  audioctl = "${pkgs.x11apps}/bin/audioctl";
 
-  microphone-listener = "${polybar-apps}/bin/polybar-microphone-listener";
   network-listener = "${polybar-apps}/bin/polybar-network-listener";
   network-menu = "${polybar-apps}/bin/polybar-network-menu";
 
@@ -217,13 +220,13 @@ in pkgs.writeText "polybar-config" ''
   ramp-volume-1 = ${theme.icons.volume-2}
   ramp-volume-2 = ${theme.icons.volume-3}
 
-  click-right = ${pavucontrol}
+  click-right = ${helvum}
 
   [module/microphone]
   type = custom/script
   exec = ${microphone-listener}
-  click-left = ${audioctl} --source-mute-toggle
-  click-right = ${pavucontrol}  click-right = ${show-windows-menu}
+  click-left = ${pamixer} --default-source -t
+  click-right = ${pavucontrol}
 
   tail = true
 

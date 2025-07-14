@@ -1,22 +1,18 @@
 { pkgs, theme, ... }:
 
 let 
-  awk = "${pkgs.gawk}/bin/awk";
-  pacmd = "${pkgs.pulseaudio}/bin/pacmd";
+  pamixer = "${pkgs.pamixer}/bin/pamixer";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   echo = "${pkgs.coreutils}/bin/echo";
   grep = "${pkgs.gnugrep}/bin/grep";
-#  pidof = "${pkgs.procps}/bin/pidof";
-#  kill = "${pkgs.util-linux}/bin/kill";
-
 in
 
 pkgs.writeShellScriptBin "polybar-microphone-listener" ''
 
   status() {
-    MUTED=$(${pacmd} list-sources | ${awk} '/\*/,EOF {print}' | ${awk} '/muted/ {print $2; exit}')
-
-    if [ "$MUTED" = "yes" ]; then
+    MUTED=$(${pamixer} --default-source --get-mute)
+    
+    if [ "$MUTED" = "true" ]; then
       ${echo} "%{F${theme.colors.blueGray}}${theme.icons.microphone-slash}%{F-}"
     else
       ${echo} "%{F${theme.colors.dark-theme.foreground}}${theme.icons.microphone}%{F-}"
@@ -26,7 +22,7 @@ pkgs.writeShellScriptBin "polybar-microphone-listener" ''
   status
 
   LANG=EN; ${pactl} subscribe | while read -r event; do
-    if ${echo} "$event" | ${grep} -q "source" || ${echo} "$event" | ${grep} -q "server"; then
+    if ${echo} "$event" | ${grep} -q "on source"; then
       status
     fi
   done
