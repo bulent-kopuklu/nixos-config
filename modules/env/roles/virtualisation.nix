@@ -16,8 +16,8 @@ in {
     virtualisation.docker.enable = true;
 #    virtualisation.docker.enableNvidia = true;
 
-    virtualisation.libvirtd.enable = true;
-    programs.virt-manager.enable = true;
+#    virtualisation.libvirtd.enable = true;
+#    programs.virt-manager.enable = true;
 
     # dconf.settings = {
     #   "org/virt-manager/virt-manager/connections" = {

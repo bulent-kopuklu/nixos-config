@@ -72,7 +72,7 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "usbhid" "sd_mod" "thunderbolt" ];
   boot.kernelModules = [ "xe" ];
-  boot.blacklistedKernelModules = [ "i915" ];
+  boot.blacklistedKernelModules = [ "i915" "kvm_intel" ];
   
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "xe" ];
