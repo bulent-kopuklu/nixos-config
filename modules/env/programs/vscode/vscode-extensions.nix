@@ -17,6 +17,7 @@
     ms-vscode.cmake-tools
     ms-vscode.cpptools
     ms-vscode.makefile-tools
+    prisma.prisma
     redhat.java
     redhat.vscode-yaml
     ritwickdey.liveserver
@@ -25,7 +26,6 @@
     vscjava.vscode-maven
     vscode-icons-team.vscode-icons
     yzhang.markdown-all-in-one
-    prisma.prisma
   ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
     {
       name = "es7-react-js-snippets";
