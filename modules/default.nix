@@ -33,12 +33,13 @@
       permittedInsecurePackages = [
         "openssl-1.0.2u"
         "nix-2.25.2"
+        "qtwebengine-5.15.19"
       ];
     };
 
     overlays = import ../pkgs;
   };
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }
 

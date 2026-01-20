@@ -50,7 +50,7 @@ in {
       cfg = super.callPackage ../../config/i3wm.nix {};
     in mkWrapped {
       name = "i3";
-      package = super.i3-gaps;
+      package = super.i3;
       arg = "-c ${cfg}";
     };
 

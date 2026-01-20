@@ -7,7 +7,7 @@
   ];
 
   hardware = {
-    firmware = [ pkgs.firmwareLinuxNonfree ];
+    firmware = [ pkgs.linux-firmware ];
     enableAllFirmware = true;
     enableRedistributableFirmware = true;
   };

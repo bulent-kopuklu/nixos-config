@@ -9,7 +9,7 @@ let
   lock-screen = "${pkgs.x11apps}/bin/lock-screen";
   pamixer = "${pkgs.pamixer}/bin/pamixer";
 
-  i3-msg = "${pkgs.i3-gaps}/bin/i3-msg";
+  i3-msg = "${pkgs.i3}/bin/i3-msg";
   sleep = "${pkgs.coreutils}/bin/sleep";
   scrot = "${pkgs.scrot}/bin/scrot";
 

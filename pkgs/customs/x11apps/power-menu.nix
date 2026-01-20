@@ -11,7 +11,7 @@ let
     awk = "${pkgs.gawk}/bin/awk";
     uptime = "${pkgs.coreutils}/bin/uptime";
     systemctl = "${pkgs.systemd}/bin/systemctl";
-    i3-msg = "${pkgs.i3-gaps}/bin/i3-msg";
+    i3-msg = "${pkgs.i3}/bin/i3-msg";
 
     icons = {
       poweroff = theme.icons.power;

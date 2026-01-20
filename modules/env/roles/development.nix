@@ -25,10 +25,6 @@ in {
     
     users.users.${cfg.user.name}.extraGroups = ["adbusers"];
 
-    services.udev.packages = [
-      pkgs.android-udev-rules
-    ];
-
     services.globalprotect = {
       enable = true;
       # if you need a Host Integrity Protection report
@@ -45,6 +41,7 @@ in {
       gcc
       glibc.static
       clang
+      clang-tools
       gnumake
       cmake
       ninja
@@ -55,7 +52,7 @@ in {
       jdk17
       maven
 
-      python3Full
+      python3
       
       scala
       sbt
@@ -105,6 +102,9 @@ in {
         tmp = ''${XDG_RUNTIME_DIR}/npm
       '';
     };
+
+    programs.direnv.enable = true;
+    programs.direnv.nix-direnv.enable = true;
 
     environment.variables = {
       JAVA_HOME = "${pkgs.jdk17.home}";
