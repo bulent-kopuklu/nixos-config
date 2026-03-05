@@ -91,6 +91,7 @@ in {
 
       vlc
       spotify
+      squeezelite
 
 #      discord
       zoom-us

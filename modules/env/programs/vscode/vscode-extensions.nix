@@ -7,6 +7,8 @@
     donjayamanne.githistory
     dotjoshjohnson.xml
     editorconfig.editorconfig
+    github.copilot
+    github.copilot-chat
     golang.go
     jnoortheen.nix-ide
     llvm-vs-code-extensions.vscode-clangd

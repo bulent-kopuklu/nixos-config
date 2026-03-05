@@ -1,4 +1,4 @@
- { config, pkgs, lib, modulesPath, ... }:
+{ inputs, modulesPath, ... }:
 
 {
   imports = [ 
@@ -8,8 +8,10 @@
   ];
 
   nix = {
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     settings = {
       auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
     };
 
 #    package = pkgs.nixFlakes;
@@ -21,7 +23,6 @@
     };
 
     extraOptions = ''
-      experimental-features = nix-command flakes
       keep-outputs = true
       keep-derivations = true
     '';

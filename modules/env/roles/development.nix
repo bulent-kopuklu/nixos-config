@@ -80,7 +80,8 @@ in {
       twinkle
 
       # intellij idea plugin development
-      jetbrains.idea-community
+#      jetbrains.idea-community
+      jetbrains.idea-oss
 
       xorg.libXrender
       xorg.libX11
