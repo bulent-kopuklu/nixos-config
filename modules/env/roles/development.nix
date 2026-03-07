@@ -38,31 +38,42 @@ in {
 
 
     environment.systemPackages = with pkgs; [
+      git-lfs
+
+      pkg-config           # build dependency çözümü için
+      llvmPackages.llvm    # bazı crates için gerekli (örn. bindgen)
+      binutils-unwrapped
+
       gcc
       glibc.static
       clang
       clang-tools
-      gnumake
-      cmake
-      ninja
       gdb
+      cmake                # bazı Rust crates C/C++ backend kullanıyorsa
+      ninja                # build hızlandırmak için      
+      gnumake
 
-      binutils-unwrapped
+      rustc                # Rust compiler
+      cargo                # Rust package manager & build tool
+      rust-analyzer        # VSCode / LSP için language server
+      cargo-edit           # cargo add / remove / upgrade
+      cargo-watch          # dosya değişince otomatik rebuild / test
+      cargo-audit          # güvenlik kontrolü
+      rustfmt              # kod formatlama
+      clippy               # linting
+      bindgen              # C header -> Rust FFI
 
-      jdk17
-      maven
+
+
 
       python3
-      
-      scala
-      sbt
+      poetry
 
-      go
-      gopls
-      gopkgs
-      go-outline
-      go-tools
-      delve
+      # go
+      # gopls
+      # gopkgs
+      # go-outline
+      # go-tools
 
       nodejs_22
       typescript
@@ -72,27 +83,34 @@ in {
       prisma-engines
       
       nixd
+      nixfmt-rfc-style
       
+
+      jdk17
+      maven
+      gradle
+      jetbrains.idea-oss
+
+      android-studio
+      android-tools
+
       postman
       meld
 
-      wireshark
-      twinkle
-
-      # intellij idea plugin development
-#      jetbrains.idea-community
-      jetbrains.idea-oss
 
       xorg.libXrender
       xorg.libX11
       xorg.libXext
       xorg.libXtst
       xorg.libXi
- 
-      android-studio
-      android-tools
 
       dbeaver-bin
+      aider-chat-full
+
+      delve
+
+      wireshark
+      twinkle
     ];
 
     programs.npm = {
