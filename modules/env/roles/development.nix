@@ -44,25 +44,26 @@ in {
       llvmPackages.llvm    # bazı crates için gerekli (örn. bindgen)
       binutils-unwrapped
 
+
+      clang-tools
       gcc
       glibc.static
       clang
-      clang-tools
       gdb
       cmake                # bazı Rust crates C/C++ backend kullanıyorsa
       ninja                # build hızlandırmak için      
       gnumake
 
+      rust-analyzer        # VSCode / LSP için language server
+      rustfmt              # kod formatlama
       rustc                # Rust compiler
       cargo                # Rust package manager & build tool
-      rust-analyzer        # VSCode / LSP için language server
       cargo-edit           # cargo add / remove / upgrade
       cargo-watch          # dosya değişince otomatik rebuild / test
       cargo-audit          # güvenlik kontrolü
-      rustfmt              # kod formatlama
-      clippy               # linting
-      bindgen              # C header -> Rust FFI
 
+      clippy               # linting
+      rust-bindgen
 
 
 
@@ -84,11 +85,10 @@ in {
       
       nixd
       nixfmt-rfc-style
-      
+
 
       jdk17
       maven
-      gradle
       jetbrains.idea-oss
 
       android-studio
