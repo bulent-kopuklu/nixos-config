@@ -13,10 +13,6 @@ in {
       gradle
     ];
 
-    environment.variables = {
-      GRADLE_USER_HOME = "$HOME/.local/share/gradle";
-    };
-
     env.user.files = {
       gradle = import ../../../config/gradle.nix;
     };

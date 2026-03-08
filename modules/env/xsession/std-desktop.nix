@@ -95,7 +95,7 @@ in {
 
 #      discord
       zoom-us
-      telegram-desktop
+#      telegram-desktop
 
       qimgv
       gimp

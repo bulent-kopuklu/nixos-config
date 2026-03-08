@@ -7,9 +7,11 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
+    development-tools.url = "path:./development-tools";
+
   };
 
-  outputs = inputs@{ self, nixpkgs, nixos-hardware, nur, ... }: 
+  outputs = inputs@{ self, nixpkgs, nixos-hardware, nur, development-tools, ... }: 
   let
 
   in {
@@ -27,6 +29,9 @@
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = [ 
+        {
+          nix.registry.development-tools.flake = development-tools;
+        }
         ./hosts/bulentk-e14
         ./modules
         nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel
