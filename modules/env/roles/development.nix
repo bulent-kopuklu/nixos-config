@@ -48,13 +48,10 @@ in {
 
       pkg-config           # build dependency çözümü için
       binutils-unwrapped
+      gnumake
 
       jetbrains.idea-oss
       android-studio
-
-      postman
-      meld
-
 
       # xorg.libXrender
       # xorg.libX11
@@ -62,10 +59,8 @@ in {
       # xorg.libXtst
       # xorg.libXi
 
-      dbeaver-bin
       aider-chat-full
 
-      wireshark
     ];
   };
 }

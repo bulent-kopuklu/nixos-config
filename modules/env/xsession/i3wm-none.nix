@@ -2,6 +2,10 @@
 
 let
   cfg = config.env.xsession.i3wm;
+  theme-name = "NumixSolarizedDarkYellow";
+  font-name = "DejaVu Sans 11";
+  icon-theme-name = "Nordic-green";
+
 in {
   options.env.xsession.i3wm = {
     enable = lib.mkEnableOption "i3wm";
@@ -20,7 +24,7 @@ in {
           };
           iconTheme = {
             package = pkgs.numix-icon-theme;
-            name = "Numix";
+            name = icon-theme-name;
           };
         };
       };
@@ -89,5 +93,19 @@ in {
     services.accounts-daemon.enable = true;
     services.gnome.gnome-keyring.enable = true;
     services.gvfs.enable = true;
+
+    # Portal'ın ve GTK uygulamalarının okuyacağı dconf veritabanını 
+    # sistem seviyesinde override edelim
+    environment.etc."dconf/db/local.d/01-gtk-ui".text = ''
+      [org/gnome/desktop/interface]
+      gtk-theme='${theme-name}'
+      icon-theme='${icon-theme-name}'
+      font-name='${font-name}'
+    '';
+
+    environment.etc."dconf/profile/user".text = ''
+      user-db:user
+      system-db:local
+    '';    
   };
 }

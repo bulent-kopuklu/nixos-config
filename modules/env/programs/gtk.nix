@@ -3,9 +3,9 @@
 let
   cfg = config.env.programs.gtk;
 
-  theme-name = "NumixSolarizedDarkGreen";
+  theme-name = "NumixSolarizedDarkYellow";
   font-name = "DejaVu Sans 11";
-  icon-theme-name = "Numix";
+  icon-theme-name = "Papirus-Dark";
   
 in {
   options.env.programs.gtk = {

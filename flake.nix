@@ -7,11 +7,12 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
+    flatpaks.url = "github:gmodena/nix-flatpak";
     development-tools.url = "path:./development-tools";
 
   };
 
-  outputs = inputs@{ self, nixpkgs, nixos-hardware, nur, development-tools, ... }: 
+  outputs = inputs@{ self, nixpkgs, nixos-hardware, nur, flatpaks, development-tools, ... }: 
   let
 
   in {
@@ -19,7 +20,7 @@
       system = "x86_64-linux";
       modules = [
         { nixpkgs.overlays = [ nur.overlay ]; }
-
+         flatpaks.nixosModules.nix-flatpak
         ./hosts/bulentk-vm
         ./modules
         ];
@@ -32,6 +33,7 @@
         {
           nix.registry.development-tools.flake = development-tools;
         }
+        flatpaks.nixosModules.nix-flatpak
         ./hosts/bulentk-e14
         ./modules
         nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel
@@ -41,6 +43,7 @@
     nixosConfigurations.bulentk-g14 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 
+        flatpaks.nixosModules.nix-flatpak
         ./hosts/bulentk-g14
         ./modules
 #        nixos-hardware.nixosModules.asus-zephyrus-ga401
