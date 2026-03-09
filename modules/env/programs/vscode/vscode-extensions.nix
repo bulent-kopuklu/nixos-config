@@ -21,37 +21,23 @@
     ms-vscode.cmake-tools
     ms-vscode.makefile-tools
     prisma.prisma
-    redhat.java
     redhat.vscode-yaml
+    redhat.vscode-xml
     ritwickdey.liveserver
-    vscjava.vscode-gradle
-    vscjava.vscode-maven
     vscode-icons-team.vscode-icons
     yzhang.markdown-all-in-one
+    davidanson.vscode-markdownlint
+ 	  rust-lang.rust-analyzer
+    tamasfe.even-better-toml
+    vadimcn.vscode-lldb
+    fill-labs.dependi
+    ms-vscode-remote.remote-ssh-edit
   ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-    {
-      name = "cpp-helper";
-      publisher = "amiralizadeh9480";
-      version = "0.3.4";
-      sha256 = "0f0b5zcp58z85vhfyd6f6yxa770bgagd2ymbqg66z3mh4xrclysd";
-    }
     {
       name = "es7-react-js-snippets";
       publisher = "dsznajder";
       version = "4.4.3";
       sha256 = "1xyhysvsf718vp2b36y1p02b6hy1y2nvv80chjnqcm3gk387jps0";
-    }
-    {
-      name = "cpp-class-creator";
-      publisher = "fleexo";
-      version = "1.4.0";
-      sha256 = "1q8ccrcdlksg7z9l7p4h1nllfnwqfwqhd7vkvicyldphl7fdjs4b";
-    }
-    {
-      name = "kotlin";
-      publisher = "mathiasfrohlich";
-      version = "1.7.1";
-      sha256 = "0zi8s1y9l7sfgxfl26vqqqylsdsvn5v2xb3x8pcc4q0xlxgjbq1j";
     }
     {
       name = "cpptools-themes";

@@ -2,12 +2,6 @@
 
 let
   cfg =  config.env;
-  devTools = inputs.development-tools;
-  currentSystemTools =
-    if devTools ? "${pkgs.system}"
-    then devTools."${pkgs.system}"
-    else {};
-  
 in {
 
   options = {
@@ -15,11 +9,6 @@ in {
   };
 
   config = lib.mkIf cfg.role.development {
-
-    # Keep development tool sets in system closure (GC-safe) but not in PATH
-    system.extraDependencies = lib.flatten (
-      map (toolset: toolset.packages) (lib.attrValues currentSystemTools)
-    );
 
     env.role.virtualisation = lib.mkForce true;
 
