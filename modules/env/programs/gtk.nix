@@ -5,7 +5,7 @@ let
 
   theme-name = "NumixSolarizedDarkYellow";
   font-name = "DejaVu Sans 11";
-  icon-theme-name = "Papirus-Dark";
+  icon-theme-name = "Nordic-green";
   
 in {
   options.env.programs.gtk = {
@@ -20,15 +20,15 @@ in {
       gtk-engine-murrine
       gtk_engines
       numix-solarized-gtk-theme
-      papirus-icon-theme
+      pkgs.nordic
     ];
 
     services.gnome.at-spi2-core.enable = true;
 
-    # environment.variables = {
-    #   GTK_THEME = "${theme-name}";
-    #   GTK_ICON_THEME = "${icon-theme-name}";
-    # };
+    environment.variables = {
+      GTK_THEME = "${theme-name}";
+      GTK_ICON_THEME = "${icon-theme-name}";
+    };
 
     environment.etc = {
       "xdg/gtk-2.0/gtkrc" = {

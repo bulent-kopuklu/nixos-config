@@ -85,7 +85,6 @@ in {
 
     programs.i3lock.enable = true;
     security.pam.services.i3lock = {};
-    programs.dconf.enable = true;
     env.services.x11-services.enable = true;
 
     env.programs.gtk.enable = true;
@@ -102,6 +101,18 @@ in {
       icon-theme='${icon-theme-name}'
       font-name='${font-name}'
     '';
+
+    programs.dconf.enable = true;
+    xdg.portal = {
+      enable = true;
+
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+      ];
+
+      config.common.default = "*";
+    };
+
 
     environment.etc."dconf/profile/user".text = ''
       user-db:user

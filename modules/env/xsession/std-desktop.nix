@@ -4,9 +4,7 @@ let
   cfg = config.env.xsession;
   devRole = config.env.role.development;
   defaultApps = [
-    "org.mozilla.firefox"
     "com.google.Chrome"
-    "org.mozilla.Thunderbird"
     "org.gnome.Evince"
     "org.libreoffice.LibreOffice"
     "org.videolan.VLC"
@@ -14,6 +12,7 @@ let
     "us.zoom.Zoom"
     "org.telegram.desktop"
     "org.gimp.GIMP"
+    "org.gnome.Loupe"
   ];
   devApps = [
     "com.getpostman.Postman"
@@ -98,13 +97,14 @@ in {
       overrides = {
         global = {
           Environment = {
-            GTK_THEME = "NumixSolarizedDarkYellow";
-            GTK_ICON_THEME = "Papirus-Dark";
+            GTK_THEME = theme-name;
+            GTK_ICON_THEME = icon-theme-name;
             GTK_CURSOR_THEME = "elementary";
             GTK_CURSOR_SIZE = "24";
           };
           Context = {
             filesystems = [
+              "/nix/store:ro"
               "~/.themes:ro"
               "~/.icons:ro"
               "xdg-config/fontconfig:ro"
@@ -131,18 +131,6 @@ in {
         ${pkgs.dconf}/bin/dconf update
       '';
     };    
-
-
-
-    xdg.portal = {
-      enable = true;
-
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
-
-      config.common.default = "*";
-    };
     
     programs.zsh = {
       promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
@@ -164,13 +152,11 @@ in {
       gnome-keyring
       pinentry-gtk2
       squeezelite
-
-      qimgv
-      gimp
+      firefox
+      thunderbird
+      chromium
       arandr
-#      teamviewer
 
-#      tor-browser-bundle-bin
       system-config-printer
     ];
   };
