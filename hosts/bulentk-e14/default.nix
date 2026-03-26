@@ -20,10 +20,65 @@
     nics = [ ];
   };
 
-  sys.disk = {
-    layout = "btrfs-crypt";
-    swapFileSize = 32768;
+  sys.disk.enable = false;
+  boot.initrd.systemd.enable = true; 
+  boot.initrd.luks.devices = {
+    "system" = {
+      device = "/dev/disk/by-partlabel/cryptsys";
+      allowDiscards = true; # SSD ömrü ve TRIM için şart
+    };
+    "hammal" = {
+      device = "/dev/disk/by-partlabel/crypthml";
+      allowDiscards = true; # SSD ömrü ve TRIM için şart
+    };
   };
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/system";
+    fsType = "btrfs";
+    options = [ "subvol=@" "autodefrag" "noatime" "compress=zstd:1" "ssd" "discard=async" "space_cache=v2" ];
+  };
+
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-label/system";
+    fsType = "btrfs";
+    options = [ "subvol=@nix" "autodefrag" "noatime" "compress=zstd:1" "ssd" "discard=async" "space_cache=v2" ];
+  };
+
+  fileSystems."/home" = { 
+    device = "/dev/disk/by-label/hammal";
+    fsType = "btrfs";
+    options = [ "subvol=@home" "autodefrag" "noatime" "compress=zstd:1" "ssd" "discard=async" "space_cache=v2" ];
+  };
+
+  fileSystems."/var" = { 
+    device = "/dev/disk/by-label/hammal";
+    fsType = "btrfs";
+    options = [ "subvol=@var" "autodefrag" "noatime" "compress=zstd:1" "ssd" "discard=async" "space_cache=v2" ];
+  };
+
+  fileSystems."/home/bulentk/workspace" = {
+    device = "/dev/disk/by-label/system";
+    fsType = "btrfs";
+    options = [ "subvol=@workspace" "autodefrag" "noatime" "compress=zstd:1" "ssd" "discard=async" "space_cache=v2" ];
+  };
+
+  fileSystems."/boot" = { 
+    device = "/dev/disk/by-label/BOOT";
+    fsType = "vfat";
+  };
+
+  swapDevices = [{
+    device = "/.swapfile";
+    size = 32 * 1024; # 32 GB
+  }];
+
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+    grub.enable = false;
+  };
+
 
   env.terminal = {
     command = "alacritty";

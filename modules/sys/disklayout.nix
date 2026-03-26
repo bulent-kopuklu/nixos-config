@@ -6,6 +6,11 @@ let
   cfg = config.sys.disk;
 in {
   options.sys.disk = {
+    enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Whether to enable the disk configuration.";
+    };
     layout = mkOption {
       type = types.enum [ "btrfs" "btrfs-crypt" "vm" ];
       description = "This is the layout of the disk used by the system.";
@@ -24,7 +29,7 @@ in {
     };
   };
 
-  config = mkMerge [
+  config = mkIf cfg.enable (mkMerge [
     (mkIf (cfg.layout == "btrfs-crypt") {
       boot.initrd.luks.devices = {
         "system" = {
@@ -102,5 +107,5 @@ in {
         device = "/dev/sda";
       };
     })
-  ];
+  ]);
 }
