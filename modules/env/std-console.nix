@@ -57,6 +57,8 @@
     htop
     iotop
     iftop
+    compsize
+    e2fsprogs
     nettools
     netcat
     iptables

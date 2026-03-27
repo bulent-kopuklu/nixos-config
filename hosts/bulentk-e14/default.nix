@@ -36,31 +36,31 @@
   fileSystems."/" = {
     device = "/dev/disk/by-label/system";
     fsType = "btrfs";
-    options = [ "subvol=@" "autodefrag" "noatime" "compress=zstd:1" "ssd" "discard=async" "space_cache=v2" ];
+    options = [ "subvol=@" "autodefrag" "noatime" "nodiratime" "ssd" "discard=async" "space_cache=v2" ];
   };
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-label/system";
     fsType = "btrfs";
-    options = [ "subvol=@nix" "autodefrag" "noatime" "compress=zstd:1" "ssd" "discard=async" "space_cache=v2" ];
+    options = [ "subvol=@nix" "autodefrag" "noatime" "nodiratime" "ssd" "discard=async" "space_cache=v2" ];
   };
 
   fileSystems."/home" = { 
     device = "/dev/disk/by-label/hammal";
     fsType = "btrfs";
-    options = [ "subvol=@home" "autodefrag" "noatime" "compress=zstd:1" "ssd" "discard=async" "space_cache=v2" ];
+    options = [ "subvol=@home" "autodefrag" "noatime" "nodiratime" "compress=zstd:1" "ssd" "discard=async" "space_cache=v2" ];
   };
 
   fileSystems."/var" = { 
     device = "/dev/disk/by-label/hammal";
     fsType = "btrfs";
-    options = [ "subvol=@var" "autodefrag" "noatime" "compress=zstd:1" "ssd" "discard=async" "space_cache=v2" ];
+    options = [ "subvol=@var" "autodefrag" "noatime" "nodiratime" "compress=zstd:1" "ssd" "discard=async" "space_cache=v2" ];
   };
 
   fileSystems."/home/bulentk/workspace" = {
     device = "/dev/disk/by-label/system";
     fsType = "btrfs";
-    options = [ "subvol=@workspace" "autodefrag" "noatime" "compress=zstd:1" "ssd" "discard=async" "space_cache=v2" ];
+    options = [ "subvol=@workspace" "autodefrag" "noatime" "nodiratime" "ssd" "discard=async" "space_cache=v2" ];
   };
 
   fileSystems."/boot" = { 
@@ -126,37 +126,42 @@
   #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.linuxPackages_6_18;
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "usbhid" "sd_mod" "thunderbolt" ];
+  boot.initrd.availableKernelModules = [ 
+    "nvme" 
+    "xhci_pci" 
+    "usb_storage" 
+    "usbhid" 
+    "sd_mod"
+    "thunderbolt" 
+  ];
+
   boot.kernelModules = [ "xe" ];
-  boot.blacklistedKernelModules = [ "i915" "kvm_intel" ];
   
-  hardware.graphics.enable = true;
-  services.xserver.videoDrivers = [ "xe" ];
+  boot.blacklistedKernelModules = [ 
+    "i915" 
+    "kvm_intel" 
+  ];
 
   boot.kernelParams = [
     "xe.force_probe=7d55"
     "i915.force_probe=!7d55"
+    "transparent_hugepage=always"
+    "nvme_core.default_ps_max_latency_us=0"
+    "elevator=none"
   ];
-
-  #  hardware.graphics = {
-  #   enable = true;
-
-  #   extraPackages = with pkgs; [
-  #     intel-media-driver
-  #     intel-compute-runtime
-  #     vpl-gpu-rt
-  #   ];
-
-  #   extraPackages32 = with pkgs.driversi686Linux; [
-  #     intel-media-driver
-  #   ];
-  # };
 
   hardware.cpu.intel.updateMicrocode = true;
 
-  # i915 modülünün initrd'de yüklenmesini devre dışı bırakın
+  hardware.graphics.enable = true;
   hardware.intelgpu.driver = "xe";
-  
+  services.xserver.videoDrivers = [ "xe" ];
+
+
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "performance";  # veya "powersave"
+  };
+
   # https://linrunner.de/tlp/
   # TODO bu halde bluetooth wifi de kullanilmayinca kapaniyor kapanmamasi icin ayri ayri yapmak gerekiyor olabilir
   services.tlp = {
@@ -170,16 +175,12 @@
     };
   };
 
-  # services.throttled.enable = lib.mkDefault true;
-  # boot.kernelParams = [
-  #   # Force use of the thinkpad_acpi driver for backlight control.
-  #   # This allows the backlight save/load systemd service to work.
-  #   "acpi_backlight=native"
-  # ];
-
   environment.systemPackages = with pkgs; [
-      globalprotect-openconnect
-      ollama-vulkan
+    linuxPackages.cpupower
+    globalprotect-openconnect
+    ollama-vulkan
+    nvme-cli
+    dmidecode
   ];
 
 

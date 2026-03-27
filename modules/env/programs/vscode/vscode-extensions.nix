@@ -3,10 +3,12 @@
 (pkgs.vscode-with-extensions.override {
   vscodeExtensions = with pkgs.vscode-extensions; [
     bradlc.vscode-tailwindcss
+    davidanson.vscode-markdownlint
     dbaeumer.vscode-eslint
     donjayamanne.githistory
     dotjoshjohnson.xml
     editorconfig.editorconfig
+    fill-labs.dependi
     github.copilot
     github.copilot-chat
     golang.go
@@ -18,20 +20,18 @@
     ms-python.python
     ms-python.vscode-pylance
     ms-toolsai.jupyter
+    ms-vscode-remote.remote-ssh-edit
     ms-vscode.cmake-tools
     ms-vscode.makefile-tools
     prisma.prisma
-    redhat.vscode-yaml
     redhat.vscode-xml
+    redhat.vscode-yaml
     ritwickdey.liveserver
-    vscode-icons-team.vscode-icons
-    yzhang.markdown-all-in-one
-    davidanson.vscode-markdownlint
- 	  rust-lang.rust-analyzer
+    rust-lang.rust-analyzer
     tamasfe.even-better-toml
     vadimcn.vscode-lldb
-    fill-labs.dependi
-    ms-vscode-remote.remote-ssh-edit
+    vscode-icons-team.vscode-icons
+    yzhang.markdown-all-in-one
   ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
     {
       name = "es7-react-js-snippets";
