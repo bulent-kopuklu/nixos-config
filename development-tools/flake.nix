@@ -5,42 +5,109 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     flake-utils.url = "github:numtide/flake-utils";
-
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }:
+  outputs = { nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system;};
       in {
         lib = {
-          cpp = {
-            packages = with pkgs; [
-              cmake
-              clang
-              clang-tools
-              ninja
-              gdb
-            ];
-            shellHook = ''
-              export CC="${pkgs.clang}/bin/clang"
-              export CXX="${pkgs.clang}/bin/clang++"
-            '';
-          };
-          rust = {
-            packages = with pkgs; [
-              cargo
-              rustc
-              rust-analyzer
-              clippy
-              rustfmt
-              cargo-edit
-              cargo-watch
-              cargo-audit
-              rust-bindgen
-            ];
-            shellHook = ''
-            '';
-          };
+          cpp = { stdenv ? "clang", targetArch ? null, extraPackages ? [] }:
+            let
+              cross-pkgs =
+                if targetArch == null           then pkgs
+                else if targetArch == "aarch64" then pkgs.pkgsCross.aarch64-multiplatform
+                else if targetArch == "x86_64"  then pkgs.pkgsCross.gnu64
+                else throw "Unsupported target architecture: ${targetArch}";
+
+              cc =
+                if stdenv == "clang" then cross-pkgs.clang
+                else if stdenv == "gcc" then cross-pkgs.gcc
+                else throw "Unsupported stdenv: ${stdenv}";
+
+            in {
+              packages = with pkgs; [
+                cmake
+                ninja
+                gdb
+                cc
+              ] ++ extraPackages;
+
+              shellHook = ''
+                export CC="${cc}/bin/${if stdenv == "clang" then "clang" else "gcc"}"
+                export CXX="${cc}/bin/${if stdenv == "clang" then "clang++" else "g++"}"
+                ${if targetArch != null then ''
+                  echo "Cross-compilation target: ${targetArch}"
+                '' else ""}
+              '';
+            };    
+          
+          rust = { targetArch ? null, extraPackages ? [] }:
+            let
+              rust-target =
+                if targetArch == null           then null
+                else if targetArch == "aarch64" then "aarch64-unknown-linux-gnu"
+                else if targetArch == "x86_64"  then "x86_64-unknown-linux-gnu"
+                else throw "Unsupported target architecture: ${targetArch}";
+
+              cross-pkgs =
+                if targetArch == null           then null
+                else if targetArch == "aarch64" then pkgs.pkgsCross.aarch64-multiplatform
+                else if targetArch == "x86_64"  then pkgs.pkgsCross.gnu64
+                else throw "Unsupported target architecture: ${targetArch}";
+
+              linker =
+                if cross-pkgs == null then null
+                else "${cross-pkgs.stdenv.cc}/bin/${cross-pkgs.stdenv.cc.targetPrefix}cc";
+            in {
+              packages = with pkgs; [
+                rustup
+              ] 
+              ++ (if cross-pkgs != null then [ cross-pkgs.stdenv.cc ] else []) 
+              ++ extraPackages;
+              shellHook = ''
+                ${if rust-target != null then ''
+                  mkdir -p .cargo
+                  cat > .cargo/config.toml << EOF
+[target.${rust-target}]
+linker = "${linker}"
+EOF
+                  export CARGO_BUILD_TARGET="${rust-target}"
+                '' else ""}
+              '';
+            };
+
+          android = { apiLevel ? 21, ndkVersion ? "23.2.8568313", cmakeVersion ? "3.22.1", extraPackages ? [] }:
+            let 
+              androidSdk = pkgs.androidenv.androidPkgs {
+                platformVersions = [ (toString apiLevel) ];
+                ndkVersions = [ ndkVersion ];
+                cmakeVersions = [ cmakeVersion ];
+                includeNDK = true;
+              };
+              android-scripts = pkgs.stdenv.mkDerivation {
+                name = "android-scripts";
+                src = ./android-scripts;
+                installPhase = ''
+                  mkdir -p $out/bin
+                  cp cmake $out/bin/cmake-android
+                  cp definition $out/bin/definition
+                  chmod +x $out/bin/cmake-android
+                '';
+              };
+            in {
+              packages = [
+                androidSdk.androidsdk
+                android-scripts
+              ] ++ extraPackages;
+              shellHook = ''
+                export ANDROID_SDK_HOME="${androidSdk.androidsdk}/libexec/android-sdk"
+                export ANDROID_NDK_VERSION="${ndkVersion}"
+                export ANDROID_CMAKE_VERSION="${cmakeVersion}"
+                export ANDROID_MIN_SDK="${toString apiLevel}"
+              '';
+            };
+
           python = {
             packages = with pkgs; [
               python312
@@ -51,6 +118,7 @@
             shellHook = ''
             '';
           };
+
           java = {
             packages = with pkgs; [
               jdk17
@@ -62,6 +130,7 @@
               export JDK_HOME="${pkgs.jdk17.home}"
             '';
           };
+          
           node = {
             packages = with pkgs; [
               nodejs_20

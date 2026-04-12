@@ -19,7 +19,7 @@
     crtc 1
     mode 2560x1440
     pos 0x0
-    rate 59.95
+    rate 74.78
     x-prop-audio auto
     x-prop-broadcast_rgb Automatic
     x-prop-max_bpc 12
@@ -28,7 +28,7 @@
     crtc 2
     mode 2560x1440
     pos 2560x0
-    rate 59.95
+    rate 74.78
     primary
     x-prop-audio auto
     x-prop-broadcast_rgb Automatic
