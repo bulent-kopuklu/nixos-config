@@ -16,12 +16,6 @@ in {
     
     users.users.${cfg.user.name}.extraGroups = ["adbusers"];
 
-    # services.globalprotect = {
-    #   enable = true;
-    #   # if you need a Host Integrity Protection report
-    #   csdWrapper = "${pkgs.openconnect}/libexec/openconnect/hipreport.sh";
-    # };
-
     env.programs.docker.enable = true;
 
     programs.direnv.enable = true;
@@ -29,6 +23,7 @@ in {
     env.programs.vscode.enable = true;
 
     environment.systemPackages = with pkgs; [
+      inputs.development-tools.packages.${pkgs.system}.mkproject
       git-lfs
       git
       git-lfs

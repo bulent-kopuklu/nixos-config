@@ -8,9 +8,10 @@
     nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
     flatpaks.url = "github:gmodena/nix-flatpak";
+    development-tools.url = "path:/home/bulentk/workspace/bulentk/nixos-config/development-tools";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixos-hardware, nur, flatpaks, ... }: 
+  outputs = inputs@{ self, nixpkgs, nixos-hardware, nur, flatpaks, development-tools, ... }: 
   let
 
   in {

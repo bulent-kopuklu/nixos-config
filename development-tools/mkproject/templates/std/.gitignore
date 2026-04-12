@@ -1,0 +1,18 @@
+# Build
+build/
+dist/
+target/
+
+# IDE
+.vscode/*
+!.vscode/tasks-cmake.json
+!.vscode/tasks-cargo.json
+.idea/
+
+# Nix
+.direnv/
+result
+
+# OS
+.DS_Store
+Thumbs.db

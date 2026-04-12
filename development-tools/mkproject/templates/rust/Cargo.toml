@@ -1,0 +1,21 @@
+
+[package]
+name = "project-name"
+version = "0.1.0"
+edition = "2021"
+ 
+[lib]
+name = "lib"
+crate-type = ["cdylib", "staticlib"]
+ 
+[[bin]]
+name = "main"
+path = "src/main.rs"
+ 
+[dependencies]
+ 
+[profile.release]
+opt-level = 3
+lto = true
+strip = true
+ 
