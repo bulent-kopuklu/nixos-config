@@ -5,7 +5,7 @@ clean:
 	@rm -f result
 
 build: clean 
-	@nixos-rebuild build --flake ".#${host}"
+	@nixos-rebuild build --flake ".#${host}" 
 
 build-vm: build
 	nixos-rebuild build-vm --flake ".#${host}"

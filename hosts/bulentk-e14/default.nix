@@ -177,7 +177,7 @@
 
   environment.systemPackages = with pkgs; [
     linuxPackages.cpupower
-    globalprotect-openconnect
+    gpclient
     ollama-vulkan
     nvme-cli
     dmidecode
