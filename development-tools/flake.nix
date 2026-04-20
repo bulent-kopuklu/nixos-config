@@ -19,49 +19,6 @@
           };
         };
 
-        std-files = pkgs.stdenv.mkDerivation {
-          name = "std-files";
-          src = ./std;
-          installPhase = ''
-            mkdir -p $out
-            cp .envrc $out/.envrc
-            cp .gitignore $out/.gitignore
-          '';
-        };
-
-        cpp-files = pkgs.stdenv.mkDerivation {
-          name = "cpp-files";
-          src = ./cpp;
-          installPhase = ''
-            mkdir -p $out
-            cp .clangd $out/.clangd
-            cp .clang-format $out/.clang-format
-            cp .editorconfig $out/.editorconfig
-          '';
-        };
-
-        rust-files = pkgs.stdenv.mkDerivation {
-          name = "rust-files";
-          src = ./rust;
-          installPhase = ''
-            mkdir -p $out
-            cp rustfmt.toml $out/rustfmt.toml
-            cp Cargo.toml $out/Cargo.toml
-          '';
-        };
-
-        android-scripts = pkgs.stdenv.mkDerivation {
-          name = "android-scripts";
-          src = ./android-scripts;
-          installPhase = ''
-            mkdir -p $out/bin $out/share
-            cp cmake-android $out/bin/cmake-android
-            cp definition $out/bin/definition
-            cp tasks.json $out/share/tasks-cmake.json
-            chmod +x $out/bin/cmake-android
-          '';
-        };
-
       in {
         packages = {
           mkproject = pkgs.callPackage ./mkproject.nix { };
@@ -70,9 +27,11 @@
         lib = rec {
           cpp = { targets ? [], clang-version ? null, extra-packages ? [] }:
             let
-              clang = if clang-version == null then pkgs.clang
-                      else pkgs."clang_${clang-version}";
-
+              llvmPackages = if clang-version == null then pkgs.llvmPackages
+                   else pkgs.${"llvmPackages_${clang-version}"};
+              clang = llvmPackages.clang;
+              clang-tools = llvmPackages.clang-tools;
+              bin-tools = llvmPackages.bintools;
               cross-toolchains = map (target:
                 if target == "aarch64"    then pkgs.pkgsCross.aarch64-multiplatform.clang
                 else if target == "armv7" then pkgs.pkgsCross.armv7l-hf-multiplatform.clang
@@ -81,7 +40,6 @@
 
             in {
               packages = with pkgs; [
-                clang-tools
                 gdb
                 lldb
                 cmake
@@ -89,23 +47,11 @@
                 gnumake
                 pkg-config
                 ccache
-                glibc.static
-                musl
-              ] ++ [ clang ] ++ cross-toolchains ++ extra-packages;
+              ] ++ [ clang ] ++ [ clang-tools ] ++ [ bin-tools ] ++ cross-toolchains ++ extra-packages;
 
               shellHook = ''
                 export CC="${clang}/bin/clang"
                 export CXX="${clang}/bin/clang++"
-
-                if [ ! -f .envrc ];          then cp ${std-files}/.envrc .;          fi
-                if [ ! -f .gitignore ];      then cp ${std-files}/.gitignore .;      fi
-                if [ ! -f .clangd ];         then cp ${cpp-files}/.clangd .;         fi
-                if [ ! -f .clang-format ];   then cp ${cpp-files}/.clang-format .;   fi
-                if [ ! -f .editorconfig ];   then cp ${cpp-files}/.editorconfig .;   fi
-
-                if [ ! -f CMakeLists.txt ]; then
-                  echo "CMakeLists.txt bulunamadı. 'cmake init' ile oluşturabilirsiniz."
-                fi
               '';
             };
 
@@ -125,12 +71,12 @@
 
               linker-configs = map (target:
                 if target == "aarch64" then ''
-                  [target.aarch64-unknown-linux-gnu]
-                  linker = "${pkgs.pkgsCross.aarch64-multiplatform.stdenv.cc}/bin/${pkgs.pkgsCross.aarch64-multiplatform.stdenv.cc.targetPrefix}cc"
+[target.aarch64-unknown-linux-gnu]
+linker = "${pkgs.pkgsCross.aarch64-multiplatform.stdenv.cc}/bin/${pkgs.pkgsCross.aarch64-multiplatform.stdenv.cc.targetPrefix}cc"
                 ''
                 else if target == "armv7" then ''
-                  [target.armv7-unknown-linux-gnueabihf]
-                  linker = "${pkgs.pkgsCross.armv7l-hf-multiplatform.stdenv.cc}/bin/${pkgs.pkgsCross.armv7l-hf-multiplatform.stdenv.cc.targetPrefix}cc"
+[target.armv7-unknown-linux-gnueabihf]
+linker = "${pkgs.pkgsCross.armv7l-hf-multiplatform.stdenv.cc}/bin/${pkgs.pkgsCross.armv7l-hf-multiplatform.stdenv.cc.targetPrefix}cc"
                 ''
                 else throw "Unsupported target: ${target}"
               ) targets;
@@ -139,19 +85,15 @@
               packages = [ pkgs.rustup ] ++ cross-linkers ++ extra-packages;
 
               shellHook = ''
-                rustup component add rust-analyzer clippy rustfmt 2>/dev/null || true
-
-                if [ ! -f .envrc ];       then cp ${std-files}/.envrc .;        fi
-                if [ ! -f .gitignore ];   then cp ${std-files}/.gitignore .;    fi
-                if [ ! -f rustfmt.toml ]; then cp ${rust-files}/rustfmt.toml .; fi
-                if [ ! -f Cargo.toml ];   then cp ${rust-files}/Cargo.toml .;   fi
+                rustup default stable 2>/dev/null || true
+                rustup component add rust-analyzer rust-analyzer-lsp clippy rustfmt rust-src llvm-tools  2>/dev/null || true
 
                 ${if targets != [] then ''
                   rustup target add ${builtins.concatStringsSep " " rust-targets} 2>/dev/null || true
 
                   # .cargo/config.toml - sadece [target.*] bolumlerini guncelle
                   if [ -f .cargo/config.toml ]; then
-                    awk '/^\[target\./,/^(\[|$)/{next} {print}' .cargo/config.toml > .cargo/config.toml.tmp
+                    awk '/^\[target\./{skip=1} /^\[/ && !/^\[target\./{skip=0} !skip{print}' .cargo/config.toml > .cargo/config.toml.tmp
                     mv .cargo/config.toml.tmp .cargo/config.toml
                   else
                     mkdir -p .cargo
@@ -178,7 +120,6 @@ EOF
               packages = [
                 android-sdk
                 pkgs.jdk17
-                android-scripts
               ] ++ extra-packages;
 
               shellHook = ''
@@ -206,32 +147,26 @@ EOF
               ];
 
               android-linker-configs = ''
-                [target.aarch64-linux-android]
-                linker = "${ndk-toolchain}/aarch64-linux-android${toString api-level}-clang"
+[target.aarch64-linux-android]
+linker = "${ndk-toolchain}/aarch64-linux-android${toString api-level}-clang"
 
-                [target.x86_64-linux-android]
-                linker = "${ndk-toolchain}/x86_64-linux-android${toString api-level}-clang"
+[target.x86_64-linux-android]
+linker = "${ndk-toolchain}/x86_64-linux-android${toString api-level}-clang"
 
-                [target.i686-linux-android]
-                linker = "${ndk-toolchain}/i686-linux-android${toString api-level}-clang"
+[target.i686-linux-android]
+linker = "${ndk-toolchain}/i686-linux-android${toString api-level}-clang"
 
-                [target.armv7-linux-androideabi]
-                linker = "${ndk-toolchain}/armv7a-linux-androideabi${toString api-level}-clang"
+[target.armv7-linux-androideabi]
+linker = "${ndk-toolchain}/armv7a-linux-androideabi${toString api-level}-clang"
               '';
             in {
               packages = android-env.packages ++ cpp-env.packages ++ rust-env.packages ++ extra-packages;
 
               shellHook = android-env.shellHook + cpp-env.shellHook + rust-env.shellHook + ''
-                if [ ! -f .vscode/tasks-cmake.json ]; then
-                  mkdir -p .vscode
-                  cp ${android-scripts}/share/tasks-cmake.json .vscode/tasks-cmake.json
-                  chmod 666 .vscode/tasks-cmake.json
-                fi
-
                 rustup target add ${builtins.concatStringsSep " " android-rust-targets} 2>/dev/null || true
 
                 if [ -f .cargo/config.toml ]; then
-                  awk '/^\[target\./,/^(\[|$)/{next} {print}' .cargo/config.toml > .cargo/config.toml.tmp
+                  awk '/^\[target\./{skip=1} /^\[/ && !/^\[target\./{skip=0} !skip{print}' .cargo/config.toml > .cargo/config.toml.tmp
                   mv .cargo/config.toml.tmp .cargo/config.toml
                 else
                   mkdir -p .cargo
@@ -286,8 +221,11 @@ EOF
           };
 
           run-zsh = ''
-            export SHELL=${pkgs.zsh}/bin/zsh
-            exec ${pkgs.zsh}/bin/zsh --login
+            if [ -z "$__NIX_DEVSHELL_ZSH" ]; then
+              export __NIX_DEVSHELL_ZSH=1
+              export SHELL=${pkgs.zsh}/bin/zsh
+              exec ${pkgs.zsh}/bin/zsh --login
+            fi
           '';
         };
       }

@@ -42,24 +42,29 @@ if [ -d "$PROJECT_NAME" ]; then
 fi
 
 mkdir -p "$PROJECT_NAME"
-cd "$PROJECT_NAME"
 
 # std dosyaları
-cp "$TEMPLATES/std/.envrc"    .envrc
-cp "$TEMPLATES/std/.gitignore" .gitignore
+cp "$TEMPLATES/std/.envrc"    "$PROJECT_NAME"/.envrc
+cp "$TEMPLATES/std/.gitignore" "$PROJECT_NAME"/.gitignore
 
 # env'e göre dosyaları kopyala
 has_env() { for e in "${ENVS[@]}"; do [ "$e" = "$1" ] && return 0; done; return 1; }
 
 if has_env "cpp" || has_env "android-native"; then
-  cp "$TEMPLATES/cpp/.clangd"       .clangd
-  cp "$TEMPLATES/cpp/.clang-format" .clang-format
-  cp "$TEMPLATES/cpp/.editorconfig" .editorconfig
+  cp "$TEMPLATES/cpp/.clangd"       "$PROJECT_NAME"/.clangd
+  cp "$TEMPLATES/cpp/.clang-format" "$PROJECT_NAME"/.clang-format
+  cp "$TEMPLATES/cpp/.editorconfig" "$PROJECT_NAME"/.editorconfig
 fi
 
 if has_env "rust" || has_env "android-native"; then
-  cp "$TEMPLATES/rust/rustfmt.toml" rustfmt.toml
-  cp "$TEMPLATES/rust/Cargo.toml"   Cargo.toml
+  cp "$TEMPLATES/rust/rustfmt.toml" "$PROJECT_NAME"/rustfmt.toml
+  cp "$TEMPLATES/rust/Cargo.toml"   "$PROJECT_NAME"/Cargo.toml
+fi
+
+if has_env "android-native"; then
+  mkdir -p "$PROJECT_NAME"/.vscode
+  cp "$TEMPLATES/android-native/tasks.json" "$PROJECT_NAME"/.vscode/tasks-cmake.json
+  cp "$TEMPLATES/android-native/cmake-android" "$PROJECT_NAME"/cmake-android
 fi
 
 # flake.nix generate et
@@ -93,7 +98,7 @@ generate_merge_line() {
   echo -e "$lines"
 }
 
-cat > flake.nix << EOF
+cat > "$PROJECT_NAME"/flake.nix << EOF
 {
   description = "${PROJECT_NAME}";
   inputs = {
@@ -113,6 +118,8 @@ $(generate_merge_line)
         devShells.default = pkgs.mkShell {
           buildInputs = tools.packages;
           shellHook = tools.shellHook + ''
+            export ANTHROPIC_API_KEY=\$(pass show personal/bulentk/anthropic-api 2>/dev/null || echo "")
+            export OPENROUTER_API_KEY=\$(pass show personal/bulentk/openrouter-api 2>/dev/null || echo "")
             echo "${PROJECT_NAME} development environment is ready."
           '';
         };
@@ -121,5 +128,11 @@ $(generate_merge_line)
 }
 EOF
 
+find ${PROJECT_NAME} -type d -exec chmod 755 {} \;
+find ${PROJECT_NAME} -type f -exec chmod 644 {} \;
+chmod +x ${PROJECT_NAME}/cmake-android 2>/dev/null || true
+
 echo "Project '${PROJECT_NAME}' created."
-echo "cd ${PROJECT_NAME} && nix develop"
+echo "cd ${PROJECT_NAME}"
+
+

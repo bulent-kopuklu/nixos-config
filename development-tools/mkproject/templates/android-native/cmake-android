@@ -5,7 +5,13 @@ APP="$0"
 
 SCRIPTS=$(dirname ${APP})
 
-source ${SCRIPTS}/definition
+ANDROID_MIN_SDK=${ANDROID_MIN_SDK:-21}
+ANDROID_PLATFORM=android-$ANDROID_MIN_SDK
+ANDROID_NDK_VERSION=${ANDROID_NDK_VERSION:-23.2.8568313}
+
+ANDROID_SDK_HOME=${ANDROID_SDK_HOME:-$HOME/Android/Sdk}
+ANDROID_NDK_HOME=$ANDROID_SDK_HOME/ndk/$ANDROID_NDK_VERSION
+ANDROID_CMAKE_VERSION=${ANDROID_CMAKE_VERSION:-3.22.1}
 
 TARGET="linux-pc"
 BUILD_VARIANT="Debug"
@@ -18,14 +24,7 @@ ANDROID_CMAKE_APP=$ANDROID_SDK_HOME/cmake/$ANDROID_CMAKE_VERSION/bin/cmake
 ANDROID_NINJA_APP=$ANDROID_SDK_HOME/cmake/$ANDROID_CMAKE_VERSION/bin/ninja
 ANDROID_CMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake
 
-        # -DCMAKE_CXX_FLAGS_DEBUG="-O0 -g" \
-        # -DCMAKE_CXX_FLAGS_RELEASE="-O2 -DNDEBUG" \
-        # -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-O2 -g -DNDEBUG" \
-        # -DCMAKE_CXX_FLAGS="-fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wformat -Werror=format-security -fPIC" \
-
-
 function configure_current_machine() {
-#    CXXFLAGS="-fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wformat -Werror=format-security -fPIC" \
     cmake \
         -DCMAKE_C_COMPILER:FILEPATH=$(which clang) \
         -DCMAKE_CXX_COMPILER:FILEPATH=$(which clang++) \

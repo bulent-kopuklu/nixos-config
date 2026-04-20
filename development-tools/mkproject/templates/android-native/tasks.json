@@ -12,7 +12,7 @@
         {
             "label": "CMake: configure",
             "type": "shell",
-            "command": "cmake-android configure --target ${input:target} --abi ${input:abi} --build-variant ${input:buildvariant}",
+            "command": "./cmake-android configure --target ${input:target} --abi ${input:abi} --build-variant ${input:buildvariant}",
             "group": "build",
             "problemMatcher": [],
             "detail": "CMake template configure task"
@@ -20,7 +20,7 @@
         {
             "label": "CMake: build",
             "type": "shell",
-            "command": "cmake-android build",
+            "command": "./cmake-android build",
             "group": "build",
             "problemMatcher": [],
             "detail": "CMake template build task"
@@ -28,7 +28,7 @@
         {
             "label": "CMake: build-all",
             "type": "shell",
-            "command": "cmake-android build-all",
+            "command": "./cmake-android build-all",
             "group": "build",
             "problemMatcher": [],
             "detail": "CMake template build-all task"
@@ -36,7 +36,7 @@
         {
             "label": "CMake: clean",
             "type": "shell",
-            "command": "cmake-android clean",
+            "command": "./cmake-android clean",
             "group": "build",
             "problemMatcher": [],
             "detail": "CMake template clean task"
@@ -44,7 +44,7 @@
         {
             "label": "CMake: deep-clean",
             "type": "shell",
-            "command": "cmake-android deep-clean",
+            "command": "./cmake-android deep-clean",
             "group": "build",
             "problemMatcher": [],
             "detail": "CMake rm -rf build"
@@ -52,7 +52,7 @@
         {
             "label": "CMake: soft-clean",
             "type": "shell",
-            "command": "cmake-android soft-clean",
+            "command": "./cmake-android soft-clean",
             "group": "build",
             "problemMatcher": [],
             "detail": "CMake rm -rf build/* (except 3rd-ports)"
@@ -60,7 +60,7 @@
         {
             "label": "CMake: clean rebuild",
             "type": "shell",
-            "command": "cmake-android clean && cmake-android build",
+            "command": "./cmake-android clean && ./cmake-android build",
             "group": "build",
             "problemMatcher": [],
             "detail": "CMake template clean rebuild task"
