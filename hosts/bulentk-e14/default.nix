@@ -25,12 +25,19 @@
   boot.initrd.luks.devices = {
     "system" = {
       device = "/dev/disk/by-partlabel/cryptsys";
-      allowDiscards = true; # SSD ömrü ve TRIM için şart
+      allowDiscards = true;
     };
     "hammal" = {
       device = "/dev/disk/by-partlabel/crypthml";
-      allowDiscards = true; # SSD ömrü ve TRIM için şart
+      allowDiscards = true;
+      keyFile = "/etc/secrets/hammal.key";
+      fallbackToPassword = true;
     };
+  };
+
+  # hammal keyfile'ını initrd'ye dahil et
+  boot.initrd.secrets = {
+    "/etc/secrets/hammal.key" = "/etc/secrets/hammal.key";
   };
 
   fileSystems."/" = {
