@@ -31,7 +31,6 @@
       device = "/dev/disk/by-partlabel/crypthml";
       allowDiscards = true;
       keyFile = "/etc/secrets/hammal.key";
-      fallbackToPassword = true;
     };
   };
 
@@ -188,6 +187,7 @@
     ollama-vulkan
     nvme-cli
     dmidecode
+    openconnect
   ];
 
 

@@ -33,4 +33,7 @@ in pkgs.writeText "alacritty-config.toml" ''
   [window.padding]
   x = 5
   y = 5
+
+  [general]
+  import = ["~/.config/alacritty/local.toml"]
 ''
