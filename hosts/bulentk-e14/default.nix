@@ -141,11 +141,10 @@
     "thunderbolt" 
   ];
 
-  boot.kernelModules = [ "xe" ];
+  boot.kernelModules = [ "xe" "kvm_intel" ];
   
   boot.blacklistedKernelModules = [ 
     "i915" 
-    "kvm_intel" 
   ];
 
   boot.kernelParams = [

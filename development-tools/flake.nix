@@ -106,10 +106,11 @@ EOF
               '';
             };
 
-          android = { api-level ? 21, ndk-version ? "23.2.8568313", cmake-version ? "3.22.1", extra-packages ? [] }:
+          android = { api-level ? 21, ndk-version ? "23.2.8568313", cmake-version ? "3.22.1", extra-platform-versions ? [], build-tools-versions ? [], extra-packages ? [] }:
             let
               androidComposition = pkgs-android.androidenv.composeAndroidPackages {
-                platformVersions = [ (toString api-level) ];
+                platformVersions = [ (toString api-level) ] ++ extra-platform-versions;
+                buildToolsVersions = build-tools-versions;
                 ndkVersions = [ ndk-version ];
                 cmakeVersions = [ cmake-version ];
                 includeNDK = true;
@@ -120,24 +121,29 @@ EOF
               packages = [
                 android-sdk
                 pkgs.jdk17
+                pkgs.gradle
               ] ++ extra-packages;
 
               shellHook = ''
-                export ANDROID_SDK_HOME="${android-sdk}/libexec/android-sdk"
+                export ANDROID_USER_HOME="''${XDG_DATA_HOME:-$HOME/.local/share}/android"
+                export ANDROID_HOME="${android-sdk}/libexec/android-sdk"
+                unset ANDROID_SDK_HOME
                 export ANDROID_NDK_VERSION="${ndk-version}"
                 export ANDROID_CMAKE_VERSION="${cmake-version}"
                 export ANDROID_MIN_SDK="${toString api-level}"
                 export JAVA_HOME="${pkgs.jdk17.home}"
+
+                mkdir -p "$ANDROID_USER_HOME"
               '';
             };
 
-          android-native = { api-level ? 21, ndk-version ? "23.2.8568313", cmake-version ? "3.22.1", extra-packages ? [] }:
+          android-native = { api-level ? 21, ndk-version ? "23.2.8568313", cmake-version ? "3.22.1", extra-platform-versions ? [], build-tools-versions ? [], extra-packages ? [] }:
             let
-              android-env   = android { inherit api-level ndk-version cmake-version; };
+              android-env   = android { inherit api-level ndk-version cmake-version extra-platform-versions build-tools-versions; };
               cpp-env       = cpp {};
               rust-env      = rust {};
 
-              ndk-toolchain = "$ANDROID_SDK_HOME/ndk/${ndk-version}/toolchains/llvm/prebuilt/linux-x86_64/bin";
+              ndk-toolchain = "$ANDROID_HOME/ndk/${ndk-version}/toolchains/llvm/prebuilt/linux-x86_64/bin";
 
               android-rust-targets = [
                 "aarch64-linux-android"
@@ -178,6 +184,21 @@ EOF
               '';
             };
 
+          go = { extra-packages ? [] }: {
+            packages = with pkgs; [
+              go
+              gopls
+              golangci-lint
+              delve
+            ] ++ extra-packages;
+
+            shellHook = ''
+              export GOPATH="''${XDG_DATA_HOME:-$HOME/.local/share}/go"
+              export GOBIN="$GOPATH/bin"
+              export PATH="$GOBIN:$PATH"
+            '';
+          };
+
           python = {
             packages = with pkgs; [
               python312
@@ -205,7 +226,7 @@ EOF
             packages = with pkgs; [
               nodejs_20
               pnpm
-              npm
+              # npm is included in nodejs
             ];
             shellHook = ''
               export NODE_PATH=""
