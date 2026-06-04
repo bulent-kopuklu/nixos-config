@@ -102,7 +102,7 @@ cat > "$PROJECT_NAME"/flake.nix << EOF
 {
   description = "${PROJECT_NAME}";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     flake-utils.url = "github:numtide/flake-utils";
     development-tools.url = "path:/home/bulentk/workspace/bulentk/nixos-config/development-tools";
   };
