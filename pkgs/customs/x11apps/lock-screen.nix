@@ -8,5 +8,5 @@ in
 pkgs.writeShellScriptBin "lock-screen" ''
   ${pkgs.i3lock}/bin/i3lock -c 000000
 #  ${pkgs.playerctl}/bin/playerctl pause
-#  ${pkgs.xorg.xset}/bin/xset dpms force off
+#  ${pkgs.xset}/bin/xset dpms force off
 ''

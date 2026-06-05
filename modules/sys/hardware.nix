@@ -100,7 +100,7 @@ in {
         pipewire
         wireplumber
         easyeffects
-        helvum
+#        helvum
         alsa-utils
         pamixer
         pulseaudio        

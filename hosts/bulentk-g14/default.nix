@@ -123,7 +123,7 @@
 
       serviceConfig.Type = "oneshot";
       script = ''
-        ${pkgs.xorg.xmodmap}/bin/xmodmap -e "keycode 119 = Delete Insert Delete"
+        ${pkgs.xmodmap}/bin/xmodmap -e "keycode 119 = Delete Insert Delete"
       '';
     };
   };

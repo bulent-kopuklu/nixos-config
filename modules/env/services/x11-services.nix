@@ -120,7 +120,7 @@ in {
 
           serviceConfig.Type = "oneshot";
           script = ''
-            ${pkgs.xorg.xmodmap}/bin/xmodmap -e "keycode 121 = XF86AudioMute XF86AudioMicMute XF86AudioMute"
+            ${pkgs.xmodmap}/bin/xmodmap -e "keycode 121 = XF86AudioMute XF86AudioMicMute XF86AudioMute"
           '';
         };
       })

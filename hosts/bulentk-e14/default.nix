@@ -129,8 +129,8 @@
 
   networking.hostName = "bulentk-e14";
 
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_6_18;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_6_18;
 
   boot.initrd.availableKernelModules = [ 
     "nvme" 
@@ -141,15 +141,9 @@
     "thunderbolt" 
   ];
 
-  boot.kernelModules = [ "xe" "kvm_intel" ];
+  boot.kernelModules = [ "kvm_intel" ];
   
-  boot.blacklistedKernelModules = [ 
-    "i915" 
-  ];
-
   boot.kernelParams = [
-    "xe.force_probe=7d55"
-    "i915.force_probe=!7d55"
     "transparent_hugepage=always"
     "nvme_core.default_ps_max_latency_us=0"
     "elevator=none"
@@ -157,10 +151,17 @@
 
   hardware.cpu.intel.updateMicrocode = true;
 
-  hardware.graphics.enable = true;
-  hardware.intelgpu.driver = "xe";
-  services.xserver.videoDrivers = [ "xe" ];
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver   # Intel Arc / Xe dahili grafik hızlandırması (VA-API)
+      vpl-gpu-rt           # oneVPL çalışma zamanı kütüphanesi
+#      intel-compute-runtime # OpenCL desteği (isteğe bağlı, performans için önerilir)
+    ];
+  };
 
+  # X11 / Grafik sunucusu için standart modesetting sürücüsünü tanımlayın
+  services.xserver.videoDrivers = [ "modesetting" ];
 
   powerManagement = {
     enable = true;

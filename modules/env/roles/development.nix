@@ -12,8 +12,6 @@ in {
 
     env.role.virtualisation = lib.mkForce true;
 
-    programs.adb.enable = true;
-    
     users.users.${cfg.user.name}.extraGroups = ["adbusers"];
 
     env.programs.docker.enable = true;
@@ -28,7 +26,7 @@ in {
       git
       git-lfs
       nixd
-      nixfmt-rfc-style
+      nixfmt
 
       pkg-config           # build dependency çözümü için
       binutils-unwrapped
@@ -36,7 +34,7 @@ in {
 
       jetbrains.idea-oss
       android-studio
-
+      android-tools
       # xorg.libXrender
       # xorg.libX11
       # xorg.libXext

@@ -52,28 +52,28 @@ in {
         x11apps
 
         xss-lock
-        xorg.xbacklight
-        xorg.xmodmap
-        xorg.xev
-        xorg.xinput
-        xorg.xmessage
-        xorg.xkill
-        xorg.xgamma
-        xorg.xset
-        xorg.xrandr
-        xorg.xrdb
-        xorg.xprop
+        xbacklight
+        xmodmap
+        xev
+        xinput
+        xmessage
+        xkill
+        xgamma
+        xset
+        xrandr
+        xrdb
+        xprop
         scrot
         fontconfig
         udiskie 
         i3lock
         rofi
 
-        (xfce.thunar.override { thunarPlugins = [ 
-          xfce.thunar-archive-plugin 
-          xfce.thunar-volman
-          xfce.thunar-dropbox-plugin
-          xfce.thunar-media-tags-plugin
+        (thunar.override { thunarPlugins = [ 
+          thunar-archive-plugin 
+          thunar-volman
+          thunar-dropbox-plugin
+          thunar-media-tags-plugin
           ]; 
         })
 

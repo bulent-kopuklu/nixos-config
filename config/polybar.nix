@@ -21,7 +21,7 @@ let
     warn = theme.colors.orange;
   };
 
-  helvum = if soundSupport == true then "${pkgs.helvum}/bin/helvum" else "";
+#  helvum = if soundSupport == true then "${pkgs.helvum}/bin/helvum" else "";
   pavucontrol = if soundSupport == true then "${pkgs.pavucontrol}/bin/pavucontrol" else "";
   pamixer = if soundSupport == true then "${pkgs.pamixer}/bin/pamixer" else "";
   microphone-listener = if soundSupport == true then "${polybar-apps}/bin/polybar-microphone-listener" else "";
@@ -220,7 +220,7 @@ in pkgs.writeText "polybar-config" ''
   ramp-volume-1 = ${theme.icons.volume-2}
   ramp-volume-2 = ${theme.icons.volume-3}
 
-  click-right = ${helvum}
+  click-right = ${pavucontrol}
 
   [module/microphone]
   type = custom/script
