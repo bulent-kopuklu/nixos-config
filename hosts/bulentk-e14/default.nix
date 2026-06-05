@@ -30,13 +30,8 @@
     "hammal" = {
       device = "/dev/disk/by-partlabel/crypthml";
       allowDiscards = true;
-      keyFile = "/etc/secrets/hammal.key";
+#      keyFile = "/etc/secrets/hammal.key";
     };
-  };
-
-  # hammal keyfile'ını initrd'ye dahil et
-  boot.initrd.secrets = {
-    "/etc/secrets/hammal.key" = "/etc/secrets/hammal.key";
   };
 
   fileSystems."/" = {
@@ -142,8 +137,11 @@
   ];
 
   boot.kernelModules = [ "kvm_intel" ];
-  
+
   boot.kernelParams = [
+    "i915.enable_guc=2"
+    "xe.force_probe=7d55"    
+    "i915.force_probe=!7d55"
     "transparent_hugepage=always"
     "nvme_core.default_ps_max_latency_us=0"
     "elevator=none"
