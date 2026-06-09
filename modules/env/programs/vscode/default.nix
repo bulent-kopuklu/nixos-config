@@ -2,7 +2,7 @@
 
 let
   cfg = config.env.programs.vscode;
-  vscode-packages = import ./vscode-extensions.nix { inherit pkgs; };
+  vscode-packages = import ./vscode-extensions.nix { pkgs = pkgs.unstable; };
 in {
   options.env.programs.vscode = {
     enable = lib.mkEnableOption "vscode";

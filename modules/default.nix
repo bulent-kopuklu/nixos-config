@@ -38,7 +38,14 @@
       ];
     };
 
-    overlays = import ../pkgs;
+    overlays = import ../pkgs ++ [
+      (final: prev: {
+        unstable = import inputs.unstablepkgs {
+          inherit (prev) system;
+          config.allowUnfree = true;
+        };
+      })
+    ];
   };
 
   system.stateVersion = "25.11";

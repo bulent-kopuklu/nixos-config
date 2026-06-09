@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-#    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    unstablepkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
@@ -11,12 +11,13 @@
     development-tools.url = "path:/home/bulentk/workspace/bulentk/nixos-config/development-tools";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixos-hardware, nur, flatpaks, development-tools, ... }: 
+  outputs = inputs@{ self, nixpkgs, unstablepkgs, nixos-hardware, nur, flatpaks, development-tools, ... }:
   let
 
   in {
     nixosConfigurations.bulentk-vm = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
       modules = [
         { nixpkgs.overlays = [ nur.overlay ]; }
          flatpaks.nixosModules.nix-flatpak
@@ -38,7 +39,8 @@
 
     nixosConfigurations.bulentk-g14 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      modules = [ 
+      specialArgs = { inherit inputs; };
+      modules = [
         flatpaks.nixosModules.nix-flatpak
         ./hosts/bulentk-g14
         ./modules

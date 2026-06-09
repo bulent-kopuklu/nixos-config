@@ -42,7 +42,7 @@ in {
       # xorg.libXi
 
       aider-chat-full
-      claude-code
+      unstable.claude-code
 
     ];
   };
