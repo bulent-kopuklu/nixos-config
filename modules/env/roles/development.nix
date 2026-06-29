@@ -43,6 +43,11 @@ in {
 
       aider-chat-full
       unstable.claude-code
+      nodejs_latest
+      (python3.withPackages(python-pkgs: with python-pkgs; [ 
+        pyyaml 
+      ]))
+      uv
 
     ];
   };
