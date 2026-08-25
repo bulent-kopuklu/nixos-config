@@ -32,6 +32,7 @@
     config = {
       allowUnfree = true;
       permittedInsecurePackages = [
+        
 #        "openssl-1.0.2u"
 #        "nix-2.25.2"
 #        "qtwebengine-5.15.19"

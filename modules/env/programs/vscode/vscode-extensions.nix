@@ -2,6 +2,10 @@
 
 (pkgs.vscode-with-extensions.override {
   vscodeExtensions = with pkgs.vscode-extensions; [
+    ms-dotnettools.vscode-dotnet-runtime
+    ms-dotnettools.csharp
+    ms-dotnettools.csdevkit
+    visualstudiotoolsforunity.vstuc
     bradlc.vscode-tailwindcss
     davidanson.vscode-markdownlint
     dbaeumer.vscode-eslint
@@ -44,6 +48,12 @@
       publisher = "ms-vscode";
       version = "2.0.0";
       sha256 = "05r7hfphhlns2i7zdplzrad2224vdkgzb0dbxg40nwiyq193jq31";
+    }
+    {
+      name = "speckit-assistant";
+      publisher = "rfsales";
+      version = "0.1.4";
+      sha256 = "07gc4371svxw5ln4mh58s8q95hhpycivyrl3hppjnqyg3np6i8rk";
     }
   ];
 })

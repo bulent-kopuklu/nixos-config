@@ -16,9 +16,14 @@ in {
 
     env.programs.docker.enable = true;
 
+    programs.nix-ld.enable = true;
     programs.direnv.enable = true;
     programs.direnv.nix-direnv.enable = true;
     env.programs.vscode.enable = true;
+
+    nixpkgs.config.permittedInsecurePackages = [
+      "idea-oss-2025.3.4"
+    ];
 
     environment.systemPackages = with pkgs; [
       inputs.development-tools.packages.${pkgs.system}.mkproject
@@ -32,7 +37,7 @@ in {
       binutils-unwrapped
       gnumake
 
-      jetbrains.idea-oss
+#      jetbrains.idea-oss
       android-studio
       android-tools
       # xorg.libXrender
@@ -40,6 +45,8 @@ in {
       # xorg.libXext
       # xorg.libXtst
       # xorg.libXi
+
+      unityhub
 
       aider-chat-full
       unstable.claude-code

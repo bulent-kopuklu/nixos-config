@@ -125,3 +125,6 @@ case "$1" in
     error
     ;;
 esac
+
+
+# rfsales.gallery.vsassets.io/_apis/public/gallery/publisher/rfsales/extension/speckit-assistant/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage
