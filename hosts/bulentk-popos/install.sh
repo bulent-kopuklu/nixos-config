@@ -7,6 +7,36 @@
 # Pop installer (distinst) sifreli kurulumda LUKS -> LVM -> tek LV dayatiyor
 # ve btrfs'e format edebilse de subvolume olusturmuyor. Bu yuzden iki gecisli
 # kurulum + chroot gerekiyor.
+#
+################################################################################
+# AKIS OZETI - "gecis" REBOOT DEGIL, installer uygulamasini calistirma sayisi.
+# Iki gecis de AYNI canli USB oturumunda olur. Aralarinda reboot YOK.
+################################################################################
+#
+#  USB'den boot, canli masaustu
+#    |
+#    +-- [1. GECIS] "Install Pop!_OS" uygulamasi: Clean Install + Encrypt
+#    |      bitince "Restart Device" cikar -> TIKLAMA, pencereyi kapat
+#    |
+#    +-- [2. GECIS] AYNI uygulamayi tekrar ac: Custom (Advanced), LV -> btrfs
+#    |      bitince yine "Restart Device" -> TIKLAMA, pencereyi kapat
+#    |
+#    +-- terminal:  ./install.sh 3          subvolume'lar
+#    +-- terminal:  ./install.sh 4          mount + chroot'a gir
+#    +-- chroot:    /root/install.sh 5      fstab/kernelstub/initramfs/swap
+#    +-- chroot:    exit
+#    +-- terminal:  sudo umount -R /mnt && sudo reboot
+#           |
+#           `---> ILK VE TEK REBOOT. USB'yi cikar.
+#
+#  Diskten boot
+#    |
+#    +-- LUKS parolasi -> Pop first-boot sihirbazi (kullaniciyi burada olustur,
+#    |   AYNI kullanici adiyla: $USERNAME)
+#    +-- terminal:  ./install.sh 6          timeshift + apt-hook + bakim + trim
+#    +-- terminal:  ./install.sh 7          nix (opsiyonel)
+#
+################################################################################
 
 set -euo pipefail
 
