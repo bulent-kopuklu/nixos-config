@@ -277,7 +277,11 @@ step3_subvolumes() {
   sudo chattr +C $NOCOW_SUBVOLS
 
   # mevcut icerigi ilgili subvolume'lere tasi (bos olanlar sorun degil)
-  sudo mv @/var/log/. @var-log/ 2>/dev/null || true
+  # 'mv dir/. dst/' calismiyor (Device or resource busy) - find ile tasi.
+  # Gizli dosyalar dahil.
+  if [ -d @/var/log ] && [ -n "$(sudo ls -A @/var/log 2>/dev/null)" ]; then
+    sudo find @/var/log -mindepth 1 -maxdepth 1 -exec mv -t @var-log/ {} +
+  fi
 
   cd /
   sudo umount /mnt
