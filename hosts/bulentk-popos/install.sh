@@ -147,6 +147,10 @@ step4_chroot() {
   # home altindaki mount noktalari ilk boot'tan once dogru sahiplikte olmali;
   # first-boot sihirbazinda AYNI kullanici adini vermelisin.
   sudo chown "$UID_GID" "/mnt/home/${USERNAME}" "/mnt/home/${USERNAME}/ml"
+
+  # scripti chroot'un icine kopyala, yoksa adim 5'i calistiramazsin
+  sudo cp "$(realpath "$0")" /mnt/root/install.sh
+  echo "chroot'a giriliyor. icerde:  /root/install.sh 5"
   sudo chroot /mnt /bin/bash
 }
 
@@ -302,5 +306,25 @@ case "${1:-}" in
   5|in-chroot)   step5_in_chroot ;;
   6|post)        step6_post_install ;;
   7|nix)         step7_nix ;;
-  *) echo "kullanim: $0 {3|4|5|6|7}  -- once dosyayi oku, adim 1-2 GUI'de elle" ;;
+  *) cat <<'USAGE'
+kullanim: ./install.sh <adim>
+
+  (adim 1-2 grafik installer'da elle - dosyanin basindaki notlari oku)
+
+  CANLI USB'DE (script sudo'yu kendi cagiriyor, root olman gerekmiyor):
+    ./install.sh 3        subvolume'lari olustur
+    ./install.sh 4        mount et + chroot'a gir
+                          (script /root/install.sh olarak iceri kopyalanir)
+
+  CHROOT ICINDE:
+    /root/install.sh 5    fstab/crypttab/kernelstub/swap + initramfs
+    exit; umount -R /mnt; reboot
+
+  KURULU SISTEMDE (ilk boot sonrasi, normal kullanici):
+    ./install.sh 6        timeshift + apt-hook + btrfs bakimi + trim
+    ./install.sh 7        nix (opsiyonel, dev toolchain icin)
+
+ONCE: lsblk -f ile DISK / ESP / LUKS_PART / LV degiskenlerini dogrula.
+USAGE
+     ;;
 esac
