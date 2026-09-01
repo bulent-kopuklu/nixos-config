@@ -173,6 +173,16 @@ ls -l $LV
 `ls` bir cihaz gösteriyorsa tamam. Göstermiyorsa `lvs` çıktısındaki gerçek
 isimleri kullan: `/dev/mapper/<vg>-<lv>`.
 
+> **`data-root` nereden geliyor?** Pop'un şifreli kurulumu volume group'u
+> `data`, logical volume'u `root` olarak adlandırıyor; LVM de her LV'ye
+> `/dev/mapper/<vg>-<lv>` yolunu veriyor. Yani bu bir **varsayılan**, kural
+> değil. Doğrusu her zaman 4.4'teki `lvs` çıktısıdır — orada başka bir isim
+> görürsen onu kullan.
+>
+> Aynı cihazın `/dev/<vg>/<lv>` symlink'i de var (`/dev/data/root`). VG veya LV
+> adında tire varsa `mapper` yolunda tire ikiye katlanır (`vg--adi-lv`); o
+> durumda symlink hâlini kullanmak daha az kafa karıştırır.
+
 ---
 
 ## 5. İkinci geçiş — installer
