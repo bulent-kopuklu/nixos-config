@@ -18,6 +18,8 @@
 #    +-- [1. GECIS] "Install Pop!_OS" uygulamasi: Clean Install + Encrypt
 #    |      bitince "Restart Device" cikar -> TIKLAMA, pencereyi kapat
 #    |
+#    +-- terminal:  ./install.sh 0          diski tespit et, AYARLAR'i dogrula
+#    |
 #    +-- [2. GECIS] AYNI uygulamayi tekrar ac: Custom (Advanced), LV -> btrfs
 #    |      bitince yine "Restart Device" -> TIKLAMA, pencereyi kapat
 #    |
@@ -332,6 +334,9 @@ step4_chroot() {
 ################################################################################
 
 step5_in_chroot() {
+  # mkswapfile icin gerekli; Pop'un btrfs kurulumunda genelde var ama garanti degil
+  command -v btrfs >/dev/null || apt install -y btrfs-progs
+
   local fsuuid
   fsuuid=$(blkid -s UUID -o value "$LV")
 
@@ -401,7 +406,8 @@ step5_in_chroot() {
 ################################################################################
 
 step6_post_install() {
-  sudo apt install -y timeshift btrfs-progs
+  sudo apt update
+  sudo apt install -y git timeshift btrfs-progs btrfsmaintenance
   sudo systemctl enable --now fstrim.timer
 
   # Timeshift: btrfs modu, @ ve @home dahil.
@@ -411,31 +417,28 @@ step6_post_install() {
   # apt oncesi otomatik snapshot. Planli upgrade'i zaten sen dusunuyorsun;
   # bu, "yanlislikla dependency'leri de sildim" senaryosuna karsi olan tek koruma.
   # PPA yok, GitHub'dan kuruluyor:
+  rm -rf /tmp/tsa
   git clone https://github.com/wmutschl/timeshift-autosnap-apt.git /tmp/tsa
   ( cd /tmp/tsa && sudo make install )
-  # /etc/timeshift-autosnap-apt.conf icinde MUTLAKA:
-  #   updateGrub=false     <- Pop systemd-boot/kernelstub kullaniyor, GRUB yok
-  #   maxSnapshots=3
+  # updateGrub=false SART - Pop systemd-boot/kernelstub kullaniyor, GRUB yok;
+  # true kalirsa her apt cagrisinda hata basar. (maxSnapshots varsayilani 3.)
   sudo sed -i 's/^updateGrub=.*/updateGrub=false/' /etc/timeshift-autosnap-apt.conf
   grep updateGrub /etc/timeshift-autosnap-apt.conf
-  # apt oncesi otomatik snapshot icin timeshift-autosnap-apt kur.
-  #
-  # ML isini container'da yap; @docker snapshot disinda, host temiz kalir:
-  #   sudo apt install -y docker.io nvidia-container-toolkit
 
   # btrfs bakimi - ext4/XFS'te olmayan, btrfs'te gereken kisim.
   # Diski %85'in ustunde surekli dolu tutma; btrfs df bos gosterirken
   # metadata tukenmesi yuzunden ENOSPC verebiliyor.
-  sudo apt install -y btrfsmaintenance
-  # /etc/default/btrfsmaintenance icinde:
-  #   BTRFS_BALANCE_PERIOD="monthly"
-  #   BTRFS_BALANCE_MOUNTPOINTS="/"
-  #   BTRFS_SCRUB_PERIOD="monthly"
-  #   BTRFS_SCRUB_MOUNTPOINTS="/"
-  # Elle karsiligi:
-  #   btrfs balance start -dusage=50 -musage=50 /
-  #   btrfs scrub start /
+  sudo sed -i 's|^BTRFS_BALANCE_PERIOD=.*|BTRFS_BALANCE_PERIOD="monthly"|'     /etc/default/btrfsmaintenance
+  sudo sed -i 's|^BTRFS_BALANCE_MOUNTPOINTS=.*|BTRFS_BALANCE_MOUNTPOINTS="/"|' /etc/default/btrfsmaintenance
+  sudo sed -i 's|^BTRFS_SCRUB_PERIOD=.*|BTRFS_SCRUB_PERIOD="monthly"|'         /etc/default/btrfsmaintenance
+  sudo sed -i 's|^BTRFS_SCRUB_MOUNTPOINTS=.*|BTRFS_SCRUB_MOUNTPOINTS="/"|'     /etc/default/btrfsmaintenance
+  sudo systemctl restart btrfsmaintenance-refresh.service
+
+  # Elle bakim/kontrol:
   #   btrfs filesystem usage /        <- gercek doluluk, df degil
+  #
+  # ML isini container'da yap; @docker snapshot disinda, host temiz kalir:
+  #   sudo apt install -y docker.io nvidia-container-toolkit
 }
 
 ################################################################################
@@ -455,6 +458,12 @@ step7_nix() {
   sudo mkdir -p /etc/nix
   echo "experimental-features = nix-command flakes" | \
     sudo tee -a /etc/nix/nix.conf
+  sudo systemctl restart nix-daemon
+
+  # installer PATH'i ancak YENI shell'de gunceller; bu oturum icin elle yukle
+  set +u
+  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+  set -u
 
   # devshell akisi
   nix profile install nixpkgs#direnv nixpkgs#nix-direnv

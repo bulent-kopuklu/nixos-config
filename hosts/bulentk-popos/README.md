@@ -344,11 +344,15 @@ sudo chown 1000:1000 /mnt/home/$USER_NAME /mnt/home/$USER_NAME/ml
 findmnt -R /mnt
 ```
 
-**7.5** Script'i chroot'a kopyala (uzun yolda da işine yarayabilir):
+**7.5** Script'i chroot'a kopyala (KISA YOL'u 8'de kullanacaksan şart,
+uzun yolda da işine yarayabilir):
 
 ```bash
-sudo cp install.sh /mnt/root/ 2>/dev/null || true
+sudo cp ~/nixos-config/hosts/bulentk-popos/install.sh /mnt/root/
 ```
+
+> Repoyu klonlamadıysan (0.5'i atladıysan) bu dosya yok — sorun değil,
+> 8'de UZUN YOL'u kullan.
 
 **7.6** Chroot:
 
@@ -450,7 +454,11 @@ grep issue_discards /etc/lvm/lvm.conf
 kernelstub -a "rootflags=subvol=@"
 ```
 
-**8.8** Swap dosyası:
+**8.8** Swap dosyası. Önce `btrfs` komutu chroot'ta var mı diye bak, yoksa kur:
+
+```bash
+command -v btrfs >/dev/null || apt install -y btrfs-progs
+```
 
 ```bash
 btrfs filesystem mkswapfile --size 32g --uuid clear /swap/swapfile
@@ -492,6 +500,8 @@ sudo umount -R /mnt
 sudo reboot
 ```
 
+> `umount` "target is busy" derse: `sudo umount -lR /mnt` — sonra reboot.
+
 **USB'yi çıkar.** İlk ve tek reboot buydu.
 
 ---
@@ -506,15 +516,32 @@ Kontrol:
 
 ```bash
 findmnt -t btrfs
-btrfs subvolume list /
+sudo btrfs subvolume list /
 swapon --show
 ```
 
 8 mount, 8 subvolume, `/swap/swapfile` 32G görmelisin.
 
+> Home dizinin kurulumdan önce var olduğu için (7.3'teki `chown`) sihirbaz
+> `/etc/skel` dosyalarını kopyalamamış olabilir. Terminal ayarların bozuk
+> görünüyorsa:
+>
+> ```bash
+> cp /etc/skel/.bashrc /etc/skel/.profile ~/
+> ```
+
 ---
 
 ## 11. Snapshot + bakım
+
+> Kurulu sistemde repo henüz yok (canlı oturumdaki klon RAM'deydi).
+> KISA YOL için önce:
+>
+> ```bash
+> sudo apt update && sudo apt install -y git
+> git clone https://github.com/bulent-kopuklu/nixos-config.git
+> cd nixos-config/hosts/bulentk-popos
+> ```
 
 ### KISA YOL
 
@@ -533,6 +560,7 @@ sudo systemctl enable --now fstrim.timer
 **11.2** Paketler:
 
 ```bash
+sudo apt update
 sudo apt install -y timeshift btrfsmaintenance git
 ```
 
@@ -641,7 +669,8 @@ torch, GL kullanan uygulamalar apt veya container.
 sh <(curl -L https://nixos.org/nix/install) --daemon
 ```
 
-Yeni terminal aç, sonra:
+Yeni terminal aç (ya da aynı terminalde
+`. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh`), sonra:
 
 ```bash
 echo "experimental-features = nix-command flakes" | sudo tee -a /etc/nix/nix.conf
