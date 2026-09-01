@@ -112,7 +112,8 @@ NOCOW_SUBVOLS="@docker @libvirt @swap"
 #      - Bu LUKS parolasi. Her boot'ta bunu yazacaksin.
 #      - Kaybedersen disk gider; kurtarma yok.
 # 6. Kurulum bitince ekran "Restart Device" diyecek. *** REBOOT ETME. ***
-#      Installer penceresini kapat, canli masaustunde kal.
+#      Kapatma sekli: dock'taki "Install Pop!_OS" ikonuna SAG TIK -> Quit.
+#      Canli masaustunde kal.
 #
 # 7. Terminal ac, yapiyi not al:
 #      lsblk -f
@@ -161,7 +162,7 @@ NOCOW_SUBVOLS="@docker @libvirt @swap"
 #      Installer'in sifreli swap partition'i her boot'ta rastgele anahtar
 #      aliyor - hem gereksiz, hem hibernate'i imkansiz kiliyor.
 #      Istersen bu partition'i tamamen silip yeri bos birakabilirsin.
-# 8. Kur. Bitince yine *** REBOOT ETME ***, installer'i kapat.
+# 8. Kur. Bitince yine *** REBOOT ETME ***, dock ikonuna sag tik -> Quit.
 #
 # 9. Kontrol - / gercekten btrfs mi:
 #      lsblk -f | grep -i btrfs
@@ -222,7 +223,9 @@ step3_subvolumes() {
   sudo vgchange -ay
   [ -b "$LV" ] || { echo "HATA: $LV yok. once ./install.sh 0 calistir."; exit 1; }
 
-  sudo mount "$LV" /mnt
+  # subvolid=5 = top-level. Acikca belirt; default subvol degisirse yanlis
+  # yere yazmayasin.
+  sudo mount -o subvolid=5 "$LV" /mnt
   cd /mnt
 
   sudo btrfs subvolume create @
@@ -323,12 +326,26 @@ step5_in_chroot() {
     kernelstub -a "resume=UUID=${fsuuid} resume_offset=${off}"
   fi
 
+  # LVM katmani da TRIM'i gecirsin (crypttab'daki discard tek basina yetmiyor)
+  sed -i 's/^\([[:space:]]*\)issue_discards = 0/\1issue_discards = 1/' /etc/lvm/lvm.conf
+
   update-initramfs -c -k all
   kernelstub
 
-  echo "--- dogrula: asagida rootflags=subvol=@ gorunmeli ---"
-  cat /boot/efi/loader/entries/Pop_OS-current.conf
+  # kernelstub loader entry'yi her zaman yeniden yazmiyor. Yazmadiysa elle ekle,
+  # yine olmazsa DUR - bu satir olmadan sistem boot etmez.
+  local conf=/boot/efi/loader/entries/Pop_OS-current.conf
+  grep -q 'rootflags=subvol=@' "$conf" || \
+    sed -i 's/splash/splash rootflags=subvol=@/' "$conf"
+  grep -q 'rootflags=subvol=@' "$conf" || {
+    echo "HATA: $conf icine rootflags=subvol=@ eklenemedi. Elle ekle, yoksa boot etmez."
+    exit 1
+  }
+
+  echo "--- dogrulama ---"
+  cat "$conf"
   cat /etc/fstab
+  cat /etc/crypttab
 }
 
 ################################################################################
