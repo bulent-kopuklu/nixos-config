@@ -178,36 +178,71 @@ NOCOW_SUBVOLS="@docker @libvirt @swap"
 # LUKS kapaliysa LVM gorunmez; bu adim onu da acar.
 
 step0_inspect() {
-  echo "=== lsblk ==="
-  lsblk -o NAME,SIZE,FSTYPE,LABEL,MOUNTPOINT
+  echo "=== Sistemdeki diskler ==="
+  lsblk -dno NAME,SIZE,MODEL | sed 's|^|  /dev/|'
+  echo
+  echo "AYARLAR'daki DISK=$DISK"
+  [ -b "$DISK" ] || { echo "HATA: $DISK diye bir blok cihaz yok. DISK'i duzelt."; return 1; }
 
-  # LUKS acik mi? acik degilse ac. Installer'in verdigi ismi kullan, yeni isim uydurma.
+  echo
+  echo "=== $DISK uzerindeki bolumler ==="
+  lsblk -o NAME,SIZE,FSTYPE,PARTTYPENAME,LABEL,MOUNTPOINT "$DISK"
+
+  # Diskten oku. AYARLAR'daki degerlere GUVENME - dogrulanacak olan onlar.
+  local d_luks d_esp
+  d_luks=$(lsblk -rno NAME,FSTYPE "$DISK" | awk '$2=="crypto_LUKS"{print "/dev/"$1}')
+  d_esp=$(lsblk -rno NAME,PARTTYPE "$DISK" \
+          | awk '$2=="c12a7328-f81f-11d2-ba4b-00a0c93ec93b"{print "/dev/"$1}')
+
+  echo
+  echo "=== Diskte bulunanlar ==="
+  printf '  ESP        : %s\n' "${d_esp:-BULUNAMADI}"
+  printf '  LUKS_PART  : %s\n' "${d_luks:-BULUNAMADI}"
+
+  [ -n "$d_luks" ] || {
+    echo "HATA: crypto_LUKS bolumu yok. ADIM 1'de 'Encrypt Drive' sectin mi?"
+    return 1
+  }
+
+  # LUKS'u TESPIT EDILEN bolumden ac, AYARLAR'dakinden degil.
   local holder
-  holder=$(ls "/sys/class/block/$(basename "$LUKS_PART")/holders" 2>/dev/null | head -1)
+  holder=$(ls "/sys/class/block/$(basename "$d_luks")/holders" 2>/dev/null | head -1)
   if [ -z "$holder" ]; then
     echo
     echo ">>> LUKS kapali, aciliyor (ADIM 1'de belirledigin parola):"
-    sudo cryptsetup open "$LUKS_PART" cryptdata
+    sudo cryptsetup open "$d_luks" cryptdata
     holder=cryptdata
   fi
-  echo
-  echo ">>> LUKS eslemesi: /dev/mapper/${holder}"
-
+  echo "  LUKS mapper: /dev/mapper/${holder}"
   sudo vgchange -ay >/dev/null 2>&1 || true
 
   echo
   echo "=== LVM ==="
-  sudo pvs; sudo vgs; sudo lvs
+  sudo lvs -o vg_name,lv_name,lv_size
 
   echo
   echo "=== AYARLAR bolumune yazilacak degerler ==="
-  echo "LUKS_PART=${LUKS_PART}"
+  echo "DISK=$DISK"
+  echo "ESP=${d_esp}"
+  echo "LUKS_PART=${d_luks}"
   sudo lvs --noheadings -o vg_name,lv_name 2>/dev/null | while read -r vg lv; do
-    echo "LV=/dev/mapper/${vg}-${lv}      # (vg=${vg}, lv=${lv})"
+    echo "LV=/dev/mapper/${vg}-${lv}"
   done
+
   echo
-  echo "ESP icin: yukaridaki lsblk'te FSTYPE=vfat olan KUCUK bolum (~1 GB)."
-  echo "recovery: digeri vfat, ~4 GB - ona dokunma."
+  echo "=== Senin ayarlarinla karsilastirma ==="
+  [ "$ESP" = "$d_esp" ] \
+    && echo "  ESP        OK" \
+    || echo "  ESP        FARKLI -> ayar=$ESP  disk=$d_esp"
+  [ "$LUKS_PART" = "$d_luks" ] \
+    && echo "  LUKS_PART  OK" \
+    || echo "  LUKS_PART  FARKLI -> ayar=$LUKS_PART  disk=$d_luks"
+  [ -b "$LV" ] \
+    && echo "  LV         OK" \
+    || echo "  LV         YOK/FARKLI -> ayar=$LV (yukaridaki LV= satirini kullan)"
+
+  echo
+  echo "Hepsi OK degilse AYARLAR bolumunu duzelt ve bu adimi tekrar calistir."
 }
 
 ################################################################################
