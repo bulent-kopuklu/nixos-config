@@ -170,13 +170,57 @@ NOCOW_SUBVOLS="@docker @libvirt @swap"
 #      ./install.sh 3
 
 ################################################################################
+# ADIM 0 - Diskteki yapiyi tespit et  ->  ./install.sh 0
+################################################################################
+#
+# ADIM 1'den sonra calistir. DISK / ESP / LUKS_PART / LV degerlerini bulur.
+# LUKS kapaliysa LVM gorunmez; bu adim onu da acar.
+
+step0_inspect() {
+  echo "=== lsblk ==="
+  lsblk -o NAME,SIZE,FSTYPE,LABEL,MOUNTPOINT
+
+  # LUKS acik mi? acik degilse ac. Installer'in verdigi ismi kullan, yeni isim uydurma.
+  local holder
+  holder=$(ls "/sys/class/block/$(basename "$LUKS_PART")/holders" 2>/dev/null | head -1)
+  if [ -z "$holder" ]; then
+    echo
+    echo ">>> LUKS kapali, aciliyor (ADIM 1'de belirledigin parola):"
+    sudo cryptsetup open "$LUKS_PART" cryptdata
+    holder=cryptdata
+  fi
+  echo
+  echo ">>> LUKS eslemesi: /dev/mapper/${holder}"
+
+  sudo vgchange -ay >/dev/null 2>&1 || true
+
+  echo
+  echo "=== LVM ==="
+  sudo pvs; sudo vgs; sudo lvs
+
+  echo
+  echo "=== AYARLAR bolumune yazilacak degerler ==="
+  echo "LUKS_PART=${LUKS_PART}"
+  sudo lvs --noheadings -o vg_name,lv_name 2>/dev/null | while read -r vg lv; do
+    echo "LV=/dev/mapper/${vg}-${lv}      # (vg=${vg}, lv=${lv})"
+  done
+  echo
+  echo "ESP icin: yukaridaki lsblk'te FSTYPE=vfat olan KUCUK bolum (~1 GB)."
+  echo "recovery: digeri vfat, ~4 GB - ona dokunma."
+}
+
+################################################################################
 # ADIM 3 - Subvolume'lari olustur
 ################################################################################
 
 step3_subvolumes() {
-  sudo cryptsetup status cryptdata >/dev/null 2>&1 || \
+  # LUKS zaten acik olabilir (installer birakmis olabilir); ismi ondan al,
+  # yeni isim uydurup "device already in use" hatasi alma.
+  if [ -z "$(ls "/sys/class/block/$(basename "$LUKS_PART")/holders" 2>/dev/null)" ]; then
     sudo cryptsetup open "$LUKS_PART" cryptdata
-  sudo vgchange -ay data
+  fi
+  sudo vgchange -ay
+  [ -b "$LV" ] || { echo "HATA: $LV yok. once ./install.sh 0 calistir."; exit 1; }
 
   sudo mount "$LV" /mnt
   cd /mnt
@@ -379,6 +423,7 @@ step7_nix() {
 #   btrfs subvolume snapshot timeshift-btrfs/snapshots/<tarih>/@ @
 
 case "${1:-}" in
+  0|check)       step0_inspect ;;
   3|subvolumes)  step3_subvolumes ;;
   4|chroot)      step4_chroot ;;
   5|in-chroot)   step5_in_chroot ;;
@@ -390,6 +435,7 @@ kullanim: ./install.sh <adim>
   (adim 1-2 grafik installer'da elle - dosyanin basindaki notlari oku)
 
   CANLI USB'DE (script sudo'yu kendi cagiriyor, root olman gerekmiyor):
+    ./install.sh 0        diski incele, LV/ESP/LUKS_PART degerlerini soyle
     ./install.sh 3        subvolume'lari olustur
     ./install.sh 4        mount et + chroot'a gir
                           (script /root/install.sh olarak iceri kopyalanir)
