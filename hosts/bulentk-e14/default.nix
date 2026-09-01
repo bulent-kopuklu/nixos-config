@@ -153,8 +153,7 @@
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver   # Intel Arc / Xe dahili grafik hızlandırması (VA-API)
-      vpl-gpu-rt           # oneVPL çalışma zamanı kütüphanesi
-#      intel-compute-runtime # OpenCL desteği (isteğe bağlı, performans için önerilir)
+      vpl-gpu-rt   
     ];
   };
 
@@ -186,6 +185,7 @@
     nvme-cli
     dmidecode
     openconnect
+    teams-for-linux
   ];
 
 

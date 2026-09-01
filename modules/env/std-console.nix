@@ -78,5 +78,8 @@
     inetutils
     envsubst
     xsel
+    iputils
+    tcpdump
+    nmap
   ];
 }

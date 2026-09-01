@@ -128,3 +128,4 @@ esac
 
 
 # rfsales.gallery.vsassets.io/_apis/public/gallery/publisher/rfsales/extension/speckit-assistant/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage
+# nix-hash --flat --base32 --type sha256 /home/bulentk/Downloads/alfredoperez.speckit-companion-0.32.0.vsix

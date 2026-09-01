@@ -48,6 +48,8 @@ in {
 
       unityhub
 
+      ansible
+
       aider-chat-full
       unstable.claude-code
       nodejs_latest
