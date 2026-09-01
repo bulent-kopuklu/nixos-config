@@ -67,29 +67,77 @@ NOCOW_SUBVOLS="@docker @libvirt @swap"
 # ADIM 1 - Installer, birinci gecis (GUI, elle)
 ################################################################################
 #
-# NVIDIA ISO ile boot et.
-#   - "Clean Install" + "Encrypt Drive"
-#   - Amac: LUKS + LVM iskeletini ve recovery partition'i installer'a kurdurmak.
-#   - Kurulum bitince REBOOT ETME, installer'i kapat.
+# AMAC: Kendimiz kurmak yerine installer'a LUKS konteynerini, LVM'i ve recovery
+# partition'i kurdurmak. Bu gecisin urunu olan ext4 sistemi ikinci gecis zaten
+# silecek - burada onemli olan tek sey partition/LVM iskeleti.
 #
-# lsblk -f ile su yapiyi dogrula ve yukaridaki degiskenleri duzelt:
-#   nvme0n1p1  vfat   ESP
-#   nvme0n1p2  vfat   recovery      <- SILME. btrfs rollback'te kurtarma ortamin.
-#   nvme0n1p3  crypto_LUKS          -> VG "data" -> LV "root"
+# ISO: system76.com'dan Pop!_OS 24.04 LTS *NVIDIA* ISO'su. (Intel/AMD ISO'sunu
+#      indirirsen NVIDIA surucusu gelmez, sonradan kurmak Pop'un olayini bozar.)
+#
+# 1. USB'den boot et, "Try or Install".
+# 2. Dil / klavye.
+# 3. Installation type: "Clean Install".
+# 4. Hedef diski sec. DIKKAT: diskteki her sey silinir.
+# 5. Sifreleme ekraninda "Encrypt Drive"i sec ve parolayi belirle.
+#      - Bu LUKS parolasi. Her boot'ta bunu yazacaksin.
+#      - Kaybedersen disk gider; kurtarma yok.
+# 6. Kurulum bitince ekran "Restart Device" diyecek. *** REBOOT ETME. ***
+#      Installer penceresini kapat, canli masaustunde kal.
+#
+# 7. Terminal ac, yapiyi not al:
+#      lsblk -f
+#
+#    Beklenen (isimler makineye gore kayabilir - GORDUGUN neyse o gecerli):
+#      nvme0n1p1  vfat         ESP        -> dosyanin basindaki ESP
+#      nvme0n1p2  vfat         recovery   -> SILME, rollback'te kurtarma ortamin
+#      nvme0n1p3  crypto_LUKS             -> dosyanin basindaki LUKS_PART
+#                   `- cryptdata (LVM PV)
+#                        `- VG "data" / LV "root"  -> dosyanin basindaki LV
+#      nvme0n1p4  swap                    -> ADIM 2'de kullanilmayacak
+#
+#    Bu dort degeri (DISK / ESP / LUKS_PART / LV) dosyanin basindaki AYARLAR
+#    bolumune yaz. Scriptin geri kalani tamamen bunlara bagli.
 
 ################################################################################
 # ADIM 2 - Installer, ikinci gecis (GUI, elle)
 ################################################################################
 #
-# Installer'i tekrar baslat, "Custom (Advanced)":
-#   - LUKS'u ac, data/root LV'sini sec
-#   - format = btrfs, mount = /
-#   - p1 -> /boot/efi , p2 -> /recovery
-#   - Installer'in kurdugu swap partition'a HICBIR SEY atama (mount/format yok).
-#     Swap'i @swap icindeki btrfs swapfile'dan aliyoruz; sifreli swap partition
-#     her boot'ta rastgele anahtar aldigi icin hibernate'i imkansiz kiliyor.
-#     Istersen o partition'i tamamen silip yeri bos birakabilirsin.
-#   - Kur. Bitince yine REBOOT ETME.
+# AMAC: Ayni logical volume'u bu sefer btrfs olarak formatlatmak. Installer
+# btrfs'e format edebiliyor ama subvolume olusturmuyor; onu ADIM 3'te biz
+# yapacagiz.
+#
+# 1. Canli masaustunden installer'i tekrar baslat ("Install Pop!_OS").
+# 2. Installation type: "Custom (Advanced)".
+# 3. Partition ekraninda LUKS partition'ini (p3) sec ve ADIM 1'de belirledigin
+#    parolayla ac. Acilinca VG "data" ve icindeki LV "root" ayri bir cihaz
+#    olarak listede belirir.
+# 4. LV "root" (data/root):
+#      Use partition : evet
+#      Format        : evet
+#      Filesystem    : btrfs        <- bu adimin tek sebebi bu
+#      Mount point   : /
+# 5. p1 (ESP):
+#      Use partition : evet
+#      Mount point   : /boot/efi
+#      Format        : gerekmiyor (ADIM 1'de zaten olusturuldu)
+# 6. p2 (recovery):
+#      Use partition : evet
+#      Mount point   : /recovery
+#      Not: Bu partition'i tutuyoruz. btrfs rollback'i gerektiginde ya da
+#      sistem boot etmedigi zaman chroot'lamak icin buradan boot edeceksin.
+#      Silersen her seferinde USB aramak zorunda kalirsin.
+# 7. p4 (swap): HICBIR SEY ATAMA. Use/format/mount hepsi bos kalsin.
+#      Neden: swap'i @swap subvolume'undeki btrfs swapfile'dan aliyoruz.
+#      Installer'in sifreli swap partition'i her boot'ta rastgele anahtar
+#      aliyor - hem gereksiz, hem hibernate'i imkansiz kiliyor.
+#      Istersen bu partition'i tamamen silip yeri bos birakabilirsin.
+# 8. Kur. Bitince yine *** REBOOT ETME ***, installer'i kapat.
+#
+# 9. Kontrol - / gercekten btrfs mi:
+#      lsblk -f | grep -i btrfs
+#
+# Bundan sonrasi ADIM 3, artik script calisiyor:
+#      ./install.sh 3
 
 ################################################################################
 # ADIM 3 - Subvolume'lari olustur
