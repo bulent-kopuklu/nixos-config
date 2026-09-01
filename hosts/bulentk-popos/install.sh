@@ -283,6 +283,15 @@ step3_subvolumes() {
     sudo find @/var/log -mindepth 1 -maxdepth 1 -exec mv -t @var-log/ {} +
   fi
 
+  echo
+  echo "=== dogrulama ==="
+  sudo btrfs subvolume list /mnt
+  echo
+  echo "--- @ icinde sistem olmali (bin, etc, usr, var gorunsun) ---"
+  sudo ls /mnt/@
+  echo
+  echo "Yukarida 8 subvolume ve @ icinde dolu bir sistem goruyorsan:  ./install.sh 4"
+
   cd /
   sudo umount /mnt
 }
