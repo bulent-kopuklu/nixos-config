@@ -382,9 +382,15 @@ sudo cp ~/nixos-config/hosts/bulentk-popos/install.sh /mnt/root/
 **7.6** Chroot:
 
 ```bash
-for i in /dev /dev/pts /proc /sys /run; do sudo mount -B $i /mnt$i; done
+for i in /dev /dev/pts /proc /sys /run; do
+  sudo mount -B $i /mnt$i
+  sudo mount --make-slave /mnt$i
+done
 sudo chroot /mnt
 ```
+
+> `--make-slave` şart: yoksa 9. adımdaki `umount`, canlı sistemin kendi
+> `/dev/pts`'ini de söker ve sudo "unable to allocate pty" demeye başlar.
 
 Prompt değişti mi? İçerdesin.
 
@@ -526,6 +532,11 @@ sudo reboot
 ```
 
 > `umount` "target is busy" derse: `sudo umount -lR /mnt` — sonra reboot.
+>
+> Sonrasında sudo "unable to allocate pty" derse: kurulum sağlam, bozulan
+> sadece canlı oturum. Sırayla dene: `sync` → `systemctl reboot` (sudo'suz) →
+> GUI güç menüsü → olmadı güç tuşuna 10 sn bas (disk unmount edilmiş
+> durumda, güvenli).
 
 **USB'yi çıkar.** İlk ve tek reboot buydu.
 

@@ -314,7 +314,12 @@ mount_all() {
 
   sudo mkdir -p "${target}/boot/efi"
   sudo mount "$ESP" "${target}/boot/efi"
-  for d in dev proc sys run; do sudo mount --rbind "/$d" "${target}/$d"; done
+  # rslave sart: yoksa /mnt altindaki umount, canli sistemin kendi /dev/pts'ine
+  # geri yayilir (sudo "unable to allocate pty" hatasi)
+  for d in dev proc sys run; do
+    sudo mount --rbind "/$d" "${target}/$d"
+    sudo mount --make-rslave "${target}/$d"
+  done
 }
 
 step4_chroot() {
