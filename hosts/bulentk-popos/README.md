@@ -80,6 +80,14 @@ BitLocker açıksa umursama — installer diski komple siliyor, çözmene gerek 
 
 Açılışta `F2` → **Secure Boot: Disabled** → kaydet, çık.
 
+> **Canlı USB açılmıyorsa (siyah ekran / donmuş logo):** ilk şüpheli ISO'nun
+> yanlış varyantı olması. İndirilen dosyanın adında `nvidia` geçmeli —
+> standart ISO'da NVIDIA sürücüsü yok ve RTX 5070'te masaüstü gelmeyebilir.
+> NVIDIA ISO'yla da olmuyorsa BIOS'ta GPU modunu **Hybrid**'e al.
+>
+> **Deneme yaparken:** installer'da disk seçiminden sonrasına TIKLAMA —
+> "Clean Install" onayladığın anda diski yazmaya başlar, Windows gider.
+
 ---
 
 ## 2. Akış özeti
