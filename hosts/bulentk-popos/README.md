@@ -739,6 +739,32 @@ nix store optimise
 
 ---
 
+## Bu makinenin bilinen sorunu: Panel Replay donması (ÇÖZÜLDÜ)
+
+**Belirti:** boot sırasında veya login ekranında donma — görüntü kalır, klavye/
+mouse ölür; bazen `amdgpudrmfb` satırında siyah ekran. HX 370 (Strix Point)
+platformunun bilinen amdgpu hatası: panelin **Panel Replay** güç tasarrufu
+özelliği sürücüyü kilitliyor.
+
+**Çözüm** (kuruludur; format sonrası ilk iş geri yaz):
+
+```bash
+sudo kernelstub -a "amdgpu.dcdebugmask=0x400"
+```
+
+Boot edemiyorsan: systemd-boot menüsü (açılışta **Space** basılı) → `e` →
+satır sonuna `amdgpu.dcdebugmask=0x400` → Enter; girince yukarıdaki komutla
+kalıcılaştır.
+
+Notlar:
+- `0x12` (eski PSR biti) bu platformda İŞE YARAMAZ — Panel Replay ayrı bit.
+- `nomodeset` semptomu maskeler, çözmez; kalıcı kullanma (GPU hızlandırmayı
+  tamamen kapatır).
+- İleride bir kernel bunu kökten düzeltirse: `sudo kernelstub -d
+  "amdgpu.dcdebugmask=0x400"` ile kaldır, parametresiz reboot ile test et.
+- Grafik açılmadığında tty kaçış kapısı: `e` → satıra
+  `systemd.unit=multi-user.target` ekle → metin login'den gir.
+
 ## Sistem boot etmezse
 
 Boot menüsünde **Pop!_OS Recovery**'yi seç, ya da USB'den boot et. Sonra:
