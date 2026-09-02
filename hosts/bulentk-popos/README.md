@@ -624,7 +624,7 @@ sudo nano /etc/timeshift/timeshift.json
 
 ```
 "btrfs_mode" : "true",
-"include_btrfs_home_for_backup" : "true",
+"include_btrfs_home" : "true",            <- surume gore adi "include_btrfs_home_for_backup" olabilir; hangisi varsa onu true yap
 "schedule_monthly" : "true",   "count_monthly" : "2",
 "schedule_boot" : "true",      "count_boot" : "5",
 "schedule_weekly" : "false",
