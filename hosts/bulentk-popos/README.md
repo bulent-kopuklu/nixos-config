@@ -59,6 +59,23 @@ Yanına al: **LUKS parolası**. Her boot'ta yazacaksın, kaybedersen disk gider.
 
 ---
 
+## Silmeden önce — Windows hâlâ kuruluyken (10 dk)
+
+Bunlar Windows varken kolay, silindikten sonra eziyet:
+
+1. **Donanımı muayene et** (iade penceresi): ekranda ölü piksel, iki USB-C
+   portu, klavye, kamera, hoparlör. Kusur varsa Windows'lu haliyle iade et.
+2. **BIOS'u güncelle**: MyASUS → Customer Support → Live Update. Yeni modelde
+   firmware düzeltmeleri Linux'ta suspend/USB4/ekran davranışını da düzeltir.
+3. İstersen lisans anahtarını not al (firmware'de zaten gömülü, silinince de
+   kalır — bu sadece sigorta). PowerShell'de:
+
+   ```powershell
+   (Get-WmiObject -query 'select * from SoftwareLicensingService').OA3xOriginalProductKey
+   ```
+
+BitLocker açıksa umursama — installer diski komple siliyor, çözmene gerek yok.
+
 ## 1. BIOS
 
 Açılışta `F2` → **Secure Boot: Disabled** → kaydet, çık.
